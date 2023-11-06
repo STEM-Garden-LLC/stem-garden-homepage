@@ -18,5 +18,5 @@ type TypographyProps = {
     text: string;
     textColor?: TextColorEnum;
     align?: AlignEnum;
-    gutterBottom: boolean;
+    gutterBottom?: boolean;
 }
