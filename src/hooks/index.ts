@@ -1,3 +1,4 @@
+export { default as useColorTheme } from "./useColorTheme";
 export { default as useHover } from "./useHover";
 export { default as useScreenHeight } from "./useScreenHeight";
 export { default as useScreenWidth } from "./useScreenWidth";
