@@ -1,17 +1,26 @@
 import { useState, createContext } from "react";
 
 // Custom Hooks
-import { useScreenWidth, useScreenHeight } from "../hooks"
+import { useScreenWidth, useScreenHeight, useColorTheme } from "../hooks"
 
 export const AppContext = createContext({
+    colorTheme: "dark",
+    
+    narrowScreen: true,
     navbarStyle: "desktop",
+    navbarHeightPx: 96,
+
+    availableHeight: 900,
+    screenWidth: 900,
+    containerWidth: 900,
 
 });
 
 export const AppContextProvider = (props: any) => {
   // COLOR THEME
-  const [colorTheme, setColorTheme] = useState("dark")
-
+//   const [colorTheme, setColorTheme] = useState("dark")
+  let colorTheme = useColorTheme()
+  
 
   // SCREEN LAYOUT
   let screenHeight = useScreenHeight()
@@ -23,23 +32,21 @@ export const AppContextProvider = (props: any) => {
   let navbarStyle = narrowScreen ? 'mobile' : 'desktop'
   let navbarHeightPx = navbarStyle === 'mobile' ? 48 : 96
 
-
-  // I think the following are only used by Connect Four. They are not yet needed and likely 
-  // would be better off in a Context thst only applied to that part of the app. 
-  // let availableHeight = screenHeight - navbarHeightPx
-  // let availableWidth = (screenWidth < 900) ? screenWidth : 900
-  // let maxSquareSideLength = (availableHeight < availableWidth) ? availableHeight : availableWidth
+  let availableHeight = screenHeight - navbarHeightPx
+  let containerWidth = (screenWidth < 900) ? screenWidth : 900
   
   const layoutAndColorContext = {
-    // screenWidth,
-    // screenHeight,
-    // narrowScreen,
+    screenWidth,
+    screenHeight,
+    narrowScreen,
     
     colorTheme,
-    setColorTheme,
+    // setColorTheme,
 
     navbarStyle,
     navbarHeightPx,
+    availableHeight,
+    containerWidth
     
   }
 
