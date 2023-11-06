@@ -13,6 +13,7 @@ export default function Title(props: TypographyProps) {
 
   return (
     <Typography 
+      children={text}
       color={color}
       align="center" 
       sx={{
@@ -34,8 +35,6 @@ export default function Title(props: TypographyProps) {
           lineHeight: '4.8rem', 
         },
       }}
-    >
-      { text }
-    </Typography>
+    />
   )
 }
