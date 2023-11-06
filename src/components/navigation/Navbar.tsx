@@ -33,28 +33,14 @@ import { useTheme } from '@emotion/react';
 
 
 export default function Navbar() {
-const { navbarStyle, navbarHeightPx } = useContext(AppContext)
+    const { navbarStyle } = useContext(AppContext)
 
-return (
-    <>
-    {/* <Box 
-        children={ (navbarStyle === 'mobile') ? <MobileNavbar /> : <DesktopNavbar /> } 
-        bgcolor='primary.main'
-    /> */}
-
+    return (
         <Box 
-        height="12rem"
-        bgcolor='primary.main'
-        sx={{
-            border: "solid red 1px"
-        }}
-        children={ (navbarStyle === 'mobile') ? <MobileNavbar /> : <DesktopNavbar /> } 
-        // children={  <MobileNavbar /> } 
-        // children={  <DesktopNavbar /> } 
+            height="0rem"
+            children={ (navbarStyle === 'mobile') ? <MobileNavbar /> : <DesktopNavbar /> } 
         />
-
-    </>
-)
+    )
 }
 
 function Logo(props: {dimentions: number}) {
@@ -72,11 +58,6 @@ function Logo(props: {dimentions: number}) {
         </RouterLink>
     );
 }
-
-
-
-
-
   
 
 // MOBILE Version
