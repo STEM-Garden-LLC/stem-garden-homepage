@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom"
 
 // COMPONENTS
 import Navbar from "./components/navigation/Navbar"
+import MainRouter from './MainRouter'
+
 
 // MUI
 import theme from "./theme"
@@ -27,6 +29,10 @@ export default function App() {
           <BrowserRouter>
 
             <Navbar />
+
+            <MainRouter />
+
+
             <div>
               <a href="https://vitejs.dev" target="_blank">
                 <img src={stemGardenLogo} className="logo" alt="Vite logo" />
