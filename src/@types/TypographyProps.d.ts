@@ -11,9 +11,12 @@
 
 type TextColorEnum = 'black' | 'white'
 
+type AlignEnum = 'center' | 'left'
+
 
 type TypographyProps = {
     text: string;
     textColor?: TextColorEnum;
+    align?: AlignEnum;
     gutterBottom: boolean;
 }

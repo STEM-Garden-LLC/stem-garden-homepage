@@ -1,22 +1,23 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Typography } from '@mui/material';
 
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../../context/AppContext";
 
-export default function PageTitle(props) {
-  const { text, gutterBottom } = props
+export default function Title(props: TypographyProps) {
+  const { text, textColor, gutterBottom } = props
   const { colorTheme } = useContext(AppContext)
 
-  const padding = (gutterBottom) ? "0 0 3rem" : "0"
-  const textColor = (colorTheme === "dark") ? "white" : "black"
+  const padding = (gutterBottom) ? "0 0 1.5rem" : "0"
+  const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
+  const shadow = (textColor === "white") ? '0.15rem 0.15rem 0.3rem black' : 'none'
 
   return (
     <Typography 
-      color={textColor}
+      color={color}
       align="center" 
       sx={{
         padding: padding, 
-        textShadow: '0.15rem 0.15rem 0.3rem black',
+        textShadow: shadow,
         fontWeight: 200,
         fontSize: '2.4rem',
         lineHeight: '3.0rem',
