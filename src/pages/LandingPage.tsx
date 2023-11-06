@@ -1,27 +1,45 @@
 
 
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Box, Container, Card, CardMedia } from '@mui/material';
 
 import { AppContext } from '../context/AppContext';
 
+// MUI
+import { Button } from '@mui/material';
+
+// Router
 import { Link as RouterLink } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
+// Font Awesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconDefinition, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
+
 
 // CUSTOM COMPONENTS
-import { Title, Subtitle, Heading } from '../components/typography';
-// import TopLandingSection from './TopLandingSection';
-// import OurStorySection from './OurStorySection';
+import { Title, Heading, Paragraph } from '../components/typography';
+import { ButtonWithIcon } from '../components/navigation'
+import PictureRow from '../components/PictureRow';
 // import WhatWeGrowSection from './WhatWeGrowSection';
 // import { Footer, ScrollToTopButton } from '../../components/navigation';
 
 // ASSETS
-import leafy_background from '../assets/leafy_background.jpg';
-import practicing_math_facts from '../assets/landing/practicing_math_facts.jpg'
-import girls_playing_connect_four from '../assets/landing/girls_playing_math_fact_connect_four.jpg'
-import banana_papaya_turmeric_flower from '../assets/landing/banana_papaya_turmeric.jpg'
-
+import { 
+  landing_page_our_story_summary_1,
+  landing_page_our_story_summary_2,
+  landing_page_our_story_summary_3
+} from '../assets/landing/text'
+import { 
+  leafy_background, 
+  practicing_math_facts,
+  girls_playing_connect_four, 
+  banana_papaya_turmeric_flower, 
+  trash_in_dirt,
+  toolshed,
+  tearoom,
+  solar_panels_on_classroom
+} from '../assets/landing'
 
 export default function LandingPage() {
   return (
@@ -234,11 +252,9 @@ function LandingCard(props:LandingPageCardProps) {
 
 // A summary with buttons linking to the more complete "OurStoryPage"
 function OurStorySection() {
-  const { narrowScreen, availableHeight, containerWidth, colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(AppContext)
+  const textColor = (colorTheme === "dark") ? "white" : "black"
 
-  console.log(`Color Theme: ${colorTheme}`);
-  
-   
   return (
     <Box sx={{ width: '100vw' }}>
       <Container
@@ -249,17 +265,116 @@ function OurStorySection() {
           textAlign: 'center',
         }}    
       >
-        <Box id='title' 
-          display='flex'
-          flexDirection='column'
-          paddingY={{ xs: '2.0rem', sm: '6.0rem' }} 
-        >
+        <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
           <Title text='Our Story' gutterBottom />
-          {/* <Subtitle text='The STEM Garden is a micro-farm in the heart of New Orleans. We sell organic banana, papaya, fig, turmeric, and more. We also offer tutoring services and free resources for learning math.' align='justify' gutterBottom /> */}
+          <Paragraph text={landing_page_our_story_summary_1} />
+          <PictureRow imgUrls={[trash_in_dirt, toolshed]} />
+          <Paragraph text={landing_page_our_story_summary_2} />
+          <PictureRow imgUrls={[tearoom, solar_panels_on_classroom]} />
+          <Paragraph text={landing_page_our_story_summary_3} />
+          <ButtonWithIcon 
+            text='Read more' 
+            href='our-story' 
+            endIcon={faArrowCircleRight} 
+            textColor={textColor} 
+          />
+          <ButtonWithIcon 
+            text='Contact us' 
+            href='contact-us' 
+            endIcon={faArrowCircleRight} 
+            textColor={textColor} 
+          />
         </Box>
-        {narrowScreen ? <MobileCards /> : <DesktopCards />}
+        
 
       </Container>
     </Box>
   )
 }
+
+// type ButtonWithIconProps = {
+//   text: string;
+//   href: string;
+//   fontFamily?: string;
+//   align?: string;
+//   startIcon?: IconDefinition;
+//   endIcon?: IconDefinition;
+//   iconSize?: string;
+// }
+
+// function ButtonWithIcon(props: ButtonWithIconProps) {
+//   const { 
+//     text, 
+//     href,
+//     fontFamily = 'roboto', 
+//     align = 'center',
+//     startIcon,
+//     endIcon, 
+//     iconSize = 'lg',
+//   } = props
+
+//   return (
+//     <Button 
+//       href={href} 
+//       variant="outlined"
+//       sx={{ color: "white", border: "solid white 1px", margin: 1 }} 
+//     >
+//       <Box id="button-label"
+//         display="flex" 
+//         alignItems="center"
+//         bgcolor={iconBgColor} 
+//         borderRadius='50%' 
+//         lineHeight={0} 
+//       >
+//         {
+//           startIcon ? (
+//             <FontAwesomeIcon icon={startIcon} color={textColor} size={iconSize} />
+//           ) : (
+//             <></>
+//           )
+//         }
+//         {
+//           text ? (
+//             <Typography 
+//               children={text}
+//               color={textColor}
+//               align={align}
+//               fontFamily={fontFamily}
+//               sx={{
+//                 paddingLeft: paddingLeft,
+//                 paddingRight: paddingRight, 
+//                 fontWeight: 700,
+//                 fontSize: '1.2rem',
+//                 lineHeight: '1.8rem',
+//               }}
+//             />
+//           ) : (
+//             <></>
+//           )
+//         }
+//         {
+//           endIcon ? (
+//             <FontAwesomeIcon icon={endIcon} color={textColor} size={iconSize} />
+//           ) : (
+//             <></>
+//           )
+//         }
+//     </Box>
+ 
+//     </Button>
+          
+//   )
+// }
+
+
+// // <Button 
+//           //   href="contact-us" 
+//           //   variant="outlined"
+//           //   sx={{ color: "white", border: "solid white 1px", margin: 1  }} 
+//           //   children={
+//           //     <ButtonLabel 
+//           //       text="Contact Us" 
+//           //       endIcon={faArrowCircleRight} 
+//           //     />
+//           //   } 
+//           // />
