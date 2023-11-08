@@ -25,11 +25,7 @@ import PictureRow from '../components/PictureRow';
 // import { Footer, ScrollToTopButton } from '../../components/navigation';
 
 // ASSETS
-import { 
-  landing_page_our_story_summary_1,
-  landing_page_our_story_summary_2,
-  landing_page_our_story_summary_3
-} from '../assets/landing/text'
+import landing_page_text from '../assets/landing/text'
 import { 
   leafy_background, 
   practicing_math_facts,
@@ -46,7 +42,7 @@ export default function LandingPage() {
     <>
       <LeafyTopSection />
       <OurStorySection />
-
+      <WhatWeGrowSection />
     </>
   )
 }
@@ -115,7 +111,6 @@ interface LandingPageCardProps {
 
 function MobileCards() {
   const { containerWidth } = useContext(AppContext)
-
   const cardRowHeight = `${Math.floor(containerWidth * 0.55)}px`
   const cardWidth = `${Math.floor(containerWidth * 0.45)}px`
   return (
@@ -165,8 +160,10 @@ function MobileCards() {
 }
 
 function DesktopCards() {
-  const cardRowHeight = '340px' 
-  const cardWidth =  '280px' 
+  const { containerWidth } = useContext(AppContext)
+  const cardWidth = `${Math.floor(containerWidth / 3 * 0.95)}px`
+  const cardRowHeight = `${Math.floor(containerWidth / 3 * 0.95 * 1.2)}px`
+
   return (
     <Box 
       height={cardRowHeight}
@@ -267,11 +264,11 @@ function OurStorySection() {
       >
         <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
           <Title text='Our Story' gutterBottom />
-          <Paragraph text={landing_page_our_story_summary_1} />
+          <Paragraph text={landing_page_text.our_story_summary_1} />
           <PictureRow imgUrls={[trash_in_dirt, toolshed]} />
-          <Paragraph text={landing_page_our_story_summary_2} />
+          <Paragraph text={landing_page_text.our_story_summary_2} />
           <PictureRow imgUrls={[tearoom, solar_panels_on_classroom]} />
-          <Paragraph text={landing_page_our_story_summary_3} />
+          <Paragraph text={landing_page_text.our_story_summary_3} />
           <ButtonWithIcon 
             text='Read more' 
             href='our-story' 
@@ -285,96 +282,89 @@ function OurStorySection() {
             textColor={textColor} 
           />
         </Box>
-        
-
       </Container>
     </Box>
   )
 }
 
-// type ButtonWithIconProps = {
-//   text: string;
-//   href: string;
-//   fontFamily?: string;
-//   align?: string;
-//   startIcon?: IconDefinition;
-//   endIcon?: IconDefinition;
-//   iconSize?: string;
-// }
+function WhatWeGrowSection() {
+  const { containerWidth } = useContext(AppContext)
 
-// function ButtonWithIcon(props: ButtonWithIconProps) {
-//   const { 
-//     text, 
-//     href,
-//     fontFamily = 'roboto', 
-//     align = 'center',
-//     startIcon,
-//     endIcon, 
-//     iconSize = 'lg',
-//   } = props
+  const cardRowHeight = `${Math.floor(containerWidth * 0.55)}px`
+  const cardWidth = `${Math.floor(containerWidth * 0.45)}px`
 
-//   return (
-//     <Button 
-//       href={href} 
-//       variant="outlined"
-//       sx={{ color: "white", border: "solid white 1px", margin: 1 }} 
-//     >
-//       <Box id="button-label"
-//         display="flex" 
-//         alignItems="center"
-//         bgcolor={iconBgColor} 
-//         borderRadius='50%' 
-//         lineHeight={0} 
-//       >
-//         {
-//           startIcon ? (
-//             <FontAwesomeIcon icon={startIcon} color={textColor} size={iconSize} />
-//           ) : (
-//             <></>
-//           )
-//         }
-//         {
-//           text ? (
-//             <Typography 
-//               children={text}
-//               color={textColor}
-//               align={align}
-//               fontFamily={fontFamily}
-//               sx={{
-//                 paddingLeft: paddingLeft,
-//                 paddingRight: paddingRight, 
-//                 fontWeight: 700,
-//                 fontSize: '1.2rem',
-//                 lineHeight: '1.8rem',
-//               }}
-//             />
-//           ) : (
-//             <></>
-//           )
-//         }
-//         {
-//           endIcon ? (
-//             <FontAwesomeIcon icon={endIcon} color={textColor} size={iconSize} />
-//           ) : (
-//             <></>
-//           )
-//         }
-//     </Box>
- 
-//     </Button>
+  return (
+    <Box sx={{ width: '100vw' }}>
+      <Container
+        maxWidth='md' 
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          textAlign: 'center',
+        }}    
+      >
+        <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
+          <Title text='What We Grow' gutterBottom />
+          <Paragraph text={landing_page_text.what_we_grow} />
+          <Paragraph text="test" />
           
-//   )
-// }
-
-
-// // <Button 
-//           //   href="contact-us" 
-//           //   variant="outlined"
-//           //   sx={{ color: "white", border: "solid white 1px", margin: 1  }} 
-//           //   children={
-//           //     <ButtonLabel 
-//           //       text="Contact Us" 
-//           //       endIcon={faArrowCircleRight} 
-//           //     />
-//           //   } 
-//           // />
+      
+      
+      
+      
+      <Box 
+        height={cardRowHeight}
+        display='flex' 
+        justifyContent='space-evenly'
+        alignItems='stretch'
+        paddingBottom={2}
+      > 
+        <LandingCard 
+          title='What We Grow' 
+          linkType={LinkTypeEnum.HashLink}
+          linkTo='#what-we-grow'
+          imgUrl={banana_papaya_turmeric_flower} 
+          cardWidth={cardWidth}
+        />
+        <LandingCard 
+          title='Teaching Services' 
+          linkTo='services'
+          imgUrl={practicing_math_facts} 
+          cardWidth={cardWidth}
+        />
+      </Box>
+      <Box 
+        height={cardRowHeight}
+        display='flex' 
+        justifyContent='space-evenly'
+        alignItems='stretch'
+      > 
+        <LandingCard 
+          title='Teaching Services' 
+          linkTo='services'
+          imgUrl={practicing_math_facts} 
+          cardWidth={cardWidth}
+        />
+        <LandingCard 
+          title='Math Games' 
+          linkTo='resources/math-games'
+          imgUrl={girls_playing_connect_four} 
+          cardWidth={cardWidth}
+        />
+      </Box>
+          
+          <ButtonWithIcon 
+            text='Buy Our Produce' 
+            href='contact-us' // TODO Add distinct contact pages for tutoring requests and garden related matters
+            endIcon={faArrowCircleRight} 
+          />
+          <ButtonWithIcon 
+            text='Help Out In the Garden' 
+            href='contact-us' 
+            endIcon={faArrowCircleRight} 
+          />
+        </Box>
+      </Container>
+    </Box>
+  )
+}
