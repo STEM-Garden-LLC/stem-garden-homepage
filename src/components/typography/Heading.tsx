@@ -1,13 +1,20 @@
-import { useContext } from 'react'
-import { Typography } from '@mui/material';
 
+// CONTEXT
+import { useContext } from 'react'
 import { AppContext } from "../../context/AppContext";
+
+// TYPES
+import { TypographyProps } from '../../@types/TypographyProps';
+
+// MUI
+import { Typography } from '@mui/material';
 
 export default function Heading(props: TypographyProps) {
   const { text, textColor, align, gutterBottom } = props
   const { colorTheme } = useContext(AppContext)
 
   const padding = (gutterBottom) ? "0 0 0.4rem" : "0"
+  // Color can be set manually. If unset light/dark mode default is used.
   const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
 
   return (
@@ -26,8 +33,8 @@ export default function Heading(props: TypographyProps) {
         lineHeight: '2.1rem',
         },
         '@media (min-width: 900px)': {
-          fontSize: '1.5rem',
-        lineHeight: '1.8rem',
+          fontSize: '1.7rem',
+        lineHeight: '1.9rem',
         },
       }}
     />
