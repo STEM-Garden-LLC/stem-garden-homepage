@@ -1,13 +1,16 @@
+// CONTEXT
 import { useContext } from 'react'
 import { AppContext } from "../../context/AppContext";
 
+// TYPES
+import { TypographyProps } from '../../@types/TypographyProps';
+
+// MUI
 import { Box, Typography } from '@mui/material';
 
 // Font Awesome
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { TypographyProps } from '../../@types/TypographyProps';
 
 interface ButtonLabelProps extends TypographyProps {
   iconSize?: string;
