@@ -1,7 +1,12 @@
+// CONTEXT
 import { useContext } from 'react'
-import { Typography } from '@mui/material';
-
 import { AppContext } from "../../context/AppContext";
+
+// TYPES
+import { TypographyProps} from '../../@types/TypographyProps';
+
+// MUI
+import { Typography } from '@mui/material';
 
 export default function Title(props: TypographyProps) {
   const { text, textColor, gutterBottom } = props
@@ -9,7 +14,7 @@ export default function Title(props: TypographyProps) {
 
   const padding = (gutterBottom) ? "0 0 1.5rem" : "0"
   const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
-  const shadow = (textColor === "white") ? '0.15rem 0.15rem 0.3rem black' : 'none'
+  const shadow = (color === "white") ? '0.15rem 0.15rem 0.3rem black' : 'none'
 
   return (
     <Typography 
