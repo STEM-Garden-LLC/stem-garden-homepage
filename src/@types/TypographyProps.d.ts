@@ -1,7 +1,7 @@
-export enum TextColorEnum {
-    black = 'black',
-    white = 'white'
-}
+// export enum TextColorEnum {
+//     black = 'black',
+//     white = 'white'
+// }
 
 // interface TypographyProps {
 //     text: string;
@@ -9,12 +9,12 @@ export enum TextColorEnum {
 //     gutterBottom: boolean;
 // }
 
-// type TextColorEnum = 'black' | 'white'
+type TextColorEnum = 'black' | 'white'
 
 type AlignEnum = 'center' | 'left'
 
 
-interface TypographyProps {
+export interface TypographyProps {
     text: string;
     textColor?: TextColorEnum;
     align?: AlignEnum;
