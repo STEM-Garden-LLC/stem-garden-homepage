@@ -5,7 +5,7 @@ import { ThreeCircles } from 'react-loader-spinner';
 
 
 // PAGES
-import LandingPage from './pages/LandingPage'
+import LandingPage from './pages/landing-page/LandingPage'
 
 // const ContactPage = lazy(() => import('./pages/ContactPage'))
 
