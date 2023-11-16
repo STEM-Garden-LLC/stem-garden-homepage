@@ -12,7 +12,8 @@ import { ButtonLabel } from "../typography";
 
 export default function ScrollToTopButton() {
   const scrollPosition = useScrollPosition()
-  const { containerWidth } = useContext(AppContext)
+  const { containerWidth, colorTheme } = useContext(AppContext)
+  const bgcolor = colorTheme === 'light' ? 'white' : 'darkGrey'
 
   const iconSize = containerWidth < 450 ? 'xl' : 
     containerWidth < 600 ? '2x' :
@@ -25,14 +26,12 @@ export default function ScrollToTopButton() {
         position='fixed' 
         bottom='1.0rem' 
         right='1.0rem' 
-        // width='8%' 
-        // paddingRight='1.0rem'
         flexDirection='row' 
         justifyContent='start' 
         alignItems='center' 
         zIndex={9000}
-        // bgcolor="darkGrey"
-        // borderRadius="50%"
+        bgcolor={bgcolor}
+        borderRadius="50%"
       >
         <Tooltip title="Scroll to top" arrow>
           <HashLink smooth to="#top">
