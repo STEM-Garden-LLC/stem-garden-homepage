@@ -11,7 +11,7 @@
 
 type TextColorEnum = 'black' | 'white'
 
-type AlignEnum = 'center' | 'left'
+type AlignEnum = 'center' | 'left' | 'right'
 
 
 export interface TypographyProps {

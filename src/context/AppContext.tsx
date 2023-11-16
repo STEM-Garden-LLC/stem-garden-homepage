@@ -18,7 +18,6 @@ export const AppContext = createContext({
 
 export const AppContextProvider = (props: any) => {
   // COLOR THEME
-//   const [colorTheme, setColorTheme] = useState("dark")
   let colorTheme = useColorTheme()
   
 
@@ -37,7 +36,9 @@ export const AppContextProvider = (props: any) => {
   
   const layoutAndColorContext = {
     screenWidth,
+    containerWidth,
     screenHeight,
+    availableHeight,
     narrowScreen,
     
     colorTheme,
@@ -45,8 +46,6 @@ export const AppContextProvider = (props: any) => {
 
     navbarStyle,
     navbarHeightPx,
-    availableHeight,
-    containerWidth
     
   }
 

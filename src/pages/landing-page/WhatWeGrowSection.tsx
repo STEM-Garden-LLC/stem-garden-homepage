@@ -99,12 +99,12 @@ export default function WhatWeGrowSection() {
           />
           <ButtonWithIcon 
             text='Buy Our Produce' 
-            href='contact-us' // TODO Add distinct contact pages for tutoring requests and garden related matters
+            href='contact-us'
             endIcon={faArrowCircleRight} 
           />
           <ButtonWithIcon 
-            text='Help Out In the Garden' 
-            href='contact-us' 
+            text='Distribution Partners' 
+            href='partners' 
             endIcon={faArrowCircleRight} 
           />
         </Box>

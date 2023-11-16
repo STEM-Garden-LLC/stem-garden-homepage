@@ -22,7 +22,7 @@ import { IconDefinition, faArrowCircleRight } from '@fortawesome/free-solid-svg-
 
 // CUSTOM COMPONENTS
 import { Title, Subtitle, Heading, Paragraph } from '../../components/typography';
-import { ButtonWithIcon } from '../../components/navigation'
+import { ButtonWithIcon, ScrollToTopButton } from '../../components/navigation'
 import PictureRow from '../../components/PictureRow';
 import OurStorySection from './OurStorySection';
 import WhatWeGrowSection from './WhatWeGrowSection';
@@ -55,6 +55,7 @@ export default function LandingPage() {
       <LeafyTopSection />
       <OurStorySection />
       <WhatWeGrowSection />
+      <ScrollToTopButton />
     </>
   )
 }
