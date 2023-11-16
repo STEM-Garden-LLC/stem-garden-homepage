@@ -28,13 +28,17 @@ export default function Heading(props: TypographyProps) {
         fontWeight: 200,
         fontSize: '1.1rem',
         lineHeight: '1.6rem',
+        '@media (min-width: 450px)': {
+          fontSize: '1.4rem',
+          lineHeight: '2.1rem',
+        },
         '@media (min-width: 600px)': {
           fontSize: '1.7rem',
-        lineHeight: '2.1rem',
+          lineHeight: '2.1rem',
         },
         '@media (min-width: 900px)': {
           fontSize: '1.7rem',
-        lineHeight: '1.9rem',
+          lineHeight: '1.9rem',
         },
       }}
     />

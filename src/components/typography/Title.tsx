@@ -28,8 +28,8 @@ export default function Title(props: TypographyProps) {
         fontSize: '2.4rem',
         lineHeight: '3.0rem',
         '@media (min-width: 450px)': {
-          fontSize: '3.8rem',
-          lineHeight: '4.3rem',
+          fontSize: '3.0rem',
+          lineHeight: '3.6rem',
         },
         '@media (min-width: 600px)': {
           fontSize: '4.0rem',
@@ -37,7 +37,7 @@ export default function Title(props: TypographyProps) {
         },
         '@media (min-width: 900px)': {
           fontSize: '4.5rem',
-          lineHeight: '4.8rem', 
+          lineHeight: '5.0rem', 
         },
       }}
     />
