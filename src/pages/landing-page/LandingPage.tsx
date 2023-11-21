@@ -4,7 +4,7 @@ import { useState, useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
 
 // import { TextColorEnum } from '../@types/TypographyProps.ts';
-
+import { PictureCardProps, LinkTypeEnum } from '../../@types/Cards';
 
 // MUI
 import { Button, Box, Container, Card, CardMedia, Tooltip } from '@mui/material';
@@ -22,32 +22,21 @@ import { IconDefinition, faArrowCircleRight } from '@fortawesome/free-solid-svg-
 
 // CUSTOM COMPONENTS
 import { Title, Subtitle, Heading, Paragraph } from '../../components/typography';
-import { ButtonWithIcon, ScrollToTopButton } from '../../components/navigation'
+import { ButtonWithIcon, ScrollToTopButton } from '../../components/navigation';
 import PictureRow from '../../components/PictureRow';
+import PictureCard from '../../components/cards/PictureCard';
 import OurStorySection from './OurStorySection';
 import WhatWeGrowSection from './WhatWeGrowSection';
 // import { Footer, ScrollToTopButton } from '../../components/navigation';
 
 // ASSETS
-import landing_page_text from './text'
+import landing_page_text from '../../text/landing'
 import { 
   leafy_background, 
   practicing_math_facts,
   girls_playing_connect_four, 
   banana_papaya_turmeric_flower, 
 } from '../../assets/landing'
-import { 
-  trash_in_dirt,
-  toolshed,
-  tearoom,
-  solar_panels_on_classroom,
-} from '../../assets/our-story'
-import {
-  banana_bunch
-} from '../../assets/what-we-grow/banana'
-import { 
-  fig_harvest
-} from '../../assets/what-we-grow/fig'
 
 export default function LandingPage() {
   return (
@@ -114,18 +103,6 @@ function LeafyTopSection() {
   )
 }
 
-enum LinkTypeEnum {
-  RouterLink = 'RouterLink',
-  HashLink = 'HashLink'
-}
-
-interface LandingPageCardProps {
-  title: string;
-  imgUrl: string;
-  cardWidth: string;
-  linkTo: string;
-  linkType?: LinkTypeEnum;
-}
 
 function MobileCards() {
   const { containerWidth } = useContext(AppContext)
@@ -140,14 +117,14 @@ function MobileCards() {
         alignItems='stretch'
         paddingBottom={2}
       > 
-        <LandingCard 
+        <PictureCard 
           title='What We Grow' 
           linkType={LinkTypeEnum.HashLink}
           linkTo='#what-we-grow'
           imgUrl={banana_papaya_turmeric_flower} 
           cardWidth={cardWidth}
         />
-        <LandingCard 
+        <PictureCard 
           title='Teaching Services' 
           linkTo='services'
           imgUrl={practicing_math_facts} 
@@ -160,13 +137,13 @@ function MobileCards() {
         justifyContent='space-evenly'
         alignItems='stretch'
       > 
-        <LandingCard 
+        <PictureCard 
           title='Teaching Services' 
           linkTo='services'
           imgUrl={practicing_math_facts} 
           cardWidth={cardWidth}
         />
-        <LandingCard 
+        <PictureCard 
           title='Math Games' 
           linkTo='resources/math-games'
           imgUrl={girls_playing_connect_four} 
@@ -189,20 +166,20 @@ function DesktopCards() {
       justifyContent='space-evenly'
       alignItems='stretch'
     > 
-      <LandingCard 
+      <PictureCard 
         title='What We Grow' 
         linkType={LinkTypeEnum.HashLink}
         linkTo='#what-we-grow'
         imgUrl={banana_papaya_turmeric_flower} 
         cardWidth={cardWidth}
       />
-      <LandingCard 
+      <PictureCard 
         title='Teaching Services' 
         linkTo='services'
         imgUrl={practicing_math_facts} 
         cardWidth={cardWidth}
       />
-      <LandingCard 
+      <PictureCard 
         title='Math Games' 
         linkTo='resources/math-games' 
         imgUrl={girls_playing_connect_four} 
@@ -212,56 +189,4 @@ function DesktopCards() {
   )
 }
 
-function LandingCard(props:LandingPageCardProps) {
-  const { title, linkTo, linkType = 'RouterLink', imgUrl, cardWidth } = props
-  
-  const content = (
-    <Box width={cardWidth} height='100%' padding={1} >
-      <Card raised 
-        sx={{ 
-          height: '100%',
-          width: '100%',
-          bgcolor: 'darkGrey',
-          position: 'relative',
-          borderRadius: '1rem',
-        }}
-      >
-        <CardMedia
-          component='img'
-          image={imgUrl}
-          alt={title}
-          sx={{ 
-            position: 'absolute', 
-            top: 0,
-            zIndex: 10
-          }}
-        />
-        <Box 
-          sx={{ 
-            background: 'linear-gradient(0deg, rgba(32,32,32,1) 85%, rgba(32,32,32,0.5) 94%, rgba(32,32,32,0.1) 100%)',
-            position: 'absolute',
-            bottom: 0,
-            zIndex: 20,
-            width: '100%',
-            height: '23%',
-            textDecoration: 'none',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          <Heading text={title} textColor="white" />
-        </Box>
-      </Card>
-    </Box>
-  )
-
-  return (
-    <>
-      {linkType == 'RouterLink' ? 
-        <RouterLink to={linkTo} children={content} /> : 
-        <HashLink smooth to={linkTo} children={content} /> }
-    </>
-  )
-}
 
