@@ -24,7 +24,7 @@ import { Title, Subtitle, Heading, Paragraph } from '../../components/typography
 import { ButtonWithIcon } from '../../components/navigation'
 
 // ASSETS
-import landing_page_text from './text'
+import { landing_page_text, crops } from '../../text/landing'
 
 import {
   banana_bunch
@@ -50,22 +50,6 @@ enum CropsEnum {
   other= 'other',
 }
 
-const crops = [
-  {
-    name: 'none_selected',
-    text: 'test',
-    imageUrls: [
-      fig_harvest
-    ]
-  },
-  {
-    name: 'fig',
-    text: 'test',
-    imageUrls: [
-      fig_harvest
-    ]
-  },
-]
 
 export default function WhatWeGrowSection() {
   const { containerWidth } = useContext(AppContext)
@@ -124,15 +108,14 @@ function CropSelector(props: CropSelectorProps) {
 
 
   const cropSelectorWidth = Math.min(500, containerWidth)
-  const cropSelectorWidthPx = `${cropSelectorWidth}px`
-  const selectorButtonSizePx = `${Math.floor(cropSelectorWidth / 6)}px`
+  const cropSelectorButtonWidth = Math.floor(cropSelectorWidth / 6)
 
   return (
       <Box id="crop-selector-container"
         width='100%'
         display='flex'
         justifyContent='center'
-        alignItems='center'
+        alignItems='space-between'
       >
         {
           crops.map(crop => {
@@ -143,11 +126,11 @@ function CropSelector(props: CropSelectorProps) {
               return (
                 <CropSelectorButton 
                   key={`select_${crop.name}_button`}
-                  crop={crop}  
+                  cropName={crop.name}  
+                  imageUrls={crop.imageUrls}  
                   selectedCrop={selectedCrop}
                   setSelectedCrop={setSelectedCrop} 
-                  cropSelectorWidthPx={cropSelectorWidthPx}
-                  selectorButtonSizePx={selectorButtonSizePx}
+                  cropSelectorButtonWidth={cropSelectorButtonWidth}
                 />
               )
             }
@@ -216,17 +199,36 @@ function CropDetail(props: CropDetailProps) {
   )
 }
 
-function CropSelectorButton(props) {
-  const { crop, selectedCrop, setSelectedCrop, selectorButtonSizePx } = props
-  const { name, imageUrls } = crop
+type CropSelectorButtonProps = {
+  cropName: string;
+  imageUrls: string[];
+  selectedCrop: string;
+  setSelectedCrop: Function;
+  cropSelectorButtonWidth: number;
+}
+
+function CropSelectorButton(props: CropSelectorButtonProps) {
+  const { cropName, imageUrls, selectedCrop, setSelectedCrop, cropSelectorButtonWidth } = props
+  const { colorTheme } = useContext(AppContext)
   const imgUrl = imageUrls[0]  // The first image listed is used in the selector
-  const selected = (name === selectedCrop)
+  const selected = (cropName === selectedCrop)
   const border = selected ? 'solid yellow 3px': 'none'
+  const backgroundColor = colorTheme === 'light' ? 'white' : 'darkGrey'
+
 
   const imageStyles = { 
     width: '100%',
-    height: '100%',
+    height: '80%',
     backgroundImage: `url(${imgUrl})`,  // The first image listed is used in the selector
+    backgroundPosition: 'center top',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }  
+
+  const footerStyles = { 
+    width: '100%',
+    height: '20%',
+    backgroundColor: backgroundColor,
     backgroundPosition: 'center top',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -235,17 +237,19 @@ function CropSelectorButton(props) {
 
   return (
     <Box 
-      width={selectorButtonSizePx}
-      height={selectorButtonSizePx}
+      width={cropSelectorButtonWidth}
+      height={1.2 * cropSelectorButtonWidth}
       padding='2px'
+      onClick={() => { setSelectedCrop(cropName) }}
+      border={border}
+      borderRadius="1.0rem"
     >
-      <Tooltip title={name} arrow>
-        <Box 
-          onClick={() => { setSelectedCrop(name) }}
-          border={border}
-          sx={imageStyles}
-        />
-      </Tooltip>
+        <Box sx={imageStyles} />
+        <Box sx={footerStyles} >
+          <Heading 
+
+          />
+        </Box>
     </Box>
   )
 }

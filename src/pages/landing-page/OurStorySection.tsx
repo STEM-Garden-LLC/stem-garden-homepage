@@ -30,7 +30,7 @@ import PictureRow from '../../components/PictureRow';
 // import { Footer, ScrollToTopButton } from '../../components/navigation';
 
 // ASSETS
-import landing_page_text from './text'
+import { landing_page_text, our_story_paragraphs } from '../../text/landing'
 import { 
   trash_in_dirt,
   toolshed,
