@@ -11,7 +11,9 @@ export interface PictureCardProps {
   title: string;
   imgUrl: string;
   cardWidth: string;
-  linkTo: string;
+  cardHeight: string;
+  linkTo?: string;
   linkType?: LinkTypeEnum;
+  onClick?: Function;
 }
 
