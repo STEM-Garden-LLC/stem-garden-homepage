@@ -22,9 +22,10 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 // CUSTOM COMPONENTS
 import { Title, Subtitle, Heading, Paragraph } from '../../components/typography';
 import { ButtonWithIcon } from '../../components/navigation'
+import { PictureCard } from '../../components/cards'
 
 // ASSETS
-import { landing_page_text, crops } from '../../text/landing'
+import { crops } from '../../text/landing'
 
 import {
   banana_bunch
@@ -38,28 +39,9 @@ import {
 //    What We Grow    //
 ////////////////////////
 
-enum CropsEnum {
-  none_selected= 'none_selected',
-  fig = 'fig',
-  papaya= 'papaya',
-  turmeric= 'turmeric',
-  loquat= 'loquat',
-  cucumber= 'cucumber',
-  beans= 'beans',
-  berries= 'berries',
-  other= 'other',
-}
-
 
 export default function WhatWeGrowSection() {
-  const { containerWidth } = useContext(AppContext)
-
   const [selectedCrop, setSelectedCrop] = useState("none_selected")
-
-  const cardsPerRow = containerWidth < 500 ? 4 : 8
-
-  const cardRowHeight = `${Math.floor(containerWidth * 0.55)}px`
-  const cardWidth = `${Math.floor(containerWidth * 0.45)}px`
 
   return (
     <Box sx={{ width: '100vw' }}>
@@ -69,11 +51,12 @@ export default function WhatWeGrowSection() {
           display: 'flex',
           flexDirection: 'column',
           textAlign: 'center',
+          border: 'solid red 1px'
         }}    
       >
         <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
           <Title text='What We Grow' gutterBottom />
-          <Paragraph text={landing_page_text.what_we_grow} />
+          <Paragraph text={selectedCrop === "none_selected" ? crops.find(crop => crop.name === "none_selected")?.text : ""} />
           <CropSelector 
             selectedCrop={selectedCrop} 
             setSelectedCrop={setSelectedCrop} 
@@ -106,13 +89,21 @@ function CropSelector(props: CropSelectorProps) {
   const { selectedCrop, setSelectedCrop } = props
   const { containerWidth } = useContext(AppContext)
 
+  
 
-  const cropSelectorWidth = Math.min(500, containerWidth)
-  const cropSelectorButtonWidth = Math.floor(cropSelectorWidth / 6)
+  const cardsPerRow = containerWidth < 500 ? 4 : 8
+
+  const cropSelectorButtonWidth = Math.floor(containerWidth / cardsPerRow * 0.8 )
+  const cropSelectorButtonHeight = Math.floor(cropSelectorButtonWidth * 1.2)
+
+  console.log(cardsPerRow);
+  console.log(cropSelectorButtonWidth);
+  console.log(cropSelectorButtonHeight);
+  
 
   return (
       <Box id="crop-selector-container"
-        width='100%'
+        width={`${containerWidth}px`}
         display='flex'
         justifyContent='center'
         alignItems='space-between'
@@ -127,10 +118,11 @@ function CropSelector(props: CropSelectorProps) {
                 <CropSelectorButton 
                   key={`select_${crop.name}_button`}
                   cropName={crop.name}  
-                  imageUrls={crop.imageUrls}  
+                  // imageUrl={imageUrl}  
                   selectedCrop={selectedCrop}
                   setSelectedCrop={setSelectedCrop} 
                   cropSelectorButtonWidth={cropSelectorButtonWidth}
+                  cropSelectorButtonHeight={cropSelectorButtonHeight}
                 />
               )
             }
@@ -141,6 +133,90 @@ function CropSelector(props: CropSelectorProps) {
         
       // </Box>
     // </Box>
+  )
+}
+
+type CropSelectorButtonProps = {
+  cropName: string;
+  // imageUrl: string;
+  selectedCrop: string;
+  setSelectedCrop: Function;
+  cropSelectorButtonWidth: number;
+  cropSelectorButtonHeight: number;
+}
+
+function CropSelectorButton(props: CropSelectorButtonProps) {
+  const { 
+    cropName, 
+    // imageUrl, 
+    selectedCrop, 
+    setSelectedCrop, 
+    cropSelectorButtonWidth, 
+    cropSelectorButtonHeight } = props
+  const { containerWidth, colorTheme } = useContext(AppContext)
+
+  const selected = (cropName === selectedCrop)
+  const border = selected ? 'solid yellow 3px': 'none'
+  // const backgroundColor = colorTheme === 'light' ? 'white' : 'darkGrey'
+  const cropData = crops.find(crop => crop.name === cropName)
+
+  console.log(`cropData: ${JSON.stringify(cropData, null, 4)}`);
+  
+  const imageUrl =  cropData!.imageUrls[0]  // The first image listed is used in the selector
+
+
+  const {  } = useContext(AppContext)
+  const cardWidth = `${Math.floor(containerWidth * 0.40)}px`
+  const cardHeight = `${Math.floor(containerWidth * 0.50)}px`
+
+
+  const imageStyles = { 
+    width: '100%',
+    height: '80%',
+    backgroundImage: `url(${imageUrl})`,  // The first image listed is used in the selector
+    backgroundPosition: 'center top',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }  
+
+  const footerStyles = { 
+    width: '100%',
+    height: '20%',
+    // backgroundColor: backgroundColor,
+    backgroundPosition: 'center top',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    borderRadius: '1rem',
+  }  
+
+
+
+  return (
+    // <Box 
+    //   width={cropSelectorButtonWidth}
+    //   height={1.2 * cropSelectorButtonWidth}
+    //   padding='2px'
+    //   onClick={() => { setSelectedCrop(cropName) }}
+    //   border={border}
+    //   borderRadius="1.0rem"
+    // >
+    //     <Box sx={imageStyles} />
+    //     <Box sx={footerStyles} >
+    //       <Heading 
+    //         text={cropName}
+    //       />
+    //     </Box>
+    // </Box>
+    <Box border={border} >
+      <PictureCard 
+        title={cropName} 
+        // linkType={LinkTypeEnum.HashLink}
+        // linkTo='#what-we-grow'
+        imageUrl={imageUrl} 
+        cardWidth={cardWidth}
+        cardHeight={cardHeight}
+      />
+    </Box>
   )
 }
 
@@ -198,59 +274,3 @@ function CropDetail(props: CropDetailProps) {
     </Box>
   )
 }
-
-type CropSelectorButtonProps = {
-  cropName: string;
-  imageUrls: string[];
-  selectedCrop: string;
-  setSelectedCrop: Function;
-  cropSelectorButtonWidth: number;
-}
-
-function CropSelectorButton(props: CropSelectorButtonProps) {
-  const { cropName, imageUrls, selectedCrop, setSelectedCrop, cropSelectorButtonWidth } = props
-  const { colorTheme } = useContext(AppContext)
-  const imgUrl = imageUrls[0]  // The first image listed is used in the selector
-  const selected = (cropName === selectedCrop)
-  const border = selected ? 'solid yellow 3px': 'none'
-  const backgroundColor = colorTheme === 'light' ? 'white' : 'darkGrey'
-
-
-  const imageStyles = { 
-    width: '100%',
-    height: '80%',
-    backgroundImage: `url(${imgUrl})`,  // The first image listed is used in the selector
-    backgroundPosition: 'center top',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  }  
-
-  const footerStyles = { 
-    width: '100%',
-    height: '20%',
-    backgroundColor: backgroundColor,
-    backgroundPosition: 'center top',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    borderRadius: '1rem',
-  }  
-
-  return (
-    <Box 
-      width={cropSelectorButtonWidth}
-      height={1.2 * cropSelectorButtonWidth}
-      padding='2px'
-      onClick={() => { setSelectedCrop(cropName) }}
-      border={border}
-      borderRadius="1.0rem"
-    >
-        <Box sx={imageStyles} />
-        <Box sx={footerStyles} >
-          <Heading 
-
-          />
-        </Box>
-    </Box>
-  )
-}
-
