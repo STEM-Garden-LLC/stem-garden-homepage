@@ -30,7 +30,7 @@ import PictureRow from '../../components/PictureRow';
 // import { Footer, ScrollToTopButton } from '../../components/navigation';
 
 // ASSETS
-import { landing_page_text, our_story_paragraphs } from '../../text/landing'
+import { our_story_paragraphs } from '../../text/landing'
 import { 
   trash_in_dirt,
   toolshed,
@@ -55,12 +55,12 @@ export default function OurStorySection() {
       >
         <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
           <Title text='Our Story' gutterBottom />
-          <Paragraph text={landing_page_text.our_story_summary_1} />
+          <Paragraph text={our_story_paragraphs[0]} />
           <PictureRow imgUrls={[trash_in_dirt, toolshed]} />
-          <Paragraph text={landing_page_text.our_story_summary_2} />
-          <Paragraph text={landing_page_text.our_story_summary_3} />
+          <Paragraph text={our_story_paragraphs[1]} />
+          <Paragraph text={our_story_paragraphs[2]} />
           <PictureRow imgUrls={[tearoom, solar_panels_on_classroom]} />
-          <Paragraph text={landing_page_text.our_story_summary_4} />
+          <Paragraph text={our_story_paragraphs[3]} />
           <ButtonWithIcon 
             text='Read more' 
             href='our-story' 
