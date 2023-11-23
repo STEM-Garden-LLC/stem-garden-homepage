@@ -20,7 +20,7 @@ import { HashLink } from 'react-router-hash-link';
 import { Heading } from '../../components/typography';
 
 export default function PictureCard(props:PictureCardProps) {
-  const { title, linkTo, linkType = 'RouterLink', imgUrl, cardWidth } = props
+  const { title, linkTo, linkType = 'RouterLink', imgUrl, cardWidth, cardHeight } = props
   
   const content = (
     <Box width={cardWidth} height='100%' padding={1} >
