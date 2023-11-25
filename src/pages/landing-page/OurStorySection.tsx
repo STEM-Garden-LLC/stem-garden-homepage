@@ -44,37 +44,26 @@ export default function OurStorySection() {
   const textColor = (colorTheme === "dark") ? "white" : "black"
 
   return (
-    <Box sx={{ width: '100vw' }}>
-      <Container
-        maxWidth='md' 
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          textAlign: 'center',
-        }}    
-      >
-        <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
-          <Title text='Our Story' gutterBottom />
-          <Paragraph text={our_story_paragraphs[0]} />
-          <PictureRow imgUrls={[trash_in_dirt, toolshed]} />
-          <Paragraph text={our_story_paragraphs[1]} />
-          <Paragraph text={our_story_paragraphs[2]} />
-          <PictureRow imgUrls={[tearoom, solar_panels_on_classroom]} />
-          <Paragraph text={our_story_paragraphs[3]} />
-          <ButtonWithIcon 
-            text='Read more' 
-            href='our-story' 
-            endIcon={faArrowCircleRight} 
-            textColor={textColor} 
-          />
-          <ButtonWithIcon 
-            text='Volunteer' 
-            href='contact-us' 
-            endIcon={faArrowCircleRight} 
-            textColor={textColor} 
-          />
-        </Box>
-      </Container>
+    <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
+      <Title text='Our Story' gutterBottom />
+      <Paragraph text={our_story_paragraphs[0]} />
+      <PictureRow imgUrls={[trash_in_dirt, toolshed]} />
+      <Paragraph text={our_story_paragraphs[1]} />
+      <Paragraph text={our_story_paragraphs[2]} />
+      <PictureRow imgUrls={[tearoom, solar_panels_on_classroom]} />
+      <Paragraph text={our_story_paragraphs[3]} />
+      <ButtonWithIcon 
+        text='Read more' 
+        href='our-story' 
+        endIcon={faArrowCircleRight} 
+        textColor={textColor} 
+      />
+      <ButtonWithIcon 
+        text='Volunteer' 
+        href='contact-us' 
+        endIcon={faArrowCircleRight} 
+        textColor={textColor} 
+      />
     </Box>
   )
 }
