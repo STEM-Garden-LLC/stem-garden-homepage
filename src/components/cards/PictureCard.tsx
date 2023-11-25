@@ -15,15 +15,34 @@ import Carousel from 'react-material-ui-carousel'
 import { Link as RouterLink } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
+import toTitleCase from '../../helpers/toTitleCase';
+
 
 // CUSTOM COMPONENTS
 import { Heading } from '../../components/typography';
 
 export default function PictureCard(props:PictureCardProps) {
-  const { title, linkTo, linkType = 'RouterLink', imgUrl, cardWidth, cardHeight } = props
+  const { colorTheme } = useContext(AppContext)
+
+
+  const { 
+    title, 
+    imageUrl, 
+    cardWidth, 
+    cardHeight,
+    onClick,
+    textColor = "",
+    bgColor,
+    linkTo = "", 
+    linkType = 'RouterLink',  
+  } = props
+  
+  const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
+  const bgColorRGB = bgColor ? bgColor :
+    colorTheme === 'dark' ? '40,40,40' : '212,212,212'
   
   const content = (
-    <Box width={cardWidth} height='100%' padding={1} >
+    <Box width={cardWidth} height={cardHeight} >
       <Card raised 
         sx={{ 
           height: '100%',
@@ -35,7 +54,7 @@ export default function PictureCard(props:PictureCardProps) {
       >
         <CardMedia
           component='img'
-          image={imgUrl}
+          image={imageUrl}
           alt={title}
           sx={{ 
             position: 'absolute', 
@@ -45,7 +64,7 @@ export default function PictureCard(props:PictureCardProps) {
         />
         <Box 
           sx={{ 
-            background: 'linear-gradient(0deg, rgba(32,32,32,1) 85%, rgba(32,32,32,0.5) 94%, rgba(32,32,32,0.1) 100%)',
+            background: `linear-gradient(0deg, rgba(${bgColorRGB},1) 85%, rgba(${bgColorRGB},0.5) 94%, rgba(${bgColorRGB},0.1) 100%)`,
             position: 'absolute',
             bottom: 0,
             zIndex: 20,
@@ -57,7 +76,7 @@ export default function PictureCard(props:PictureCardProps) {
             alignItems: 'center'
           }}
         >
-          <Heading text={title} textColor="white" />
+          <Heading text={toTitleCase(title)} textColor={color} />
         </Box>
       </Card>
     </Box>
@@ -65,8 +84,8 @@ export default function PictureCard(props:PictureCardProps) {
 
   return (
     <>
-      {linkType == 'RouterLink' ? 
-        <RouterLink to={linkTo} children={content} /> : 
+      {linkType === 'NotALink' ? <Box >{content}</Box> : 
+        linkType === 'RouterLink' ? <RouterLink to={linkTo} children={content} /> : 
         <HashLink smooth to={linkTo} children={content} /> }
     </>
   )

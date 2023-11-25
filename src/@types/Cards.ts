@@ -1,5 +1,6 @@
 
 export enum LinkTypeEnum {
+  NotALink = 'NotALink',
   RouterLink = 'RouterLink',
   HashLink = 'HashLink'
 }
@@ -9,11 +10,13 @@ export enum LinkTypeEnum {
 
 export interface PictureCardProps {
   title: string;
-  imgUrl: string;
+  imageUrl: string;
   cardWidth: string;
   cardHeight: string;
   linkTo?: string;
   linkType?: LinkTypeEnum;
   onClick?: Function;
+  textColor?: string;
+  bgColor?: string;
 }
 
