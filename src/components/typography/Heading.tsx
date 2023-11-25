@@ -26,7 +26,7 @@ export default function Heading(props: TypographyProps) {
       p={padding}
       sx={{
         fontWeight: 200,
-        fontSize: '1.1rem',
+        fontSize: '1.0rem',
         lineHeight: '1.6rem',
         '@media (min-width: 450px)': {
           fontSize: '1.4rem',
