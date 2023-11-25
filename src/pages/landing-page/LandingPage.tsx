@@ -1,36 +1,21 @@
 /// <reference path='../@types/TypographyProps.ts'
 
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
 
-// import { TextColorEnum } from '../@types/TypographyProps.ts';
-import { PictureCardProps, LinkTypeEnum } from '../../@types/Cards';
+import { LinkTypeEnum } from '../../@types/Cards';
 
 // MUI
-import { Button, Box, Container, Card, CardMedia, Tooltip } from '@mui/material';
-import Carousel from 'react-material-ui-carousel'
-
-
-// Router
-import { Link as RouterLink } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
-
-// Font Awesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconDefinition, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
-
+import { Box, Container } from '@mui/material';
 
 // CUSTOM COMPONENTS
-import { Title, Subtitle, Heading, Paragraph } from '../../components/typography';
-import { ButtonWithIcon, ScrollToTopButton } from '../../components/navigation';
-import PictureRow from '../../components/PictureRow';
+import { Title } from '../../components/typography';
+import { Footer, ScrollToTopButton } from '../../components/navigation';
 import PictureCard from '../../components/cards/PictureCard';
 import OurStorySection from './OurStorySection';
 import WhatWeGrowSection from './WhatWeGrowSection';
-// import { Footer, ScrollToTopButton } from '../../components/navigation';
 
 // ASSETS
-import landing_page_text from '../../text/landing'
 import { 
   leafy_background, 
   practicing_math_facts,
@@ -40,17 +25,27 @@ import {
 
 export default function LandingPage() {
   return (
-    <>      
+    <Box sx={{ width: '100vw' }} >
       <LeafyTopSection />
-      <OurStorySection />
-      <WhatWeGrowSection />
-      <ScrollToTopButton />
-    </>
+      <Container
+        maxWidth='md' 
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          textAlign: 'center',
+        }}    
+      >     
+        <OurStorySection />
+        <WhatWeGrowSection />
+        <Footer />
+        <ScrollToTopButton />
+      </Container>
+    </Box>
   )
 }
 
 function LeafyTopSection() {
-  const { narrowScreen, navbarHeightPx, availableHeight, containerWidth } = useContext(AppContext)
+  const { narrowScreen, navbarHeightPx } = useContext(AppContext)
 
   const gradient = (narrowScreen) ?
     'linear-gradient(90deg, rgba(58,94,22,0.80) 0%, rgba(58,99,22,0.80) 100%)'
@@ -67,6 +62,8 @@ function LeafyTopSection() {
     backgroundPosition: 'center top',
     backgroundRepeat: 'repeat-y',
     backgroundSize: 'cover',
+    position: 'relative',
+    left: 0
   } 
   
   return (
@@ -84,17 +81,9 @@ function LeafyTopSection() {
           flexDirection='column'
           paddingY={{ xs: '2.0rem', sm: '3.0rem' }} 
         >
-          {/* <Title text='Sowing seeds of' />
-          <Title text='life-long learning' />
-          <Title text='and DIY-spirit' gutterBottom /> */}
-          
           <Title text='Sowing seeds of' textColor="white" />
           <Title text='life-long learning' textColor="white" />
           <Title text='and DIY-spirit' textColor="white" gutterBottom />
-          {/* <Title text='Sowing seeds of' textColor={TextColorEnum.white} />
-          <Title text='life-long learning' textColor={TextColorEnum.white} />
-          <Title text='and DIY-spirit' textColor={TextColorEnum.white} gutterBottom />
-          <Subtitle text='The STEM Garden is a micro-farm in the heart of New Orleans. We sell organic banana, papaya, fig, turmeric, and more. We also offer tutoring services and free resources for learning math.' align='justify' gutterBottom /> */}
         </Box>
         {narrowScreen ? <MobileCards /> : <DesktopCards />}
 
@@ -106,12 +95,14 @@ function LeafyTopSection() {
 
 function MobileCards() {
   const { containerWidth } = useContext(AppContext)
-  const cardRowHeight = `${Math.floor(containerWidth * 0.50)}px`
+  const cardHeight = `${Math.floor(containerWidth * 0.50)}px`
   const cardWidth = `${Math.floor(containerWidth * 0.40)}px`
+  const textColor = 'white'
+  const bgColor = '32,32,32'
+
   return (
     <>
       <Box 
-        height={cardRowHeight}
         display='flex' 
         justifyContent='space-evenly'
         alignItems='stretch'
@@ -121,18 +112,23 @@ function MobileCards() {
           title='What We Grow' 
           linkType={LinkTypeEnum.HashLink}
           linkTo='#what-we-grow'
-          imgUrl={banana_papaya_turmeric_flower} 
+          imageUrl={banana_papaya_turmeric_flower} 
           cardWidth={cardWidth}
+          cardHeight={cardHeight}
+          textColor={textColor}
+          bgColor={bgColor}
         />
         <PictureCard 
           title='Teaching Services' 
           linkTo='services'
-          imgUrl={practicing_math_facts} 
+          imageUrl={practicing_math_facts} 
           cardWidth={cardWidth}
+          cardHeight={cardHeight}
+          textColor={textColor}
+          bgColor={bgColor}
         />
       </Box>
       <Box 
-        height={cardRowHeight}
         display='flex' 
         justifyContent='space-evenly'
         alignItems='stretch'
@@ -140,50 +136,67 @@ function MobileCards() {
         <PictureCard 
           title='Teaching Services' 
           linkTo='services'
-          imgUrl={practicing_math_facts} 
+          imageUrl={practicing_math_facts} 
           cardWidth={cardWidth}
+          cardHeight={cardHeight}
+          textColor={textColor}
+          bgColor={bgColor}
         />
         <PictureCard 
           title='Math Games' 
           linkTo='resources/math-games'
-          imgUrl={girls_playing_connect_four} 
+          imageUrl={girls_playing_connect_four} 
           cardWidth={cardWidth}
+          cardHeight={cardHeight}
+          textColor={textColor}
+          bgColor={bgColor}
         />
       </Box>
     </>
   )
-}
+} 
 
 function DesktopCards() {
   const { containerWidth } = useContext(AppContext)
-  const cardWidth = `${Math.floor(containerWidth / 3 * 0.95)}px`
-  const cardRowHeight = `${Math.floor(containerWidth / 3 * 0.95 * 1.2)}px`
+  const cardWidth = `${Math.floor(containerWidth / 3 * 0.92)}px`
+  const cardHeight = `${Math.floor(containerWidth / 3 * 0.95 * 1.2)}px`
+  const textColor = 'white'
+  const bgColor = '32,32,32'
 
   return (
     <Box 
-      height={cardRowHeight}
+      width={containerWidth}
       display='flex' 
-      justifyContent='space-evenly'
+      justifyContent='space-between'
       alignItems='stretch'
     > 
       <PictureCard 
         title='What We Grow' 
         linkType={LinkTypeEnum.HashLink}
         linkTo='#what-we-grow'
-        imgUrl={banana_papaya_turmeric_flower} 
+        imageUrl={banana_papaya_turmeric_flower} 
         cardWidth={cardWidth}
+        cardHeight={cardHeight}
+        textColor={textColor}
+        bgColor={bgColor}
       />
       <PictureCard 
         title='Teaching Services' 
         linkTo='services'
-        imgUrl={practicing_math_facts} 
+        imageUrl={practicing_math_facts} 
         cardWidth={cardWidth}
+        cardHeight={cardHeight}
+        textColor={textColor}
+        bgColor={bgColor}
       />
       <PictureCard 
         title='Math Games' 
         linkTo='resources/math-games' 
-        imgUrl={girls_playing_connect_four} 
+        imageUrl={girls_playing_connect_four} 
         cardWidth={cardWidth}
+        cardHeight={cardHeight}
+        textColor={textColor}
+        bgColor={bgColor}
       />
     </Box>
   )
