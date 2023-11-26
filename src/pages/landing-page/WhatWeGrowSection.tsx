@@ -5,29 +5,21 @@ import { AppContext } from '../../context/AppContext';
 
 import toTitleCase from '../../helpers/toTitleCase';
 
-
 // MUI
-import { Button, Box, Grid, Container, Card, CardMedia, Tooltip } from '@mui/material';
+import { Box, Grid, Card, CardMedia } from '@mui/material';
 import Carousel from 'react-material-ui-carousel'
 
 
-// Router
-import { Link as RouterLink } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
 
 // Font Awesome
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
-
 // CUSTOM COMPONENTS
-import { Title, Subtitle, Heading, Paragraph } from '../../components/typography';
+import { Title, Heading, Paragraph } from '../../components/typography';
 import { ButtonWithIcon } from '../../components/navigation'
 
 // ASSETS
 import { crops } from '../../text/landing'
-
-
-
 
 ////////////////////////
 //    What We Grow    //
@@ -38,7 +30,7 @@ export default function WhatWeGrowSection() {
   const [selectedCrop, setSelectedCrop] = useState("none_selected")
 
   return (
-    <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
+    <Box id='what-we-grow' paddingY={{ xs: '4.0rem', sm: '6.0rem' }} >
       <Title text='What We Grow' gutterBottom />
       <CropSelector
         selectedCrop={selectedCrop}
@@ -206,7 +198,6 @@ function CropDetail(props: CropDetailProps) {
     borderRadius: '1rem'
   }
 
-{/* <Paragraph text={selectedCrop === "none_selected" ? crops.find(crop => crop.name === "none_selected")?.text : ""} /> */}
 
 
   return (

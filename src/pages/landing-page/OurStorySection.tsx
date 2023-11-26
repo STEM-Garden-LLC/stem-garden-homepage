@@ -44,7 +44,7 @@ export default function OurStorySection() {
   const textColor = (colorTheme === "dark") ? "white" : "black"
 
   return (
-    <Box paddingY={{ xs: '2.0rem', sm: '6.0rem' }} >
+    <Box id='our-story' paddingY={{ xs: '4.0rem', sm: '6.0rem' }} >
       <Title text='Our Story' gutterBottom />
       <Paragraph text={our_story_paragraphs[0]} />
       <PictureRow imgUrls={[trash_in_dirt, toolshed]} />
