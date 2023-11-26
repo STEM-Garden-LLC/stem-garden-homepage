@@ -11,6 +11,7 @@ import { Box, Container } from '@mui/material';
 // CUSTOM COMPONENTS
 import { Title } from '../../components/typography';
 import { Footer, ScrollToTopButton } from '../../components/navigation';
+import { LeafyBackground, ThemedBackground } from '../../components/backgrounds';
 import PictureCard from '../../components/cards/PictureCard';
 import OurStorySection from './OurStorySection';
 import WhatWeGrowSection from './WhatWeGrowSection';
@@ -25,69 +26,41 @@ import {
 
 export default function LandingPage() {
   return (
-    <Box sx={{ width: '100vw' }} >
-      <LeafyTopSection />
-      <Container
-        maxWidth='md' 
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          textAlign: 'center',
-        }}    
-      >     
+    <Box>
+      <LeafyBackground>
+        <TopSection />
+      </LeafyBackground>
+      <ThemedBackground>
         <OurStorySection />
         <WhatWeGrowSection />
-        <Footer />
         <ScrollToTopButton />
-      </Container>
+      </ThemedBackground>   
+      <Footer />
     </Box>
   )
 }
 
-function LeafyTopSection() {
-  const { narrowScreen, navbarHeightPx } = useContext(AppContext)
-
-  const gradient = (narrowScreen) ?
-    'linear-gradient(90deg, rgba(58,94,22,0.80) 0%, rgba(58,99,22,0.80) 100%)'
-    : 'linear-gradient(90deg, rgba(58,94,22,0.30) 0%, rgba(58,94,22,0.80) 10%, rgba(58,94,22,0.80) 90%, rgba(58,99,22,0.30) 100%)'
-
-  const leafyBackgroundStyles = {
-    width: '100vw',
-    marginTop: `${navbarHeightPx}px`,
-    paddingBottom: `${2 * navbarHeightPx}px`,
-    backgroundImage: `
-      ${gradient},
-      url(${leafy_background})
-    `,
-    backgroundPosition: 'center top',
-    backgroundRepeat: 'repeat-y',
-    backgroundSize: 'cover',
-    position: 'relative',
-    left: 0
-  } 
+function TopSection() {
+  const { narrowScreen } = useContext(AppContext)
   
   return (
-    <Box sx={leafyBackgroundStyles}>
-      <Container
-        maxWidth='md' 
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          textAlign: 'center',
-        }}    
-      >
-        <Box id='title' 
-          display='flex'
-          flexDirection='column'
-          paddingY={{ xs: '2.0rem', sm: '3.0rem' }} 
-        >
-          <Title text='Sowing seeds of' textColor="white" />
-          <Title text='life-long learning' textColor="white" />
-          <Title text='and DIY-spirit' textColor="white" gutterBottom />
-        </Box>
-        {narrowScreen ? <MobileCards /> : <DesktopCards />}
+    <>
+      <LandingPageTitle />
+      {narrowScreen ? <MobileCards /> : <DesktopCards />}
+    </>    
+  )
+}
 
-      </Container>
+function LandingPageTitle() {
+  return (
+    <Box id='title' 
+      display='flex'
+      flexDirection='column'
+      paddingY={{ xs: '2.0rem', sm: '3.0rem' }} 
+    >
+      <Title text='Sowing seeds of' textColor="white" />
+      <Title text='life-long learning' textColor="white" />
+      <Title text='and DIY-spirit' textColor="white" gutterBottom />
     </Box>
   )
 }
@@ -119,8 +92,9 @@ function MobileCards() {
           bgColor={bgColor}
         />
         <PictureCard 
-          title='Teaching Services' 
-          linkTo='services'
+          title='Our Story' 
+          linkType={LinkTypeEnum.HashLink}
+          linkTo='#our-story'
           imageUrl={practicing_math_facts} 
           cardWidth={cardWidth}
           cardHeight={cardHeight}
