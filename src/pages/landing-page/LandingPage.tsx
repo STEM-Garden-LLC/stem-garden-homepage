@@ -56,7 +56,6 @@ function LandingPageTitle() {
     <Box id='title' 
       display='flex'
       flexDirection='column'
-      paddingY={{ xs: '2.0rem', sm: '3.0rem' }} 
     >
       <Title text='Sowing seeds of' textColor="white" />
       <Title text='life-long learning' textColor="white" />

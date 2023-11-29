@@ -41,6 +41,7 @@ export default function LeafyTopSection(props: any) {
           display: 'flex',
           flexDirection: 'column',
           textAlign: 'center',
+          paddingY: '3.0rem'
         }}    
       >
         {children}

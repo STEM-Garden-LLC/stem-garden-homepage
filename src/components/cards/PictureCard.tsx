@@ -30,7 +30,6 @@ export default function PictureCard(props:PictureCardProps) {
     imageUrl, 
     cardWidth, 
     cardHeight,
-    onClick,
     textColor = "",
     bgColor,
     linkTo = "", 
