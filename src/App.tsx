@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom"
 
 // COMPONENTS
 import Navbar from "./components/navigation/Navbar"
-import MainRouter from './MainRouter'
+import MainRouter from './routers/MainRouter'
 
 // MUI
 import theme from "../src/theme"
