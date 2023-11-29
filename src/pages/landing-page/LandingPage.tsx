@@ -18,7 +18,6 @@ import WhatWeGrowSection from './WhatWeGrowSection';
 
 // ASSETS
 import { 
-  leafy_background, 
   practicing_math_facts,
   girls_playing_connect_four, 
   banana_papaya_turmeric_flower, 
