@@ -5,13 +5,13 @@ import { ThreeCircles } from 'react-loader-spinner';
 
 
 // PAGES
-import LandingPage from './pages/landing-page/LandingPage'
+import LandingPage from '../pages/landing-page/LandingPage'
 
-// const ContactPage = lazy(() => import('./pages/ContactPage'))
+const ContactPage = lazy(() => import('../pages/contact-form/ContactForm'))
 
 
 // ABOUT
-const OurStoryPage = lazy(() => import('./pages/OurStoryPage'))
+const OurStoryPage = lazy(() => import('../pages/OurStoryPage'))
 // const WhatWeGrowPage = lazy(() => import('./pages/WhatWeGrowPage'))
 // const GetInvolvedPage = lazy(() => import('./pages/GetInvolvedPage'))
 
@@ -46,6 +46,15 @@ export default function MainRouter() {
         <Route path="/" element={<LandingPage />} />
 
         <Route path="our-story" element={<OurStoryPage />} />
+        <Route path="contact-us" element={<ContactPage />} />
+
+        {/* <Route path="math-games"  >
+          <Route index element={<MathGamesIndexPage />} />
+          <Route path="connect-four" element={<ConnectFourRoot />} />
+          <Route path="tic-tac-toe/*" element={<TicTacToeRoutes />} />
+          <Route path="the-15-game/*" element={<FifteenGameRoutes />} />
+        </Route> */}
+
         {/* <Route path="what-we-grow" element={<WhatWeGrowPage />} />   */}
         {/* <Route path="get-involved" element={<GetInvolvedPage />} /> */}
         {/* <Route path="buy-our-fruit" element={<BuyOurFruitPage />} /> */}
@@ -73,11 +82,9 @@ export default function MainRouter() {
           <Route path="divisibility-playground"  element={<DivisibilityPlaygroundPage />} />
         </Route> */}
 
-        {/*<Route path="people" element={<People />} >
+          {/* <Route path="people" element={<People />} >
           <Route path="nigel" element={<Nigel />} />  
-          <Route path="join" element={<Join />} />
-        </Route>
-        <Route path="contact-us" element={<ContactPage />} /> */}
+          <Route path="join" element={<Join />} /> */}
       </Routes>
     </Suspense>
   );
