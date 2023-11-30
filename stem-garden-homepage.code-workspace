@@ -6,7 +6,9 @@
     ],
     "settings": {
         "cSpell.words": [
-            "Formspree"
+            "Formspree",
+            "fontawesome",
+            "fortawesome"
         ]
     }
 }
