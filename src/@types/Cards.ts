@@ -1,4 +1,6 @@
 
+import { TextColorEnum } from "./TypographyProps";
+
 export enum LinkTypeEnum {
   NotALink = 'NotALink',
   RouterLink = 'RouterLink',
@@ -16,7 +18,7 @@ export interface PictureCardProps {
   linkTo?: string;
   linkType?: LinkTypeEnum;
   onClick?: Function;
-  textColor?: string;
+  textColor?: TextColorEnum;
   bgColor?: string;
 }
 
