@@ -5,6 +5,9 @@ import theme from '../../theme';
 
 import { Link as RouterLink } from "react-router-dom";
 
+// TYPES
+import { LinkTypeEnum } from '../../@types/Cards';
+
 
 // MUI
 import { 
@@ -20,14 +23,144 @@ import {
     Button
 } from "@mui/material"
 
-// ASSETS & LOCAL DATA
+// ASSETS
 import stemGardenLogo from '/sg-logo-transparent-bg.png'
-import { aboutListData, servicesListData, resourcesListData } from './navigationListData';
 
 // ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from '@emotion/react';
+
+import { 
+  // faLeaf,
+  // faPeopleCarry,
+  // faCamera,
+  faSeedling, 
+  faCarrot,
+  faPuzzlePiece,
+  faSchool,
+  // faYinYang,
+  // faQuestion,
+  // faGuitar,
+  // faGamepad,
+  // faHourglass,
+  faEnvelope,
+  // faChalkboardTeacher,
+  // faPersonChalkboard, // not free
+  // faFlask,
+  // faCards,  // not free
+  faDice,
+  faChessKnight,
+  faGraduationCap,
+  // faDisplayCode,  // not free
+  faLaptopCode,
+  faCopy,
+  faDivide,
+  // faCalculator,
+  // faBrain,
+  // faHeadSideBrain  PRO
+  // faFlask,
+  // faScaleBalanced,
+ } from '@fortawesome/free-solid-svg-icons'
+
+
+ const aboutMenu = [
+  {
+    label: "Our Story",
+    icon: faSeedling,
+    linkType: LinkTypeEnum.HashLink,
+    linkTo: "#our-story",
+  },
+  {
+    label: 'What We Grow',
+    icon: faCarrot,
+    linkType: LinkTypeEnum.HashLink,
+    linkTo: "#what-we-grow",
+  },
+  // {
+  //   label: 'Get Involved',
+  //   icon: faPeopleCarry,
+  //   linkTo: "get-involved",
+  // },
+  // {
+  //   label: 'Philosophy',
+  //   icon: faQuestion,
+  //   linkTo: 'philosophy',
+  // },
+]
+
+
+export const servicesMenu = [
+  {
+    label: "Math Tutoring",
+    icon: faGraduationCap,
+    linkType: LinkTypeEnum.RouterLink,
+    linkTo: "services/tutoring",
+  },
+  {
+    label: "Chess Clubs",
+    icon: faChessKnight,
+    linkType: LinkTypeEnum.RouterLink,
+    linkTo: "services/chess-clubs",
+  },
+  {
+    label: 'Test Prep',
+    icon: faGraduationCap,
+    linkType: LinkTypeEnum.RouterLink,
+    linkTo: 'services/test-prep',
+  },
+  {
+    label: "Teacher Training",
+    linkType: LinkTypeEnum.RouterLink,
+    icon: faSchool,
+    linkTo: "services/teacher-training",
+  },
+  {
+    label: "Web Development",
+    icon: faLaptopCode,
+    linkTo: "services/web-development",
+  },
+  // {
+  //   label: 'STEM Enrichment',
+  //   icon: faFlask,
+  //   linkTo: '/services/enrichment',
+  // },
+  {
+    label: "Contact Us",
+    icon: faEnvelope,
+    linkTo: "contact-us",
+  },
+]
+
+
+export const resourcesMenu = [
+  {
+    label: "Math Games",
+    icon: faDice,
+    // icon: faCards
+    linkTo: "resources/math-games",
+  },
+  {
+    label: "Puzzles",
+    icon: faPuzzlePiece,
+    linkTo: "resources/puzzles",
+  },
+  {
+    label: "Fluency Drills",
+    icon: faCopy,  // faHeadSideBrain
+    linkTo: "resources/fluency-drills",
+  },
+  {
+    label: "Lesson Plans",
+    icon: faCopy,
+    linkTo: "resources/lesson-plans",
+  },
+  {
+    label: "Divisibility Playground",
+    icon: faDivide,
+    linkTo: "resources/divisibility-playground",
+  },
+]
 
 
 
@@ -43,13 +176,13 @@ export default function Navbar() {
     )
 }
 
-function Logo(props: {dimentions: number}) {
-    const { dimentions } = props
+function Logo(props: {dimensions: number}) {
+    const { dimensions } = props
     return (
         <RouterLink to='/' >
             <Box sx={{
-                height: dimentions,
-                width: dimentions,
+                height: dimensions,
+                width: dimensions,
                 backgroundImage: `url(${stemGardenLogo})`,
                 backgroundPosition: 'left bottom',
                 backgroundRepeat: 'no-repeat',
@@ -84,7 +217,7 @@ function MobileNavbar() {
         alignItems='center' 
         width="100%" 
       >
-        <Logo dimentions={navbarHeightPx} />
+        <Logo dimensions={navbarHeightPx} />
         <Box 
             sx={{ 
                 paddingTop: 2,
@@ -141,13 +274,13 @@ function MobileMenu() {
           bgcolor={theme.palette.primary.main}
         >
           <Typography variant='h3' children='About' />
-          <MobileMenuList listData={aboutListData}  />
+          <MobileMenuList listData={aboutMenu}  />
 
           <Typography variant='h3' children='Services' />
-          <MobileMenuList listData={servicesListData}  />
+          <MobileMenuList listData={servicesMenu}  />
           
           <Typography variant='h3' children='Resources' />
-          <MobileMenuList listData={resourcesListData}  />
+          <MobileMenuList listData={resourcesMenu}  />
         </Box>
       </Drawer>
     </>
@@ -213,7 +346,7 @@ function DesktopNavbar() {
         flexDirection='row'
         justifyContent='space-between'
       >
-        <Logo dimentions={navbarHeight} />
+        <Logo dimensions={navbarHeight} />
         <Box sx={{ 
             paddingTop: 2,
             textAlign: 'left',
@@ -243,15 +376,15 @@ function DesktopMenus() {
         >
           <DesktopMenuPopover
             name="about"
-            listData={aboutListData}
+            listData={aboutMenu}
           />
           <DesktopMenuPopover
             name="services"
-            listData={servicesListData}
+            listData={servicesMenu}
           />
           <DesktopMenuPopover
             name="resources"
-            listData={resourcesListData}
+            listData={resourcesMenu}
           />
           {/* <ContactPageLink />  */}
         </Box>
