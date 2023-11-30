@@ -8,7 +8,10 @@ import { LinkTypeEnum } from '../../@types/Cards';
 // MUI
 import { Box, Container } from '@mui/material';
 
-// CUSTOM COMPONENTS
+// TYPES
+import { TextColorEnum } from '../../@types/TypographyProps';
+
+// COMPONENTS
 import { Title } from '../../components/typography';
 import { Footer, ScrollToTopButton } from '../../components/navigation';
 import { LeafyBackground, ThemedBackground } from '../../components/backgrounds';
@@ -56,9 +59,9 @@ function LandingPageTitle() {
       display='flex'
       flexDirection='column'
     >
-      <Title text='Sowing seeds of' textColor="white" />
-      <Title text='life-long learning' textColor="white" />
-      <Title text='and DIY-spirit' textColor="white" gutterBottom />
+      <Title text='Sowing seeds of' textColor={TextColorEnum.white} />
+      <Title text='life-long learning' textColor={TextColorEnum.white} />
+      <Title text='and DIY-spirit' textColor={TextColorEnum.white} gutterBottom />
     </Box>
   )
 }
@@ -68,7 +71,7 @@ function MobileCards() {
   const { containerWidth } = useContext(AppContext)
   const cardHeight = `${Math.floor(containerWidth * 0.50)}px`
   const cardWidth = `${Math.floor(containerWidth * 0.40)}px`
-  const textColor = 'white'
+  const textColor = TextColorEnum.white
   const bgColor = '32,32,32'
 
   return (
@@ -132,7 +135,7 @@ function DesktopCards() {
   const { containerWidth } = useContext(AppContext)
   const cardWidth = `${Math.floor(containerWidth / 3 * 0.92)}px`
   const cardHeight = `${Math.floor(containerWidth / 3 * 0.95 * 1.2)}px`
-  const textColor = 'white'
+  const textColor = TextColorEnum.white
   const bgColor = '32,32,32'
 
   return (
