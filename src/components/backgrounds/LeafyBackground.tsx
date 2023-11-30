@@ -8,7 +8,7 @@ import { Box, Container } from '@mui/material';
 // ASSETS
 import { 
   leafy_background, 
-} from '../../assets/landing'
+} from '../../assets/backgrounds'
 
 export default function LeafyTopSection(props: any) {
   const { children } = props
