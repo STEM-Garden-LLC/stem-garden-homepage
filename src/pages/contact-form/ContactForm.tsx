@@ -22,7 +22,7 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 
 // My Components
-import { Subtitle, Heading } from "../../components/typography";
+import { Subtitle } from "../../components/typography";
 import { LeafyBackground } from "../../components/backgrounds";
 
 import bamboo from '../../assets/contact-form/bamboo.jpg'
@@ -85,8 +85,11 @@ function FormspreeContactForm() {
                 <FormControlLabel value="tutor" control={<Radio />} label="Math Tutoring" />
               </Grid>
               <Grid item xs={12} sm={6} >
-                <FormControlLabel value="web-dev" control={<Radio />} label="Build me a Website" />
+                <FormControlLabel value="chess" control={<Radio />} label="Chess Lessons" />
               </Grid>
+              {/* <Grid item xs={12} sm={6} >
+                <FormControlLabel value="web-dev" control={<Radio />} label="Build me a Website" />
+              </Grid> */}
               <Grid item xs={12} sm={6} >
                 <FormControlLabel value="other" control={<Radio />} label="Something Else" />
               </Grid>
