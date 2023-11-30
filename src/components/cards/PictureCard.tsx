@@ -1,42 +1,41 @@
 /// <reference path='../@types/TypographyProps.ts'
 
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
 
-// import { TextColorEnum } from '../@types/TypographyProps.ts';
-import { PictureCardProps } from '../../@types/Cards'
 
 // MUI
 import { Box, Card, CardMedia } from '@mui/material';
-import Carousel from 'react-material-ui-carousel'
-
 
 // Router
 import { Link as RouterLink } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
-import toTitleCase from '../../helpers/toTitleCase';
+// TYPES
+import { TextColorEnum } from '../../@types/TypographyProps';
+import { PictureCardProps } from '../../@types/Cards'
 
-
-// CUSTOM COMPONENTS
+// COMPONENTS
 import { Heading } from '../../components/typography';
+
+// HELPERS
+import toTitleCase from '../../helpers/toTitleCase';
 
 export default function PictureCard(props:PictureCardProps) {
   const { colorTheme } = useContext(AppContext)
-
 
   const { 
     title, 
     imageUrl, 
     cardWidth, 
     cardHeight,
-    textColor = "",
+    textColor = TextColorEnum.white,
     bgColor,
     linkTo = "", 
     linkType = 'RouterLink',  
   } = props
   
-  const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
+  // const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
   const bgColorRGB = bgColor ? bgColor :
     colorTheme === 'dark' ? '40,40,40' : '212,212,212'
   
@@ -75,7 +74,7 @@ export default function PictureCard(props:PictureCardProps) {
             alignItems: 'center'
           }}
         >
-          <Heading text={toTitleCase(title)} textColor={color} />
+          <Heading text={toTitleCase(title)} textColor={textColor} />
         </Box>
       </Card>
     </Box>
