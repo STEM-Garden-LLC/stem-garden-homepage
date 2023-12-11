@@ -3,12 +3,12 @@
 import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
 
-import { LinkTypeEnum } from '../../@types/Cards';
 
 // MUI
 import { Box, Container } from '@mui/material';
 
 // TYPES
+import { LinkTypeEnum } from '../../@types/Links'
 import { TextColorEnum } from '../../@types/TypographyProps';
 
 // COMPONENTS
