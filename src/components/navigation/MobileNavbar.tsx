@@ -15,7 +15,7 @@ import {
 } from "@mui/material"
 
 // MENU STRUCTURE
-import { navigationMenuData as navData} from './navbarData'
+import { navigationMenuData as navData} from '../../data/navbarData'
 
 
 // ICONS

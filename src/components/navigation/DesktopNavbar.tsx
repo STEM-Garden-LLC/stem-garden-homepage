@@ -23,7 +23,7 @@ import {
 } from "@mui/material"
 
 // MENU STRUCTURE
-import { navigationMenuData as navData } from './navbarData'
+import { navigationMenuData as navData } from '../../data/navbarData'
 
 // ASSETS
 import stemGardenLogo from '/sg-logo-transparent-bg.png'

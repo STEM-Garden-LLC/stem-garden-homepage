@@ -33,7 +33,7 @@ import {
  } from '@fortawesome/free-solid-svg-icons'
 
 // TYPES
-import { LinkTypeEnum } from '../../@types/Links';
+import { LinkTypeEnum } from '../@types/Links';
 
 
 
