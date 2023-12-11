@@ -3,6 +3,7 @@ export {default as Title} from './Title';
 export {default as Subtitle} from './Subtitle';
 export {default as Heading} from './Heading';
 export {default as ButtonLabel} from './ButtonLabel';
+export {default as MenuItem} from './MenuItem';
 
 
 // export {default as Section} from './Section';
