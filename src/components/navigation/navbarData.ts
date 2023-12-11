@@ -25,7 +25,7 @@ import {
   faLaptopCode,
   faCopy,
   faDivide,
-  // faCalculator,
+  faCalculator,
   // faBrain,
   // faHeadSideBrain  PRO
   // faFlask,
@@ -36,86 +36,6 @@ import {
 import { LinkTypeEnum } from '../../@types/Links';
 
 
-export const aboutMenu = {
-  sectionName: 'About',
-  items: [
-    {
-      label: "Our Story",
-      icon: faSeedling,
-      linkType: LinkTypeEnum.HashLink,
-      linkTo: "/#our-story",
-    },
-    {
-      label: 'What We Grow',
-      icon: faCarrot,
-      linkType: LinkTypeEnum.HashLink,
-      linkTo: "/#what-we-grow",
-    },
-    // {
-    //   label: 'Get Involved',
-    //   icon: faPeopleCarry,
-    //   linkTo: "get-involved",
-    // },
-  ]
- }
-
-export const servicesMenu = {
-  sectionName: 'Services',
-  items: [
-    {
-      label: "Math Tutoring",
-      icon: faGraduationCap,
-      linkTo: "/services/tutoring",
-    },
-    {
-      label: "Chess Clubs",
-      icon: faChessKnight,
-      linkTo: "/services/chess-clubs",
-    },
-    {
-      label: 'Test Prep',
-      icon: faGraduationCap,
-      linkTo: '/services/test-prep',
-    },
-    // {
-    //   label: "Teacher Training",
-    //   icon: faSchool,
-    //   linkTo: "/services/teacher-training",
-    // },
-    // {
-    //   label: "Web Development",
-    //   icon: faLaptopCode,
-    //   linkTo: "services/web-development",
-    // },
-  ]
-}
-
-
-export const resourcesMenu = {
-  sectionName: 'Resources',
-  items: [
-    {
-      label: "Math Games",
-      icon: faDice,
-      linkTo: "resources/math-games",
-    },
-    {
-      label: "Puzzles",
-      icon: faPuzzlePiece,
-      linkTo: "resources/puzzles",
-    },
-    {
-      label: "Printable Resources",
-      icon: faCopy,  // faHeadSideBrain
-      linkTo: "resources",
-    },
-    // {
-    //   label: "Divisibility Playground",
-    //   icon: faDivide,
-    //   linkTo: "resources/divisibility-playground",
-    // },
-  ]
-}
 
 // UNIFIED OBJECT
 
@@ -128,13 +48,19 @@ export const navigationMenuData = {
           label: "Our Story",
           icon: faSeedling,
           linkType: LinkTypeEnum.HashLink,
-          linkTo: "#our-story",
+          linkTo: "/#our-story",
         },
         {
           label: 'What We Grow',
           icon: faCarrot,
           linkType: LinkTypeEnum.HashLink,
-          linkTo: "#what-we-grow",
+          linkTo: "/#what-we-grow",
+        },
+        {
+          label: 'Contact Us',
+          icon: faEnvelope,
+          linkType: LinkTypeEnum.RouterLink,
+          linkTo: "/contact",
         },
         // {
         //   label: 'Get Involved',
@@ -148,28 +74,28 @@ export const navigationMenuData = {
       items: [
         {
           label: "Math Tutoring",
-          icon: faGraduationCap,
-          linkTo: "services/tutoring",
+          icon:   faCalculator,
+          linkTo: "/tutoring",
         },
         {
-          label: "Chess Clubs",
+          label: "Chess Lessons",
           icon: faChessKnight,
-          linkTo: "services/chess-clubs",
+          linkTo: "/chess",
         },
         {
           label: 'Test Prep',
           icon: faGraduationCap,
-          linkTo: 'services/test-prep',
+          linkTo: '/test-prep',
         },
-        {
-          label: "Teacher Training",
-          icon: faSchool,
-          linkTo: "services/teacher-training",
-        },
+        // {
+        //   label: "Teacher Training",
+        //   icon: faSchool,
+        //   linkTo: "/teacher-training",
+        // },
         // {
         //   label: "Web Development",
         //   icon: faLaptopCode,
-        //   linkTo: "services/web-development",
+        //   linkTo: "/web-development",
         // },
       ]
     },

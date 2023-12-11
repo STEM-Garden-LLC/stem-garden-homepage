@@ -23,7 +23,7 @@ import {
 } from "@mui/material"
 
 // MENU STRUCTURE
-import { aboutMenu, servicesMenu, resourcesMenu, navigationMenuData } from './navbarData'
+import { navigationMenuData as navData } from './navbarData'
 
 // ASSETS
 import stemGardenLogo from '/sg-logo-transparent-bg.png'
@@ -91,6 +91,7 @@ function DesktopCompanyName() {
 }
 
 function DesktopMenus() {
+  const menus = navData.sections
  
   return (
     <Box 
@@ -102,7 +103,16 @@ function DesktopMenus() {
       justifyContent='right'
       alignItems='flex-end'
     >
-      <DesktopMenuPopover
+      {menus.map((section, index) => {
+            return (
+              <DesktopMenuPopover 
+                key={index}
+                sectionName={section.name} 
+                items={section.items} 
+              />
+            )
+          })}
+      {/* <DesktopMenuPopover
         sectionName={aboutMenu.sectionName}
         items={aboutMenu.items}
       />
@@ -113,7 +123,7 @@ function DesktopMenus() {
       <DesktopMenuPopover
         sectionName={resourcesMenu.sectionName}
         items={resourcesMenu.items}
-      />
+      /> */}
     </Box>
   )
 }
