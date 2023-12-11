@@ -32,14 +32,27 @@ export default function ButtonLabel(props: ButtonLabelProps) {
     endIcon,
     iconSize = 'lg',
     iconPadding = 2,
-    align = 'center' 
+    align = 'center',
+    fontWeight = 'bold'
   } = props
 
   const { colorTheme } = useContext(AppContext)
 
   const textColor = (colorTheme === "dark") ? "white" : "black"
-  // const iconSize = 'lg'
 
+  const fontSizes = {
+    xs: '1.2rem',
+    sm: '1.3rem',
+    md: '1.4rem',
+    lg: '1.5rem'
+  }
+
+  const lineHeights = {
+    xs: '1.8rem',
+    sm: '2.0rem',
+    md: '2.1rem',
+    lg: '2.2rem'
+  }
   
   return (
     <>
@@ -58,20 +71,20 @@ export default function ButtonLabel(props: ButtonLabelProps) {
         color={textColor}
         align={align} 
         sx={{
-          fontWeight: 700,
-          fontSize: '1.2rem',
-          lineHeight: '1.8rem',
+          fontWeight: fontWeight,
+          fontSize: fontSizes.xs,
+          lineHeight: lineHeights.xs,
           '@media (min-width: 450px)': {
-            fontSize: '1.3rem',
-            lineHeight: '2.0rem',
+            fontSize: fontSizes.sm,
+            lineHeight: lineHeights.sm,
           },
           '@media (min-width: 600px)': {
-            fontSize: '1.4rem',
-            lineHeight: '2.1rem',
+            fontSize: fontSizes.md,
+            lineHeight: lineHeights.md,
           },
           '@media (min-width: 900px)': {
-            fontSize: '1.5rem',
-            lineHeight: '2.2rem',
+            fontSize: fontSizes.lg,
+            lineHeight: lineHeights.lg, 
           },
         }}
       />
