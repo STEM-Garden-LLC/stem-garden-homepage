@@ -37,9 +37,9 @@ export enum ListItemStyleEnum {
 export type NavigationListItemProps = {
   label: string;
   icon: IconDefinition;
-  style: ListItemStyleEnum;
   linkType?: LinkTypeEnum;
   linkTo: string;
+  style?: ListItemStyleEnum;
 }
 
 export default function Navbar() {
@@ -76,7 +76,7 @@ export function Logo(props: {dimensions: number}) {
 export function NavMenuItem(props: NavigationListItemProps) {
   const { label, icon, style, linkType, linkTo } = props
 
-  const paddingY = style === ListItemStyleEnum.mobile ? 1 : 0
+  const paddingY = style === ListItemStyleEnum.mobile ? 1 : '6px'
   const paddingX = style === ListItemStyleEnum.mobile ? 1 : 0
 
   const contents = (
