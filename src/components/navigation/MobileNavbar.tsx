@@ -1,18 +1,9 @@
-import { useState, useContext } from 'react'
-import { AppContext } from '../../context/AppContext';
-
-import theme from '../../theme';
-
-// ROUTER LINKS
-import { Link as RouterLink } from "react-router-dom";
-import { HashLink } from 'react-router-hash-link';
-
+import { useState } from 'react'
 
 
 // COMPONENTS
-import { Subtitle, Heading } from '../typography';
+import { Subtitle } from '../typography';
 import { Logo, NavMenuItem } from './ResponsiveNavbar'
-
 
 // MUI
 import { 
@@ -20,30 +11,20 @@ import {
     Box, 
     IconButton,
     Drawer,
-    Typography,
     List,
-    ListItem,
-    ListItemText,
-    Menu, 
-    Button
 } from "@mui/material"
 
 // MENU STRUCTURE
-import { aboutMenu, servicesMenu, resourcesMenu, navigationMenuData as navData} from './navbarData'
+import { navigationMenuData as navData} from './navbarData'
 
-// ASSETS
-import stemGardenLogo from '/sg-logo-transparent-bg.png'
 
 // ICONS
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import { IconDefinition, IconLookup, faBars } from '@fortawesome/free-solid-svg-icons'
-import { useTheme } from '@emotion/react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 // TYPES
 import { TextColorEnum } from '../../@types/TypographyProps';
 import { NavigationSectionProps, ListItemStyleEnum } from './ResponsiveNavbar'
-
 
   
 ////////////////////////
