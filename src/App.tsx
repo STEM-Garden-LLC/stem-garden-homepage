@@ -3,7 +3,7 @@ import { AppContextProvider } from "./context/AppContext";
 import { BrowserRouter } from "react-router-dom"
 
 // COMPONENTS
-import Navbar from "./components/navigation/Navbar"
+import Navbar from "./components/navigation/ResponsiveNavbar"
 import MainRouter from './routers/MainRouter'
 
 // MUI
