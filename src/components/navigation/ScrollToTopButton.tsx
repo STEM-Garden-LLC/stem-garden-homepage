@@ -13,7 +13,7 @@ import { ButtonLabel } from "../typography";
 export default function ScrollToTopButton() {
   const scrollPosition = useScrollPosition()
   const { containerWidth, colorTheme } = useContext(AppContext)
-  const bgcolor = colorTheme === 'light' ? 'white' : 'darkGrey'
+  const bgcolor = colorTheme === 'light' ? 'white' : 'black'
 
   const iconSize = containerWidth < 450 ? 'xl' : 
     containerWidth < 600 ? '2x' :
