@@ -28,6 +28,7 @@ interface ButtonLabelProps extends TypographyProps {
 export default function ButtonLabel(props: ButtonLabelProps) {
   const { 
     text, 
+    textColor,
     startIcon,
     endIcon,
     iconSize = 'lg',
@@ -38,7 +39,8 @@ export default function ButtonLabel(props: ButtonLabelProps) {
 
   const { colorTheme } = useContext(AppContext)
 
-  const textColor = (colorTheme === "dark") ? "white" : "black"
+  const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
+
 
   const fontSizes = {
     xs: '1.2rem',
@@ -59,7 +61,7 @@ export default function ButtonLabel(props: ButtonLabelProps) {
       {
         startIcon ? (
           <Box paddingX={iconPadding} >
-            <FontAwesomeIcon icon={startIcon} color={textColor} size={iconSize} />
+            <FontAwesomeIcon icon={startIcon} color={color} size={iconSize} />
           </Box>
         ) : (
           <></>
@@ -68,7 +70,7 @@ export default function ButtonLabel(props: ButtonLabelProps) {
       <Typography 
         noWrap
         children={text}
-        color={textColor}
+        color={color}
         align={align} 
         sx={{
           fontWeight: fontWeight,
@@ -91,7 +93,7 @@ export default function ButtonLabel(props: ButtonLabelProps) {
       {
         endIcon ? (
           <Box paddingX={iconPadding} >
-            <FontAwesomeIcon icon={endIcon} color={textColor} size={iconSize} />
+            <FontAwesomeIcon icon={endIcon} color={color} size={iconSize} />
           </Box>
         ) : (
           <></>
