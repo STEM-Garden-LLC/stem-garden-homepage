@@ -14,6 +14,7 @@ import { HashLink } from 'react-router-hash-link';
 // TYPES
 import { TextColorEnum } from '../../@types/TypographyProps';
 import { PictureCardProps } from '../../@types/Cards'
+import { LinkTypeEnum } from '../../@types/Links'
 
 // COMPONENTS
 import { Heading } from '../../components/typography';
@@ -32,7 +33,7 @@ export default function PictureCard(props:PictureCardProps) {
     textColor = TextColorEnum.white,
     bgColor,
     linkTo = "", 
-    linkType = 'RouterLink',  
+    linkType = LinkTypeEnum.RouterLink,  
   } = props
   
   // const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
