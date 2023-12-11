@@ -1,14 +1,6 @@
 
 import { TextColorEnum } from "./TypographyProps";
-
-export enum LinkTypeEnum {
-  NotALink = 'NotALink',
-  RouterLink = 'RouterLink',
-  HashLink = 'HashLink'
-}
-
-// type LinkTypeEnum = 'RouterLink' | 'HashLink'
-
+import { LinkTypeEnum } from './Links'
 
 export interface PictureCardProps {
   title: string;
