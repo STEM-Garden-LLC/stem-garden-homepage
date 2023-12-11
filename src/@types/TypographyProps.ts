@@ -1,6 +1,7 @@
 export enum TextColorEnum {
     black = 'black',
-    white = 'white'
+    white = 'white',
+    green = '#2e6b12' // green
 }
 
 // interface TypographyProps {
