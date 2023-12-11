@@ -60,7 +60,7 @@ export default function OurStorySection() {
       />
       <ButtonWithIcon 
         text='Volunteer' 
-        href='contact-us' 
+        href='/contact' 
         endIcon={faArrowCircleRight} 
         textColor={textColor} 
       />
