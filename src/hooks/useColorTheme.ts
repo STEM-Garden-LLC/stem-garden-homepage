@@ -4,22 +4,22 @@ import { useState, useEffect } from 'react'
 // I think that the window.innerHeight currently used is counting height I don't actually want. 
 // document.documentElement.clientWidth & document.documentElement.clientHeight
 export default function useColorTheme() {
-    const [colorTheme, setColorTheme] = useState('light')
+    const mediaQueryPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+    );
+
+    const [colorTheme, setColorTheme] = useState(mediaQueryPrefersDark.matches ? 'dark' : 'light')
 
     const updateColorTheme = (event: any) => {
         event.matches ? setColorTheme('dark') : setColorTheme('light');
     }
 
     useEffect(() => {
-        const mediaQueryPrefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        );
-    
         if (mediaQueryPrefersDark.matches) {
             setColorTheme('dark');
         }
 
-        // This callback will fire if the perferred color scheme changes without a reload
+        // This callback will fire if the preferred color scheme changes without a reload
         mediaQueryPrefersDark.addEventListener("changeColorTheme", (event) => updateColorTheme(event))
         
         return () => mediaQueryPrefersDark.removeEventListener('changeColorTheme', updateColorTheme)

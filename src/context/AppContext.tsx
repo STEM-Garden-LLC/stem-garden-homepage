@@ -5,6 +5,8 @@ import { useScreenWidth, useScreenHeight, useColorTheme } from "../hooks"
 
 export const AppContext = createContext({
     colorTheme: "dark",
+    setColorTheme: null,
+
     
     narrowScreen: true,
     navbarStyle: "desktop",
@@ -18,7 +20,9 @@ export const AppContext = createContext({
 
 export const AppContextProvider = (props: any) => {
   // COLOR THEME
-  let colorTheme = useColorTheme()
+  const browserDefaultColorTheme = useColorTheme()
+  const [colorTheme, setColorTheme] = useState(browserDefaultColorTheme)
+  // const [colorTheme, setColorTheme] = useState('dark')
   
 
   // SCREEN LAYOUT
@@ -42,7 +46,7 @@ export const AppContextProvider = (props: any) => {
     narrowScreen,
     
     colorTheme,
-    // setColorTheme,
+    setColorTheme,
 
     navbarStyle,
     navbarHeightPx,
