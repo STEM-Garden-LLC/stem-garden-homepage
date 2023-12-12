@@ -17,6 +17,20 @@ export default function Heading(props: TypographyProps) {
   // Color can be set manually. If unset light/dark mode default is used.
   const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
 
+  const fontSizes = {
+    xs: '1.1rem',
+    sm: '1.4rem',
+    md: '1.7rem',
+    lg: '1.7rem'
+  }
+
+  const lineHeights = {
+    xs: '1.6rem',
+    sm: '2.0rem',
+    md: '2.3rem',
+    lg: '2.3rem'
+  }
+
   return (
     <Typography 
       noWrap
@@ -26,19 +40,19 @@ export default function Heading(props: TypographyProps) {
       p={padding}
       sx={{
         fontWeight: 200,
-        fontSize: '1.0rem',
-        lineHeight: '1.6rem',
+        fontSize: fontSizes.xs,
+        lineHeight: lineHeights.xs,
         '@media (min-width: 450px)': {
-          fontSize: '1.4rem',
-          lineHeight: '2.1rem',
+          fontSize: fontSizes.sm,
+          lineHeight: lineHeights.sm,
         },
         '@media (min-width: 600px)': {
-          fontSize: '1.7rem',
-          lineHeight: '2.1rem',
+          fontSize: fontSizes.md,
+          lineHeight: lineHeights.md,
         },
         '@media (min-width: 900px)': {
-          fontSize: '1.7rem',
-          lineHeight: '1.9rem',
+          fontSize: fontSizes.lg,
+          lineHeight: lineHeights.lg,
         },
       }}
     />
