@@ -6,8 +6,8 @@ import { Container, Box } from '@mui/material';
 
 
 
-import { ThemedBackground } from "../../components/backgrounds";
-import { Title, Subtitle } from '../../components/typography'
+import { ThemedBackground } from "../../../components/backgrounds";
+import { Title, Subtitle } from '../../../components/typography'
 
 // const Welcome = lazy(() => import('./pages/Welcome'))
 // const PlayVsFriend = lazy(() => import('./pages/PlayVsFriend')) 
@@ -15,7 +15,7 @@ import { Title, Subtitle } from '../../components/typography'
 
 // Game Logic
 
-export default function FifteenGameRoutes(props) {
+export default function FifteenGameRoutes() {
   const [outcomeMap, setOutcomeMap] = useState(null)
   
   // useEffect(() => {
@@ -36,7 +36,7 @@ export default function FifteenGameRoutes(props) {
       color='common.white'
     >
       <ThemedBackground>
-        <Title text="Connect Four Root" />
+        <Title text="Fifteen Game" />
       </ThemedBackground>
       <Routes >
         {/* <Route index element={<Welcome />} /> */}
