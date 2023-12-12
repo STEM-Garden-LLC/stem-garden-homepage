@@ -21,9 +21,10 @@ import WhatWeGrowSection from './WhatWeGrowSection';
 
 // ASSETS
 import { 
+  banana_papaya_turmeric_flower, 
+  profile_pic_with_hoe,
   practicing_math_facts,
   girls_playing_connect_four, 
-  banana_papaya_turmeric_flower, 
 } from '../../assets/landing'
 
 export default function LandingPage() {
@@ -96,7 +97,7 @@ function MobileCards() {
           title='Our Story' 
           linkType={LinkTypeEnum.HashLink}
           linkTo='#our-story'
-          imageUrl={practicing_math_facts} 
+          imageUrl={profile_pic_with_hoe} 
           cardWidth={cardWidth}
           cardHeight={cardHeight}
           textColor={textColor}
