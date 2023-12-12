@@ -22,7 +22,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 // TYPES
 import { LinkTypeEnum } from '../../@types/Links';
-import { FontWeightEnum } from '../../@types/TypographyProps';
+import { FontWeightEnum, TextColorEnum } from '../../@types/TypographyProps';
 
 export type NavigationSectionProps = {
   sectionName: string;
@@ -40,6 +40,7 @@ export type NavigationListItemProps = {
   linkType?: LinkTypeEnum;
   linkTo: string;
   style?: ListItemStyleEnum;
+  textColor?: TextColorEnum;
 }
 
 export default function Navbar() {
@@ -74,10 +75,14 @@ export function Logo(props: {dimensions: number}) {
 }
 
 export function NavMenuItem(props: NavigationListItemProps) {
-  const { label, icon, style, linkType, linkTo } = props
+  const { label, icon, textColor, style, linkType, linkTo } = props
+  const { colorTheme } = useContext(AppContext)
+
 
   const paddingY = style === ListItemStyleEnum.mobile ? 1 : '6px'
   const paddingX = style === ListItemStyleEnum.mobile ? 1 : 0
+
+  const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
 
   const contents = (
     <Box display='flex' alignItems='center' >
@@ -88,7 +93,7 @@ export function NavMenuItem(props: NavigationListItemProps) {
           size='lg'
         />
       </Box>
-      <ButtonLabel text={label} fontWeight={FontWeightEnum.normal} />
+      <ButtonLabel text={label} textColor={color} fontWeight={FontWeightEnum.normal} />
     </Box>
   )
 

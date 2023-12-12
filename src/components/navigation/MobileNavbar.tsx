@@ -81,7 +81,7 @@ function MobileMenu() {
     }
     setOpen((prev) => !prev)
   };
-  
+
   return (
     <>
       <IconButton 
@@ -129,7 +129,7 @@ function MobileMenuSection(props: NavigationSectionProps) {
 
     return (
       <>
-        <Subtitle text={sectionName} />
+        <Subtitle text={sectionName} textColor={TextColorEnum.white} />
         <List >
           {items.map((item, index) => {
             return (
@@ -140,6 +140,7 @@ function MobileMenuSection(props: NavigationSectionProps) {
                 linkType={item.linkType}
                 linkTo={item.linkTo}
                 style={ListItemStyleEnum.mobile}
+                textColor={TextColorEnum.white}
               />
             )})}
         </List>
