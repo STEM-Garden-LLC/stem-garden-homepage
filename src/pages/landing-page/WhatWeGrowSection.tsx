@@ -15,11 +15,15 @@ import Carousel from 'react-material-ui-carousel'
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 // CUSTOM COMPONENTS
-import { Title, Heading, Paragraph } from '../../components/typography';
+import { Title, Heading, ButtonLabel, Paragraph } from '../../components/typography';
 import { ButtonWithIcon } from '../../components/navigation'
 
 // ASSETS
 import { crops } from '../../text/landing'
+
+// TYPES
+import { TextColorEnum } from '../../@types/TypographyProps';
+
 
 ////////////////////////
 //    What We Grow    //
@@ -118,12 +122,18 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
     cropSelectorButtonSize
   } = props
 
-  const { colorTheme } = useContext(AppContext)
-  const textColor = (colorTheme === "dark") ? "white" : "black"
+  const { colorTheme, narrowScreen } = useContext(AppContext)
+  const textColor = (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
   const bgColorRGB = (colorTheme === 'dark') ? '40,40,40' : '230,230,220'
 
   const selected = (cropName === selectedCrop)
-  const border = selected ? 'solid yellow 3px' : 'none'
+  const border = selected ? narrowScreen ? 'solid yellow 2px' : 'solid yellow 5px' : 'none'
+
+  const responsiveLabel = narrowScreen ? (
+    <Paragraph text={toTitleCase(cropName)} textColor={textColor} />
+  ) : (
+    <ButtonLabel text={toTitleCase(cropName)} textColor={textColor} />
+  )
 
   const cropData = crops.find(crop => crop.name === cropName)
   const imageUrl = cropData!.imageUrls[0]  // The first image listed is used in the selector
@@ -166,7 +176,11 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
           alignItems: 'center'
         }}
       >
-        <Heading text={toTitleCase(cropName)} textColor={textColor} />
+        {/* <Heading text={toTitleCase(cropName)} textColor={textColor} /> */}
+
+        {/* <ButtonLabel text={toTitleCase(cropName)} textColor={textColor} /> */}
+        {/* <Paragraph text={toTitleCase(cropName)} textColor={textColor} /> */}
+        {responsiveLabel}
       </Box>
     </Card>
   )
