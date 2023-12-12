@@ -31,10 +31,10 @@ const DivisibilityPlaygroundPage = lazy(() => import('../pages/resources/Divisib
 
 
 // // Math Games
-// const MathGamesIndexPage = lazy(() => import('./pages/resources/math-games/MathGamesIndexPage'))
-// const ConnectFourRoot = lazy(() => import('./pages/resources/math-games/connect-four/ConnectFourRoot'))
-// const FifteenGameRoutes = lazy(() => import('./pages/resources/math-games/magic-square-games/fifteen-game/FifteenGameRoutes'))
-// const TicTacToeRoutes = lazy(() => import('./pages/resources/math-games/magic-square-games/tic-tac-toe/TicTacToeRoutes'))
+const GamesIndexPage = lazy(() => import('../pages/games/GamesIndexPage'))
+const ConnectFourRoot = lazy(() => import('../pages/games/connect-four'))
+const FifteenGameRoutes = lazy(() => import('../pages/games/magic-square-games/fifteen-game/FifteenGameRoutes'))
+const TicTacToeRoutes = lazy(() => import('../pages/games/magic-square-games/tic-tac-toe/TicTacToeRoutes'))
 
 const renderLoader = () => <ThreeCircles />
 
@@ -70,12 +70,12 @@ export default function MainRouter() {
 
         {/*  GAMES  */}
 
-        {/* <Route path="math-games"  >
+        <Route path="games"  >
           <Route index element={<GamesIndexPage />} />
           <Route path="connect-four" element={<ConnectFourRoot />} />
           <Route path="tic-tac-toe/*" element={<TicTacToeRoutes />} />
           <Route path="the-15-game/*" element={<FifteenGameRoutes />} />
-        </Route> */}
+        </Route>
 
 
           {/* <Route path="people" element={<People />} >
