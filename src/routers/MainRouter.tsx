@@ -33,8 +33,8 @@ const DivisibilityPlaygroundPage = lazy(() => import('../pages/resources/Divisib
 // // Math Games
 const GamesIndexPage = lazy(() => import('../pages/games/GamesIndexPage'))
 const ConnectFourRoot = lazy(() => import('../pages/games/connect-four'))
-const FifteenGameRoutes = lazy(() => import('../pages/games/magic-square-games/fifteen-game/FifteenGameRoutes'))
-const TicTacToeRoutes = lazy(() => import('../pages/games/magic-square-games/tic-tac-toe/TicTacToeRoutes'))
+const FifteenGameRoutes = lazy(() => import('../pages/games/fifteen-game'))
+const TicTacToeRoutes = lazy(() => import('../pages/games/tic-tac-toe'))
 
 const renderLoader = () => <ThreeCircles />
 
