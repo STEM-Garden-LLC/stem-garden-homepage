@@ -9,7 +9,7 @@ import { HashLink } from 'react-router-hash-link';
 
 
 // COMPONENTS
-import { Subtitle, Heading } from '../typography';
+import { Subtitle, Heading, ButtonLabel } from '../typography';
 import { Logo, NavMenuItem } from './ResponsiveNavbar'
 
 
@@ -35,7 +35,7 @@ import { useTheme } from '@emotion/react';
 
 
 // TYPES
-import { TextColorEnum } from '../../@types/TypographyProps';
+import { FontWeightEnum, TextColorEnum } from '../../@types/TypographyProps';
 import { LinkTypeEnum } from '../../@types/Cards';
 import { NavigationSectionProps, ListItemStyleEnum } from './ResponsiveNavbar'
 
@@ -146,22 +146,28 @@ function DesktopMenuPopover(props: NavigationSectionProps) {
   
     return (
       <>
-        <Button
-          onClick={handleClick}
-          variant="text"
-          sx={{
-            paddingLeft: 8,
-            paddingBottom: '0.5rem',
-            color: "white",
-            textTransform: "none",
-            textAlign: 'center',
-          }}
-          aria-controls={open ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          aria-describedby={id}  
-        >
-            <Typography variant="h5" children={capitalize(sectionName)} />
-        </Button>
+        <Box paddingLeft={8} >
+          <Button
+            onClick={handleClick}
+            variant="text"
+            sx={{
+              paddingBottom: '0.5rem',
+              color: "white",
+              textTransform: "none",
+              textAlign: 'center',
+            }}
+            aria-controls={open ? 'menu-list-grow' : undefined}
+            aria-haspopup="true"
+            aria-describedby={id}  
+          >
+                    
+            <ButtonLabel 
+              text={capitalize(sectionName)} 
+              textColor={TextColorEnum.white} 
+              fontWeight={FontWeightEnum.bold}
+            />
+          </Button>
+        </Box>
         
         <Menu
           id={id}
@@ -193,14 +199,20 @@ function DesktopMenuPopover(props: NavigationSectionProps) {
             items.map((item, index) => {
               const { label, icon, linkType, linkTo } = item
               return (
-                <NavMenuItem 
+                <Box 
                   key={index}
-                  label={label}
-                  icon={icon}
-                  linkType={linkType}
-                  linkTo={linkTo}
-                  style={ListItemStyleEnum.desktop}
-                />
+                  onClick={() => handleClose()} 
+                >
+                  <NavMenuItem 
+                    label={label}
+                    icon={icon}
+                    linkType={linkType}
+                    linkTo={linkTo}
+                    style={ListItemStyleEnum.desktop}
+                    textColor={TextColorEnum.white}
+                  />
+                </Box>
+                
               )
             })
           }
