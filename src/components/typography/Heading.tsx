@@ -10,7 +10,7 @@ import { TypographyProps, TextColorEnum } from '../../@types/TypographyProps';
 import { Typography } from '@mui/material';
 
 export default function Heading(props: TypographyProps) {
-  const { text, textColor, align, gutterBottom } = props
+  const { text, textColor, align, fontWeight, gutterBottom } = props
   const { colorTheme } = useContext(AppContext)
 
   const padding = (gutterBottom) ? "0 0 0.4rem" : "0"
@@ -39,7 +39,7 @@ export default function Heading(props: TypographyProps) {
       align={align} 
       p={padding}
       sx={{
-        fontWeight: 200,
+        fontWeight: fontWeight,
         fontSize: fontSizes.xs,
         lineHeight: lineHeights.xs,
         '@media (min-width: 450px)': {
