@@ -6,12 +6,19 @@ import { Box, Container } from '@mui/material';
 
 export default function ThemedBackground(props: any) {
   const { children } = props
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme, navbarHeightPx } = useContext(AppContext)
 
   const bgColor = colorTheme === 'dark' ? '#222' : '#FFF'
   
   return (
-    <Box sx={{ width: '100vw', backgroundColor: bgColor }} >
+    <Box 
+      sx={{ 
+        width: '100vw', 
+        minHeight: '100vh',
+        paddingTop: `${navbarHeightPx + 48}px`,
+        backgroundColor: bgColor 
+      }} 
+    >
       <Container
         maxWidth='md' 
         sx={{
