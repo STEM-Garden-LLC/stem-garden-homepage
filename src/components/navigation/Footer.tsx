@@ -10,6 +10,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 
+import LightDarkModeToggle from './LightDarkModeToggle'
+
 export default function Footer() {
 
   return (
@@ -32,9 +34,6 @@ export default function Footer() {
           alignItems: 'center'
         }}    
       >
-        <Typography>
-          &copy; 2023 The STEM Garden LLC
-        </Typography>
         <Box display='flex' paddingTop='1rem' >
           <Button
             children='Contact'
@@ -54,7 +53,12 @@ export default function Footer() {
           <a href="https://www.linkedin.com/company/the-stem-garden-llc/" >
             <FontAwesomeIcon icon={faLinkedinIn} size="2x" />
           </a>
+          <Box paddingRight='1rem' />
+          <LightDarkModeToggle />
         </Box>
+        <Typography>
+          &copy; 2023 The STEM Garden LLC
+        </Typography>
     </Container>
     </Box>
   )
