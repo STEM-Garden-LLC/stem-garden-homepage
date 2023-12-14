@@ -36,6 +36,7 @@ export default function LeafyTopSection(props: any) {
   return (
     <Box sx={leafyBackgroundStyles}>
       <Container
+        disableGutters
         maxWidth='md' 
         sx={{
           display: 'flex',
