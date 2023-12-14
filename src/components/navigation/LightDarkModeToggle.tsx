@@ -4,34 +4,34 @@ import "./LightDarkModeToggle.css";
 
 import { Box } from '@mui/material';
 
-import { AppContext } from '../../context/AppContext';
-import { ButtonLabel } from "../typography";
+import { ColorThemeContext } from '../../context/ColorThemeContext';
+
+// TYPES
+import { ColorThemeEnum } from '../../@types/ColorTheme'
 
 export default function LightDarkModeToggle() {
-  const { colorTheme, setColorTheme } = useContext(AppContext)
+  const { colorTheme, setColorTheme } = useContext(ColorThemeContext)
 
-  const toggleColorTheme = () => { colorTheme === 'dark' ? setColorTheme('light') : setColorTheme('dark')}
+  const toggleColorTheme = () => { colorTheme === 'dark' ? setColorTheme(ColorThemeEnum.light) : setColorTheme(ColorThemeEnum.dark)}
   
-  let toggled = (colorTheme === "dark") ? true : false
-  let label = (colorTheme === "dark") ? "Dark Theme" : "Light Theme"
+  let toggled = (colorTheme === ColorThemeEnum.dark) ? true : false
+
+  // console.log(`Color Theme: ${(colorTheme === "dark") ? "Dark Theme" : "Light Theme"}`)
 
   return (
-    // <Box width='100%' display='flex' flexDirection='row' justifyContent='start' alignItems='center' >
-      <Box width='50px' >
-        <div onClick={toggleColorTheme} className={`toggle${toggled ? " night" : ""}`}>
-          <div className="notch">
-              <div className="crater" />
-              <div className="crater" />
-          </div>
-          <div>
-              <div className="shape sm" />
-              <div className="shape sm" />
-              <div className="shape md" />
-              <div className="shape lg" />
-          </div>
+    <Box width='50px' >
+      <div onClick={toggleColorTheme} className={`toggle${toggled ? " night" : ""}`}>
+        <div className="notch">
+          <div className="crater" />
+          <div className="crater" />
         </div>
-      </Box>
-      // {/* <ButtonLabel text={label} /> */}
-    // </Box>
+        <div>
+          <div className="shape sm" />
+          <div className="shape sm" />
+          <div className="shape md" />
+          <div className="shape lg" />
+        </div>
+      </div>
+    </Box>
   );
 }
