@@ -2,6 +2,7 @@
 
 import { useState, useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
+import { ColorThemeContext } from '../../context/ColorThemeContext';
 
 import toTitleCase from '../../helpers/toTitleCase';
 
@@ -23,6 +24,7 @@ import { crops } from '../../text/landing'
 
 // TYPES
 import { TextColorEnum } from '../../@types/TypographyProps';
+import { ColorThemeEnum } from '../../@types/ColorTheme';
 
 
 ////////////////////////
@@ -122,9 +124,10 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
     cropSelectorButtonSize
   } = props
 
-  const { colorTheme, narrowScreen } = useContext(AppContext)
   const textColor = (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
   const bgColorRGB = (colorTheme === 'dark') ? '40,40,40' : '230,230,220'
+  const { narrowScreen } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
   const selected = (cropName === selectedCrop)
   const border = selected ? narrowScreen ? 'solid yellow 2px' : 'solid yellow 5px' : 'none'

@@ -1,7 +1,7 @@
 /// <reference path='../@types/TypographyProps.ts'
 
 import { useContext } from 'react'
-import { AppContext } from '../../context/AppContext';
+import { ColorThemeContext } from '../../context/ColorThemeContext';
 
 
 // MUI
@@ -23,7 +23,7 @@ import { Heading } from '../../components/typography';
 import toTitleCase from '../../helpers/toTitleCase';
 
 export default function PictureCard(props:PictureCardProps) {
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
   const { 
     title, 

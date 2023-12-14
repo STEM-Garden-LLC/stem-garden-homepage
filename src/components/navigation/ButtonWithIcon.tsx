@@ -8,7 +8,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 // CUSTOM COMPONENTS
 import { ButtonLabel } from '../typography';
 import { useContext } from 'react';
-import { AppContext } from '../../context/AppContext';
+import { ColorThemeContext } from '../../context/ColorThemeContext';
 
 type ButtonWithIconProps = {
   text: string;
@@ -23,7 +23,7 @@ type ButtonWithIconProps = {
 
 export default function ButtonWithIcon(props: ButtonWithIconProps) {
   const { text, href, startIcon, endIcon } = props
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
   const textColor = colorTheme === 'light' ? 'darkGrey' : 'white'
 
