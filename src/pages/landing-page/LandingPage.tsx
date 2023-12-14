@@ -1,8 +1,5 @@
-/// <reference path='../@types/TypographyProps.ts'
-
 import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
-
 
 // MUI
 import { Box, Container } from '@mui/material';
@@ -26,6 +23,9 @@ import {
   practicing_math_facts,
   girls_playing_connect_four, 
 } from '../../assets/landing'
+
+// Routes
+import { navData } from '../../data/navigationData'
 
 export default function LandingPage() {
   return (
@@ -75,6 +75,10 @@ function MobileCards() {
   const textColor = TextColorEnum.white
   const bgColor = '32,32,32'
 
+  const whatWeGrow = navData.find(item => item.label === "What We Grow")
+  const ourStory = navData.find(item => item.label === "Our Story")
+  const mathGames = navData.find(item => item.label === "Math Games")
+
   return (
     <>
       <Box 
@@ -84,9 +88,9 @@ function MobileCards() {
         paddingBottom={2}
       > 
         <PictureCard 
-          title='What We Grow' 
+          title={whatWeGrow!.label} 
           linkType={LinkTypeEnum.HashLink}
-          linkTo='#what-we-grow'
+          linkTo={whatWeGrow!.linkTo}
           imageUrl={banana_papaya_turmeric_flower} 
           cardWidth={cardWidth}
           cardHeight={cardHeight}
@@ -94,9 +98,9 @@ function MobileCards() {
           bgColor={bgColor}
         />
         <PictureCard 
-          title='Our Story' 
-          linkType={LinkTypeEnum.HashLink}
-          linkTo='#our-story'
+          title={ourStory!.label}
+          linkType={ourStory!.linkType}
+          linkTo={ourStory!.linkTo}
           imageUrl={profile_pic_with_hoe} 
           cardWidth={cardWidth}
           cardHeight={cardHeight}
@@ -106,12 +110,12 @@ function MobileCards() {
       </Box>
       <Box 
         display='flex' 
-        justifyContent='space-evenly'
+        justifyContent='space-around'
         alignItems='stretch'
       > 
         <PictureCard 
-          title='Teaching Services' 
-          linkTo='services'
+          title='Teaching Services'   // Different from label used in navbar menus
+          linkTo='services'           // Not a linkTo declared in navbar menus
           imageUrl={practicing_math_facts} 
           cardWidth={cardWidth}
           cardHeight={cardHeight}
@@ -119,8 +123,8 @@ function MobileCards() {
           bgColor={bgColor}
         />
         <PictureCard 
-          title='Math Games' 
-          linkTo='resources/math-games'
+          title={mathGames!.label} 
+          linkTo={mathGames!.linkTo}
           imageUrl={girls_playing_connect_four} 
           cardWidth={cardWidth}
           cardHeight={cardHeight}
@@ -134,8 +138,8 @@ function MobileCards() {
 
 function DesktopCards() {
   const { containerWidth } = useContext(AppContext)
-  const cardWidth = `${Math.floor(containerWidth / 3 * 0.92)}px`
-  const cardHeight = `${Math.floor(containerWidth / 3 * 0.95 * 1.2)}px`
+  const cardWidth = `${Math.floor(containerWidth / 3 * 0.9)}px`
+  const cardHeight = `${Math.floor(containerWidth / 3 * 0.9 * 1.2)}px`
   const textColor = TextColorEnum.white
   const bgColor = '32,32,32'
 
