@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
+import { ColorThemeContext } from '../../context/ColorThemeContext';
 
 // ROUTER LINKS
 import { Link as RouterLink } from "react-router-dom";
@@ -23,6 +24,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 // TYPES
 import { LinkTypeEnum } from '../../@types/Links';
 import { FontWeightEnum, TextColorEnum } from '../../@types/TypographyProps';
+import { ColorThemeEnum } from '../../@types/ColorTheme';
 
 export type NavigationSectionProps = {
   sectionName: string;
@@ -76,13 +78,13 @@ export function Logo(props: {dimensions: number}) {
 
 export function NavMenuItem(props: NavigationListItemProps) {
   const { label, icon, textColor, style, linkType, linkTo } = props
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
 
   const paddingY = style === ListItemStyleEnum.mobile ? 1 : '6px'
   const paddingX = style === ListItemStyleEnum.mobile ? 1 : 0
 
-  const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
+  const color = textColor ? textColor : (colorTheme === ColorThemeEnum.dark) ? TextColorEnum.white : TextColorEnum.black
 
   const contents = (
     <Box display='flex' alignItems='center' >

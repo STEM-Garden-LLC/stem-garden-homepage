@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Typography } from '@mui/material';
 
-import { AppContext } from "../../context/AppContext";
+import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 // TYPES
 import { TypographyProps, TextColorEnum } from '../../@types/TypographyProps';
@@ -9,7 +9,7 @@ import { TypographyProps, TextColorEnum } from '../../@types/TypographyProps';
 
 export default function Paragraph(props: TypographyProps) {
   const { text, textColor } = props
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
   // const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
   const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black

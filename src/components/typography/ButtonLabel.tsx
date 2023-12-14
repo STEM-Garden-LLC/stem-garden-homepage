@@ -1,6 +1,6 @@
 // CONTEXT
 import { useContext } from 'react'
-import { AppContext } from "../../context/AppContext";
+import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 // TYPES
 import { TextColorEnum, TypographyProps } from '../../@types/TypographyProps';
@@ -37,7 +37,7 @@ export default function ButtonLabel(props: ButtonLabelProps) {
     fontWeight = 'bold'
   } = props
 
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
   const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
 

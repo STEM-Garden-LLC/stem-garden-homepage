@@ -1,7 +1,7 @@
 
 // CONTEXT
 import { useContext } from 'react'
-import { AppContext } from "../../context/AppContext";
+import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 // TYPES
 import { TypographyProps, TextColorEnum } from '../../@types/TypographyProps';
@@ -11,7 +11,7 @@ import { Typography } from '@mui/material';
 
 export default function Heading(props: TypographyProps) {
   const { text, textColor, align, fontWeight, gutterBottom } = props
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
   const padding = (gutterBottom) ? "0 0 0.4rem" : "0"
   // Color can be set manually. If unset light/dark mode default is used.

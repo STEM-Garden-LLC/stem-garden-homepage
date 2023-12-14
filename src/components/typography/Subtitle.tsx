@@ -6,11 +6,11 @@ import { TypographyProps} from '../../@types/TypographyProps';
 // MUI
 import { Typography } from '@mui/material';
 
-import { AppContext } from "../../context/AppContext";
+import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 export default function Subtitle(props: TypographyProps) {
   const { text, textColor, align, gutterBottom } = props
-  const { colorTheme } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
 
   const padding = (gutterBottom) ? "0 0 0.5rem" : "0"
   const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"

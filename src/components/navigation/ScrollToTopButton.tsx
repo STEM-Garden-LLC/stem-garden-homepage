@@ -1,6 +1,12 @@
 // CONTEXT
 import { useContext } from 'react'
 import { AppContext } from "../../context/AppContext";
+import { ColorThemeContext } from "../../context/ColorThemeContext";
+
+// TYPES
+import { TextColorEnum } from "../../@types/TypographyProps";
+import { ColorThemeEnum } from "../../@types/ColorTheme";
+
 
 import { HashLink } from 'react-router-hash-link';
 import { Box, Fade, Tooltip } from '@mui/material';
@@ -12,8 +18,9 @@ import { ButtonLabel } from "../typography";
 
 export default function ScrollToTopButton() {
   const scrollPosition = useScrollPosition()
-  const { containerWidth, colorTheme } = useContext(AppContext)
-  const bgcolor = colorTheme === 'light' ? 'white' : 'black'
+  const { containerWidth } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
+  const bgcolor = colorTheme === ColorThemeEnum.light ? TextColorEnum.white : TextColorEnum.black
 
   const iconSize = containerWidth < 450 ? 'xl' : 
     containerWidth < 600 ? '2x' :
