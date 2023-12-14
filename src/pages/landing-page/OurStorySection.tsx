@@ -1,26 +1,16 @@
-/// <reference path='../@types/TypographyProps.ts'
-
 ////////////////////////
 //     Our Story      //
 ////////////////////////
 
 // A summary with buttons linking to the more complete "OurStoryPage"
 
-import { useContext } from 'react'
-import { AppContext } from '../../context/AppContext';
-
-// import { TextColorEnum } from '../@types/TypographyProps.ts';
-
-
 // MUI
-import { Box, Container } from '@mui/material';
-
+import { Box } from '@mui/material';
 
 // Router
 
 // Font Awesome
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
-
 
 // CUSTOM COMPONENTS
 import { Title, Paragraph } from '../../components/typography';
@@ -38,10 +28,9 @@ import {
   solar_panels_on_classroom,
 } from '../../assets/our-story'
 
-
 export default function OurStorySection() {
   return (
-    <Box id='our-story' paddingY={{ xs: '4.0rem', sm: '6.0rem' }} >
+    <Box id='our-story' paddingTop={{ xs: '4.0rem', sm: '6.0rem' }} >
       <Title text='Our Story' gutterBottom />
       <Paragraph text={our_story_paragraphs[0]} />
       <PictureRow imgUrls={[trash_in_dirt, toolshed]} />
