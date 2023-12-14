@@ -1,16 +1,17 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Container, Grid, Card, CardMedia, Typography, Button, Stack } from '@mui/material';
 
-import { Background } from "../../../components/backgrounds";
-import { PageHeader } from "../../../components/text";
+import { ThemedBackground } from '@components/backgrounds';
+import { Heading } from "@components/typography";
 
-// Images 
+// IMAGES
 import { 
   connect_four_screenshot,
   tic_tac_toe_screenshot,
   fifteen_game_screenshot,
-  under_construction,
-} from "../../../cloudinaryURLs"
+  under_construction
+} from '../../assets/math-games'
+// } from '@assets/math-games' // Not Working
 
 const connect_four_description = "The classic game with a twist. Each time you select a column to drop a chip in you will be presented with a math question. Answer it correctly or your turn will be skipped!"
 const tic_tac_toe_description = "Play the most underestimated strategy game of all time with a coach that will help you see its true depth. Tic Tac Toe serves as a wonderful tool for introducing kids to mathematical proof, tree diagrams, symmetry, and counting techniqes. "
@@ -59,13 +60,13 @@ const mathGamesCardData = [
  
 ]
 
-export default function MathGamesIndexPage() {
+export default function GamesIndexPage() {
   
   return (
-    <Background>
+    <ThemedBackground>
       <Container maxWidth="md" >
-        <PageHeader 
-          title="Math Games"
+        <Heading 
+          Text="Math Games"
           subtitle="These games have something to offer students at all levels! Some aim to make practicing foundation facts a little more fun. Others have built in lessons on binary numbers, probability, combinatorics, and proof."
         />
         <Grid container spacing={2} >
@@ -80,7 +81,7 @@ export default function MathGamesIndexPage() {
           }
         </Grid>
       </Container>
-    </Background>
+    </ThemedBackground>
   )
 }
 
