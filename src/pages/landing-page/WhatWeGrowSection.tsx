@@ -124,10 +124,10 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
     cropSelectorButtonSize
   } = props
 
-  const textColor = (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
-  const bgColorRGB = (colorTheme === 'dark') ? '40,40,40' : '230,230,220'
   const { narrowScreen } = useContext(AppContext)
   const { colorTheme } = useContext(ColorThemeContext)
+  const textColor = (colorTheme === ColorThemeEnum.dark) ? TextColorEnum.white : TextColorEnum.black
+  const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? '60,60,60' : '230,230,220'
 
   const selected = (cropName === selectedCrop)
   const border = selected ? narrowScreen ? 'solid yellow 2px' : 'solid yellow 5px' : 'none'
