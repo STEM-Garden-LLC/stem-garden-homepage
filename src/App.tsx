@@ -1,4 +1,5 @@
 import { AppContextProvider } from "./context/AppContext";
+import { ColorThemeContextProvider } from "./context/ColorThemeContext";
 
 import { BrowserRouter } from "react-router-dom"
 
@@ -13,17 +14,18 @@ import { ThemeProvider } from '@mui/material';
 export default function App() {
   return (
     <> 
-      <AppContextProvider >
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
+      <AppContextProvider>
+        <ColorThemeContextProvider>
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
 
-            <Navbar />
+              <Navbar />
 
-            <MainRouter />
+              <MainRouter />
 
-
-            </BrowserRouter>
-        </ThemeProvider>
+              </BrowserRouter>
+          </ThemeProvider>
+        </ColorThemeContextProvider>
       </AppContextProvider>
     </>
   )
