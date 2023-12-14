@@ -8,7 +8,7 @@ export default function ResourcesIndexPage() {
   
   return (
     <ThemedBackground>
-      <Title text="Resources" />
+      <Title text="Resources" gutterBottom />
       <Subtitle text="test" />
     </ThemedBackground>
   )
