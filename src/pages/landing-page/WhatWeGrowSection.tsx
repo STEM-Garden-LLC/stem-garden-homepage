@@ -36,7 +36,7 @@ export default function WhatWeGrowSection() {
   const [selectedCrop, setSelectedCrop] = useState("none_selected")
 
   return (
-    <Box id='what-we-grow' paddingBottom={{ xs: '4.0rem', sm: '6.0rem' }} >
+    <Box id='what-we-grow' paddingY={{ xs: '4.0rem', sm: '6.0rem' }} >
       <Title text='What We Grow' gutterBottom />
       <CropSelector
         selectedCrop={selectedCrop}
@@ -50,11 +50,12 @@ export default function WhatWeGrowSection() {
         href='contact-us'
         endIcon={faArrowCircleRight}
       />
-      <ButtonWithIcon
+      {/* TODO */}
+      {/* <ButtonWithIcon
         text='Distribution Partners'
         href='partners'
         endIcon={faArrowCircleRight}
-      />
+      /> */}
     </Box>
   )
 }
