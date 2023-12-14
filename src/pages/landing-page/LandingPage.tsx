@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
 
 // MUI
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 
 // TYPES
 import { LinkTypeEnum } from '../../@types/Links'
@@ -44,12 +44,10 @@ export default function LandingPage() {
 }
 
 function TopSection() {
-  const { narrowScreen } = useContext(AppContext)
-  
   return (
     <>
       <LandingPageTitle />
-      {narrowScreen ? <MobileCards /> : <DesktopCards />}
+      <ResponsiveCards />
     </>    
   )
 }
@@ -66,12 +64,18 @@ function LandingPageTitle() {
     </Box>
   )
 }
+  
+function ResponsiveCards() {
+  const { narrowScreen, containerWidth } = useContext(AppContext)
 
+  const cardWidth =  narrowScreen ? 
+  `${Math.floor(containerWidth * 0.40)}px` :
+  `${Math.floor(containerWidth / 3 * 0.9)}px`
 
-function MobileCards() {
-  const { containerWidth } = useContext(AppContext)
-  const cardHeight = `${Math.floor(containerWidth * 0.50)}px`
-  const cardWidth = `${Math.floor(containerWidth * 0.40)}px`
+  const cardHeight = narrowScreen ? 
+  `${Math.floor(containerWidth * 0.50)}px` :
+  `${Math.floor(containerWidth / 3 * 0.9 * 1.2)}px`
+
   const textColor = TextColorEnum.white
   const bgColor = '32,32,32'
 
@@ -79,7 +83,59 @@ function MobileCards() {
   const ourStory = navData.find(item => item.label === "Our Story")
   const mathGames = navData.find(item => item.label === "Math Games")
 
-  return (
+  const whatWeGrowCard = (
+    <PictureCard 
+      title={whatWeGrow!.label} 
+      linkTo={whatWeGrow!.linkTo}
+      linkType={LinkTypeEnum.HashLink}
+      imageUrl={banana_papaya_turmeric_flower} 
+      cardWidth={cardWidth}
+      cardHeight={cardHeight}
+      textColor={textColor}
+      bgColor={bgColor}
+    />
+  )
+
+  const ourStoryCard = (
+    <PictureCard 
+      title={ourStory!.label} 
+      linkTo={ourStory!.linkTo}
+      linkType={LinkTypeEnum.HashLink}
+      imageUrl={profile_pic_with_hoe} 
+      cardWidth={cardWidth}
+      cardHeight={cardHeight}
+      textColor={textColor}
+      bgColor={bgColor}
+    />
+  )
+
+  const teachingServicesCard = (
+    <PictureCard 
+      title='Teaching Services'   // Different from label used in navbar menus
+      linkTo='services'           // Not a linkTo declared in navbar menus
+      linkType={LinkTypeEnum.RouterLink}
+      imageUrl={practicing_math_facts} 
+      cardWidth={cardWidth}
+      cardHeight={cardHeight}
+      textColor={textColor}
+      bgColor={bgColor}
+    />
+  )
+  
+  const mathGamesCard = (
+    <PictureCard 
+      title={mathGames!.label} 
+      linkTo={mathGames!.linkTo}
+      linkType={LinkTypeEnum.RouterLink}
+      imageUrl={girls_playing_connect_four} 
+      cardWidth={cardWidth}
+      cardHeight={cardHeight}
+      textColor={textColor}
+      bgColor={bgColor}
+    />
+  )
+  
+  const mobileCards = (
     <>
       <Box 
         display='flex' 
@@ -87,99 +143,32 @@ function MobileCards() {
         alignItems='stretch'
         paddingBottom={2}
       > 
-        <PictureCard 
-          title={whatWeGrow!.label} 
-          linkType={LinkTypeEnum.HashLink}
-          linkTo={whatWeGrow!.linkTo}
-          imageUrl={banana_papaya_turmeric_flower} 
-          cardWidth={cardWidth}
-          cardHeight={cardHeight}
-          textColor={textColor}
-          bgColor={bgColor}
-        />
-        <PictureCard 
-          title={ourStory!.label}
-          linkType={ourStory!.linkType}
-          linkTo={ourStory!.linkTo}
-          imageUrl={profile_pic_with_hoe} 
-          cardWidth={cardWidth}
-          cardHeight={cardHeight}
-          textColor={textColor}
-          bgColor={bgColor}
-        />
+        { whatWeGrowCard }
+        { ourStoryCard }
       </Box>
       <Box 
         display='flex' 
         justifyContent='space-around'
         alignItems='stretch'
       > 
-        <PictureCard 
-          title='Teaching Services'   // Different from label used in navbar menus
-          linkTo='services'           // Not a linkTo declared in navbar menus
-          imageUrl={practicing_math_facts} 
-          cardWidth={cardWidth}
-          cardHeight={cardHeight}
-          textColor={textColor}
-          bgColor={bgColor}
-        />
-        <PictureCard 
-          title={mathGames!.label} 
-          linkTo={mathGames!.linkTo}
-          imageUrl={girls_playing_connect_four} 
-          cardWidth={cardWidth}
-          cardHeight={cardHeight}
-          textColor={textColor}
-          bgColor={bgColor}
-        />
+        { teachingServicesCard }
+        { mathGamesCard }
       </Box>
     </>
   )
-} 
 
-function DesktopCards() {
-  const { containerWidth } = useContext(AppContext)
-  const cardWidth = `${Math.floor(containerWidth / 3 * 0.9)}px`
-  const cardHeight = `${Math.floor(containerWidth / 3 * 0.9 * 1.2)}px`
-  const textColor = TextColorEnum.white
-  const bgColor = '32,32,32'
-
-  return (
+  const desktopCards = (
     <Box 
       width={containerWidth}
       display='flex' 
       justifyContent='space-between'
       alignItems='stretch'
     > 
-      <PictureCard 
-        title='What We Grow' 
-        linkType={LinkTypeEnum.HashLink}
-        linkTo='#what-we-grow'
-        imageUrl={banana_papaya_turmeric_flower} 
-        cardWidth={cardWidth}
-        cardHeight={cardHeight}
-        textColor={textColor}
-        bgColor={bgColor}
-      />
-      <PictureCard 
-        title='Teaching Services' 
-        linkTo='services'
-        imageUrl={practicing_math_facts} 
-        cardWidth={cardWidth}
-        cardHeight={cardHeight}
-        textColor={textColor}
-        bgColor={bgColor}
-      />
-      <PictureCard 
-        title='Math Games' 
-        linkTo='resources/math-games' 
-        imageUrl={girls_playing_connect_four} 
-        cardWidth={cardWidth}
-        cardHeight={cardHeight}
-        textColor={textColor}
-        bgColor={bgColor}
-      />
+      { whatWeGrowCard }
+      { ourStoryCard }
+      { mathGamesCard }
     </Box>
   )
-}
 
-
+  return narrowScreen ? mobileCards : desktopCards
+} 
