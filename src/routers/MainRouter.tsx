@@ -25,7 +25,7 @@ const TestPrepPage = lazy(() => import('../pages/services/TestPrepPage'))
 // // RESOURCES
 const ResourcesIndexPage = lazy(() => import('../pages/resources/ResourcesIndexPage'))
 const PuzzlesPage = lazy(() => import('../pages/resources/PuzzlesPage'))
-const FluencyDrills = lazy(() => import('../pages/resources/FluencyDrillsPage'))
+const FluencyDrillsPage = lazy(() => import('../pages/resources/FluencyDrillsPage'))
 const LessonPlansPage = lazy(() => import('../pages/resources/LessonPlansPage'))
 const DivisibilityPlaygroundPage = lazy(() => import('../pages/resources/DivisibilityPlayground'))
 
@@ -63,15 +63,15 @@ export default function MainRouter() {
 
         <Route path="resources" element={<ResourcesIndexPage />} >
           <Route path="puzzles" element={<PuzzlesPage />} />
-          <Route path="fluency-drills"  element={<FluencyDrills />} />
+          <Route path="fluency-drills"  element={<FluencyDrillsPage />} />
           <Route path="lesson-plans"  element={<LessonPlansPage />} />
           <Route path="divisibility-playground"  element={<DivisibilityPlaygroundPage />} />
         </Route>
 
         {/*  GAMES  */}
 
-        <Route path="games"  >
-          <Route index element={<GamesIndexPage />} />
+        <Route path="games" element={<GamesIndexPage />} >
+          {/* <Route index element={<GamesIndexPage />} /> */}
           <Route path="connect-four" element={<ConnectFourRoot />} />
           <Route path="tic-tac-toe/*" element={<TicTacToeRoutes />} />
           <Route path="the-15-game/*" element={<FifteenGameRoutes />} />
