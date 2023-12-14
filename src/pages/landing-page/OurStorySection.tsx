@@ -40,9 +40,6 @@ import {
 
 
 export default function OurStorySection() {
-  const { colorTheme } = useContext(AppContext)
-  const textColor = (colorTheme === "dark") ? "white" : "black"
-
   return (
     <Box id='our-story' paddingY={{ xs: '4.0rem', sm: '6.0rem' }} >
       <Title text='Our Story' gutterBottom />
@@ -56,13 +53,11 @@ export default function OurStorySection() {
         text='Read more' 
         href='our-story' 
         endIcon={faArrowCircleRight} 
-        textColor={textColor} 
       />
       <ButtonWithIcon 
         text='Volunteer' 
         href='/contact' 
         endIcon={faArrowCircleRight} 
-        textColor={textColor} 
       />
     </Box>
   )
