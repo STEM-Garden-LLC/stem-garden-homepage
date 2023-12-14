@@ -191,7 +191,7 @@ export const navData = [
     section: "Resources",
     label: 'Math Games',
     icon: faDice,
-    linkTo: 'resources/math-games',
+    linkTo: '/games',
   },
   {
     section: "Resources",
