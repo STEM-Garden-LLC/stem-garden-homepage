@@ -2,44 +2,24 @@ import { useState } from 'react'
 
 import theme from '../../theme';
 
-// ROUTER LINKS
-import { Link as RouterLink } from "react-router-dom";
-import { HashLink } from 'react-router-hash-link';
-
-
-
 // COMPONENTS
-import { Subtitle, Heading, ButtonLabel } from '../typography';
+import { ButtonLabel } from '../typography';
 import { Logo, NavMenuItem } from './ResponsiveNavbar'
-
 
 // MUI
 import { 
     AppBar,
     Box, 
-    Typography,
     Menu, 
     Button
 } from "@mui/material"
 
 // MENU STRUCTURE
-import { navigationMenuData as navData } from '../../data/navbarData'
-
-// ASSETS
-import stemGardenLogo from '/sg-logo-transparent-bg.png'
-
-// ICONS
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import { IconDefinition, IconLookup, faBars } from '@fortawesome/free-solid-svg-icons'
-import { useTheme } from '@emotion/react';
-
+import { navData } from '../../data/navigationData'
 
 // TYPES
 import { FontWeightEnum, TextColorEnum } from '../../@types/TypographyProps';
-import { LinkTypeEnum } from '../../@types/Cards';
 import { NavigationSectionProps, ListItemStyleEnum } from './ResponsiveNavbar'
-
-
 
 
 /////////////////////////
@@ -91,8 +71,8 @@ function DesktopCompanyName() {
 }
 
 function DesktopMenus() {
-  const menus = navData.sections
- 
+  const sections = ['About', 'Services', 'Resources']
+
   return (
     <Box 
       flexGrow='1' 
@@ -103,33 +83,24 @@ function DesktopMenus() {
       justifyContent='right'
       alignItems='flex-end'
     >
-      {menus.map((section, index) => {
-            return (
-              <DesktopMenuPopover 
-                key={index}
-                sectionName={section.name} 
-                items={section.items} 
-              />
-            )
-          })}
-      {/* <DesktopMenuPopover
-        sectionName={aboutMenu.sectionName}
-        items={aboutMenu.items}
-      />
-      <DesktopMenuPopover
-        sectionName={servicesMenu.sectionName}
-        items={servicesMenu.items}
-      />
-      <DesktopMenuPopover
-        sectionName={resourcesMenu.sectionName}
-        items={resourcesMenu.items}
-      /> */}
+      {sections.map((section, index) => {
+        return (
+          <DesktopMenuPopover 
+            key={index}
+            sectionName={section} 
+          />
+        )
+      })}
     </Box>
   )
 }
 
 function DesktopMenuPopover(props: NavigationSectionProps) {
-    let { sectionName, items } = props
+    let { sectionName } = props
+
+    const sectionData = navData.filter(items => sectionName === items.section)
+    // console.log(`Section Data: ${JSON.stringify(sectionData, null, 4)}`)
+    
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const id = open ? `${name} popover` : undefined;
@@ -196,7 +167,7 @@ function DesktopMenuPopover(props: NavigationSectionProps) {
           }}
         >
           {
-            items.map((item, index) => {
+            sectionData.map((item, index) => {
               const { label, icon, linkType, linkTo } = item
               return (
                 <Box 

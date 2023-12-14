@@ -28,7 +28,7 @@ import { ColorThemeEnum } from '../../@types/ColorTheme';
 
 export type NavigationSectionProps = {
   sectionName: string;
-  items: NavigationListItemProps[];
+  // items: NavigationListItemProps[];
 }
 
 export enum ListItemStyleEnum {

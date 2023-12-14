@@ -12,10 +12,10 @@ import {
     IconButton,
     Drawer,
     List,
-} from "@mui/material"
+} from '@mui/material'
 
 // MENU STRUCTURE
-import { navigationMenuData as navData} from '../../data/navbarData'
+import { navData } from '../../data/navigationData'
 
 
 // ICONS
@@ -43,8 +43,8 @@ export function MobileNavbar() {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: "primary.main", 
-        color: "white",
+        backgroundColor: 'primary.main', 
+        color: 'white',
       }}
     >
       <Logo dimensions={navbarHeightPx} />
@@ -73,7 +73,7 @@ function MobileCompanyName() {
 function MobileMenu() {
   const [open, setOpen] = useState(false)
 
-  const sections = navData.sections
+  const sections = ['About', 'Services', 'Resources']
 
   const toggleDrawer = (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -86,8 +86,8 @@ function MobileMenu() {
     <>
       <IconButton 
         onClick={() => setOpen(true)}
-        aria-controls="simple-menu"
-        aria-haspopup="true"
+        aria-controls='simple-menu'
+        aria-haspopup='true'
       >
         <FontAwesomeIcon
           icon={faBars} 
@@ -97,7 +97,7 @@ function MobileMenu() {
       <Drawer 
         open={open} 
         anchor='right' 
-        role="navigation"
+        role='navigation'
         onClick={toggleDrawer}
         onKeyDown={toggleDrawer}
       >
@@ -112,8 +112,8 @@ function MobileMenu() {
             return (
               <MobileMenuSection 
                 key={index}
-                sectionName={section.name} 
-                items={section.items} 
+                sectionName={section} 
+                // items={section.items} 
               />
             )
           })}
@@ -125,19 +125,22 @@ function MobileMenu() {
 }
 
 function MobileMenuSection(props: NavigationSectionProps) {
-    const { sectionName, items } = props
+    const { sectionName } = props
+
+    const sectionData = navData.filter(items => sectionName === items.section)
+
 
     return (
       <>
         <Subtitle text={sectionName} textColor={TextColorEnum.white} />
         <List >
-          {items.map((item, index) => {
+          {sectionData.map((item, index) => {
             return (
               <NavMenuItem
                 key={index}
                 label={item.label}
                 icon={item.icon}
-                linkType={item.linkType}
+                linkType={item!.linkType}
                 linkTo={item.linkTo}
                 style={ListItemStyleEnum.mobile}
                 textColor={TextColorEnum.white}
