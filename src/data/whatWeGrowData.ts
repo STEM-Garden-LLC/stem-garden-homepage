@@ -73,7 +73,7 @@ import {
   collards
 } from '../assets/what-we-grow'
 
-export const whatWeGrowData = [
+const whatWeGrowData = [
   {
     name: 'none_selected',
     text: "Over the years we've tried to grow a very wide variety of crops, far too many to name, and most of them didn't work out. The approach to gardening that we take at the STEM Garden emphasizes caring for the soil actively but the plants not so much. We grow the things that experience has taught us thrive in this location with a minimal amount of hands on care. Select one of the crops above for more details, prices, and availability.",
@@ -177,3 +177,4 @@ export const whatWeGrowData = [
   },
 ]
 
+export default whatWeGrowData;

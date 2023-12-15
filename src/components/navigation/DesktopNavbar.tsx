@@ -15,7 +15,7 @@ import {
 } from "@mui/material"
 
 // MENU STRUCTURE
-import { navData } from '../../data/navigationData'
+import { navData } from '../../data'
 
 // TYPES
 import { ColorsEnum } from '../../@types/Colors';
