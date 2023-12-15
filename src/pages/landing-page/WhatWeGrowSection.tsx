@@ -1,5 +1,3 @@
-/// <reference path='../@types/TypographyProps.ts'
-
 import { useState, useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
 import { ColorThemeContext } from '../../context/ColorThemeContext';
@@ -10,27 +8,24 @@ import toTitleCase from '../../helpers/toTitleCase';
 import { Box, Grid, Card, CardMedia } from '@mui/material';
 import Carousel from 'react-material-ui-carousel'
 
-
-
 // Font Awesome
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 // CUSTOM COMPONENTS
-import { Title, Heading, ButtonLabel, Paragraph } from '../../components/typography';
+import { Title, ButtonLabel, Paragraph } from '../../components/typography';
 import { ButtonWithIcon } from '../../components/navigation'
 
 // ASSETS
-import { crops } from '../../text/landing'
+// import { crops } from '../../text/landing'
+import { whatWeGrowData } from '../../data/whatWeGrowData'
 
 // TYPES
 import { TextColorEnum } from '../../@types/TypographyProps';
 import { ColorThemeEnum } from '../../@types/ColorTheme';
 
-
 ////////////////////////
 //    What We Grow    //
 ////////////////////////
-
 
 export default function WhatWeGrowSection() {
   const [selectedCrop, setSelectedCrop] = useState("none_selected")
@@ -85,7 +80,7 @@ function CropSelector(props: CropSelectorProps) {
       }} 
     >
       {
-        crops.map(crop => {
+        whatWeGrowData.map(crop => {
           if (crop.name === "none_selected") {
             return undefined
           }
