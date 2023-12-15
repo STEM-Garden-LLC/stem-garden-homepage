@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { AppContext } from '../../context/AppContext';
 import { ColorThemeContext } from '../../context/ColorThemeContext';
 
-import toTitleCase from '../../helpers/toTitleCase';
+import { hexToRGB, toTitleCase } from '../../helpers';
 
 // MUI
 import { Box, Grid, Card, CardMedia } from '@mui/material';
@@ -123,7 +123,14 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
   const { narrowScreen } = useContext(AppContext)
   const { colorTheme } = useContext(ColorThemeContext)
   const textColor = (colorTheme === ColorThemeEnum.dark) ? ColorsEnum.white : ColorsEnum.black
-  const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? '60,60,60' : '230,230,220'
+  const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? 
+    hexToRGB(ColorsEnum.lightGrey) : 
+    hexToRGB(ColorsEnum.offWhite)
+  // const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? '60,60,60' : '230,230,220'
+
+  // console.log(`Test of hexToRGB. #EEEEEE is ${hexToRGB('#eeeeee')}`)
+  // console.log(`Test of hexToRGB. Enum offWhite is ${hexToRGB(ColorsEnum.offWhite)}`)
+
 
   const selected = (cropName === selectedCrop)
   const border = selected ? narrowScreen ? 'solid yellow 2px' : 'solid yellow 5px' : 'none'
@@ -215,10 +222,8 @@ function CropDetail(props: CropDetailProps) {
 
   return (
     <Box marginBottom="3.0rem" >
-      {/* <Stack maxWidth="700px" display='flex' margin="0.5rem auto" > */}
       <Title text={capitalizedSelectedCrop} align='center' />
       <Paragraph text={text} />
-      {/* </Stack> */}
 
       <Box id="carousel-container"
         display={selectedCrop === 'none_selected' ? 'none' : 'block'}
