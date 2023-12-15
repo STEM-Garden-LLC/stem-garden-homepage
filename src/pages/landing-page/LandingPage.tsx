@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 
 // TYPES
 import { LinkTypeEnum } from '../../@types/Links'
-import { TextColorEnum } from '../../@types/TypographyProps';
+import { ColorsEnum } from '../../@types/Colors';
 
 // COMPONENTS
 import { Title } from '../../components/typography';
@@ -25,7 +25,8 @@ import {
 } from '../../assets/landing'
 
 // Routes
-import { navData } from '../../data/navigationData'
+import { navData } from '../../data'
+// import { navData } from '@data' // Not Working. 
 
 export default function LandingPage() {
   return (
@@ -58,13 +59,15 @@ function LandingPageTitle() {
       display='flex'
       flexDirection='column'
     >
-      <Title text='Sowing seeds of' textColor={TextColorEnum.white} />
-      <Title text='life-long learning' textColor={TextColorEnum.white} />
-      <Title text='and DIY-spirit' textColor={TextColorEnum.white} gutterBottom />
+      <Title text='Sowing seeds of' textColor={ColorsEnum.white} />
+      <Title text='life-long learning' textColor={ColorsEnum.white} />
+      <Title text='and DIY-spirit' textColor={ColorsEnum.white} gutterBottom />
     </Box>
   )
 }
   
+
+// Renders either 3 or 4 cards in a single row on desktop and in two rows on mobile screens
 function ResponsiveCards() {
   const { narrowScreen, containerWidth } = useContext(AppContext)
 
@@ -76,7 +79,7 @@ function ResponsiveCards() {
   `${Math.floor(containerWidth * 0.50)}px` :
   `${Math.floor(containerWidth / 3 * 0.9 * 1.2)}px`
 
-  const textColor = TextColorEnum.white
+  const textColor = ColorsEnum.white
   const bgColor = '32,32,32'
 
   const whatWeGrow = navData.find(item => item.label === "What We Grow")
