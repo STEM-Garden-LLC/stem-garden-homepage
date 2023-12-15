@@ -17,7 +17,7 @@ import { ButtonWithIcon } from '../../components/navigation'
 
 // ASSETS
 // import { crops } from '../../text/landing'
-import { whatWeGrowData } from '../../data/whatWeGrowData'
+import { whatWeGrowData } from '../../data'
 
 // TYPES
 import { ColorsEnum } from '../../@types/Colors';
@@ -134,7 +134,7 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
     <ButtonLabel text={toTitleCase(cropName)} textColor={textColor} />
   )
 
-  const cropData = crops.find(crop => crop.name === cropName)
+  const cropData = whatWeGrowData.find(crop => crop.name === cropName)
   const imageUrl = cropData!.imageUrls[0]  // The first image listed is used in the selector
 
   const cardHeight = `${Math.floor(cropSelectorButtonSize)}px`
@@ -196,7 +196,7 @@ function CropDetail(props: CropDetailProps) {
   const { selectedCrop } = props
   const { containerWidth } = useContext(AppContext)
 
-  const crop = crops.find(crop => crop.name === selectedCrop) ?? { name: "", text: "", imageUrls: [] }
+  const crop = whatWeGrowData.find(crop => crop.name === selectedCrop) ?? { name: "", text: "", imageUrls: [] }
 
   const { name, text, imageUrls } = crop
   const capitalizedSelectedCrop = (name === "none_selected") ? "" : name[0].toUpperCase().concat(name.slice(1))
