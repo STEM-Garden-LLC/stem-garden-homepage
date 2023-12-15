@@ -1,16 +1,14 @@
+
+// TODO
+// Phase out the following TextColorEnum in 
+// favor of the single ColorsEnum.
 export enum TextColorEnum {
     black = 'black',
     white = 'white',
-    green = '#2e6b12' // green
+    green = '#2e6b12'
 }
 
-// interface TypographyProps {
-//     text: string;
-//     textColor?: TextColorEnum;
-//     gutterBottom: boolean;
-// }
 
-// type TextColorEnum = 'black' | 'white'
 
 type AlignEnum = 'center' | 'left' | 'right'
 
