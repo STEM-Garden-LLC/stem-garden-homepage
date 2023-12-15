@@ -23,7 +23,8 @@ const TestPrepPage = lazy(() => import('../pages/services/TestPrepPage'))
 // const WebDevelopmentPage = lazy(() => import('./pages/services/WebDevelopmentPage'))
 
 // // RESOURCES
-const ResourcesIndexPage = lazy(() => import('../pages/resources/ResourcesIndexPage'))
+const ResourcesPage = lazy(() => import('../pages/resources/ResourcesPage'))
+const ResourcesIndex = lazy(() => import('../pages/resources/ResourcesIndex'))
 const PuzzlesPage = lazy(() => import('../pages/resources/PuzzlesPage'))
 const FluencyDrillsPage = lazy(() => import('../pages/resources/FluencyDrillsPage'))
 const LessonPlansPage = lazy(() => import('../pages/resources/LessonPlansPage'))
@@ -61,8 +62,9 @@ export default function MainRouter() {
         
         {/*  RESOURCES  */}
 
-        <Route path="resources" element={<ResourcesIndexPage />} >
-          <Route path="puzzles" element={<PuzzlesPage />} />
+        <Route path="/resources" element={<ResourcesPage />} >
+          <Route index element={<ResourcesIndex />} />
+          <Route path="/resources/puzzles" element={<PuzzlesPage />} />
           <Route path="fluency-drills"  element={<FluencyDrillsPage />} />
           <Route path="lesson-plans"  element={<LessonPlansPage />} />
           <Route path="divisibility-playground"  element={<DivisibilityPlaygroundPage />} />

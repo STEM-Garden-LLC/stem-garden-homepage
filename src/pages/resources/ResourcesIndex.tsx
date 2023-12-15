@@ -1,15 +1,12 @@
 // import { Container, Grid } from '@mui/material';
 
-import { ThemedBackground } from "../../components/backgrounds";
 import { Title, Subtitle } from '../../components/typography'
 
-
-export default function ResourcesIndexPage() {
-  
+export default function ResourcesIndex() {
   return (
-    <ThemedBackground>
+    <>
       <Title text="Resources" gutterBottom />
       <Subtitle text="test" />
-    </ThemedBackground>
+    </>
   )
 }
