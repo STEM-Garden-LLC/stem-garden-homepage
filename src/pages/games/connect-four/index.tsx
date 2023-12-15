@@ -3,7 +3,7 @@ import React from 'react'
 // import { Container, Grid } from '@mui/material';
 
 import { ThemedBackground } from "../../components/backgrounds";
-import { Title, Subtitle } from '../../components/typography'
+import { Title } from '../../components/typography'
 
 
 
