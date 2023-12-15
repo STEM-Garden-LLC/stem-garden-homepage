@@ -3,7 +3,8 @@ import { useContext } from 'react'
 import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 // TYPES
-import { TextColorEnum, TypographyProps } from '../../@types/TypographyProps';
+import { ColorsEnum } from '../../@types/Colors';
+import { TypographyProps } from '../../@types/TypographyProps';
 
 // MUI
 import { Box, Typography } from '@mui/material';
@@ -39,7 +40,7 @@ export default function ButtonLabel(props: ButtonLabelProps) {
 
   const { colorTheme } = useContext(ColorThemeContext)
 
-  const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
+  const color = textColor ? textColor : (colorTheme === "dark") ? ColorsEnum.white : ColorsEnum.black
 
 
   const fontSizes = {

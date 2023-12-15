@@ -1,8 +1,5 @@
-/// <reference path='../@types/TypographyProps.ts'
-
 import { useContext } from 'react'
 import { ColorThemeContext } from '../../context/ColorThemeContext';
-
 
 // MUI
 import { Box, Card, CardMedia } from '@mui/material';
@@ -12,7 +9,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 // TYPES
-import { TextColorEnum } from '../../@types/TypographyProps';
+import { ColorsEnum } from '../../@types/Colors';
 import { PictureCardProps } from '../../@types/Cards'
 import { LinkTypeEnum } from '../../@types/Links'
 
@@ -30,13 +27,13 @@ export default function PictureCard(props:PictureCardProps) {
     imageUrl, 
     cardWidth, 
     cardHeight,
-    textColor = TextColorEnum.white,
+    textColor = ColorsEnum.white,
     bgColor,
     linkTo = "", 
     linkType = LinkTypeEnum.RouterLink,  
   } = props
   
-  // const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
+  // const color = textColor ? textColor : (colorTheme === "dark") ? ColorsEnum.white : ColorsEnum.black
   const bgColorRGB = bgColor ? bgColor :
     colorTheme === 'dark' ? '40,40,40' : '212,212,212'
   

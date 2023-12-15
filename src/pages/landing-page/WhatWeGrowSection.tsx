@@ -20,7 +20,7 @@ import { ButtonWithIcon } from '../../components/navigation'
 import { whatWeGrowData } from '../../data/whatWeGrowData'
 
 // TYPES
-import { TextColorEnum } from '../../@types/TypographyProps';
+import { ColorsEnum } from '../../@types/Colors';
 import { ColorThemeEnum } from '../../@types/ColorTheme';
 
 ////////////////////////
@@ -122,7 +122,7 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
 
   const { narrowScreen } = useContext(AppContext)
   const { colorTheme } = useContext(ColorThemeContext)
-  const textColor = (colorTheme === ColorThemeEnum.dark) ? TextColorEnum.white : TextColorEnum.black
+  const textColor = (colorTheme === ColorThemeEnum.dark) ? ColorsEnum.white : ColorsEnum.black
   const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? '60,60,60' : '230,230,220'
 
   const selected = (cropName === selectedCrop)

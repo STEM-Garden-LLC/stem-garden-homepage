@@ -1,5 +1,7 @@
 
 import { TextColorEnum } from "./TypographyProps";
+import { ColorsEnum } from "./Colors";
+
 import { LinkTypeEnum } from './Links'
 
 import { PuzzleTag } from "@data/puzzlesData";

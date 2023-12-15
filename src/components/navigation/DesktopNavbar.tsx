@@ -18,7 +18,8 @@ import {
 import { navData } from '../../data/navigationData'
 
 // TYPES
-import { FontWeightEnum, TextColorEnum } from '../../@types/TypographyProps';
+import { ColorsEnum } from '../../@types/Colors';
+import { FontWeightEnum } from '../../@types/TypographyProps';
 import { NavigationSectionProps, ListItemStyleEnum } from './ResponsiveNavbar'
 
 
@@ -134,7 +135,7 @@ function DesktopMenuPopover(props: NavigationSectionProps) {
                     
             <ButtonLabel 
               text={capitalize(sectionName)} 
-              textColor={TextColorEnum.white} 
+              textColor={ColorsEnum.white} 
               fontWeight={FontWeightEnum.bold}
             />
           </Button>
@@ -180,7 +181,7 @@ function DesktopMenuPopover(props: NavigationSectionProps) {
                     linkType={linkType}
                     linkTo={linkTo}
                     style={ListItemStyleEnum.desktop}
-                    textColor={TextColorEnum.white}
+                    textColor={ColorsEnum.white}
                   />
                 </Box>
                 

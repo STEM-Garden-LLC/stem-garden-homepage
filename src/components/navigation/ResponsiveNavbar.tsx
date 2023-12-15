@@ -23,8 +23,9 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 
 // TYPES
 import { LinkTypeEnum } from '../../@types/Links';
-import { FontWeightEnum, TextColorEnum } from '../../@types/TypographyProps';
 import { ColorThemeEnum } from '../../@types/ColorTheme';
+import { ColorsEnum } from '../../@types/Colors';
+import { FontWeightEnum } from '../../@types/TypographyProps';
 
 export type NavigationSectionProps = {
   sectionName: string;
@@ -42,7 +43,7 @@ export type NavigationListItemProps = {
   linkType?: LinkTypeEnum;
   linkTo: string;
   style?: ListItemStyleEnum;
-  textColor?: TextColorEnum;
+  textColor?: ColorsEnum;
 }
 
 export default function Navbar() {
@@ -84,7 +85,7 @@ export function NavMenuItem(props: NavigationListItemProps) {
   const paddingY = style === ListItemStyleEnum.mobile ? 1 : '6px'
   const paddingX = style === ListItemStyleEnum.mobile ? 1 : 0
 
-  const color = textColor ? textColor : (colorTheme === ColorThemeEnum.dark) ? TextColorEnum.white : TextColorEnum.black
+  const color = textColor ? textColor : (colorTheme === ColorThemeEnum.dark) ? ColorsEnum.white : ColorsEnum.black
 
   const contents = (
     <Box display='flex' alignItems='center' >

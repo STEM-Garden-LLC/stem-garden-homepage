@@ -16,6 +16,7 @@ import {
 
 // MENU STRUCTURE
 import { navData } from '../../data/navigationData'
+import { navData } from '../../data'
 
 
 // ICONS
@@ -23,7 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 // TYPES
-import { TextColorEnum } from '../../@types/TypographyProps';
+import { ColorsEnum } from '../../@types/Colors';
 import { NavigationSectionProps, ListItemStyleEnum } from './ResponsiveNavbar'
 
   
@@ -105,8 +106,8 @@ function MobileMenu() {
           width='280px'
           height='100%'
           p={2}
-          color={TextColorEnum.white}
-          bgcolor={TextColorEnum.green}
+          color={ColorsEnum.white}
+          bgcolor={ColorsEnum.green}
         >
           {sections.map((section, index) => {
             return (
@@ -132,7 +133,7 @@ function MobileMenuSection(props: NavigationSectionProps) {
 
     return (
       <>
-        <Subtitle text={sectionName} textColor={TextColorEnum.white} />
+        <Subtitle text={sectionName} textColor={ColorsEnum.white} />
         <List >
           {sectionData.map((item, index) => {
             return (
@@ -143,7 +144,7 @@ function MobileMenuSection(props: NavigationSectionProps) {
                 linkType={item!.linkType}
                 linkTo={item.linkTo}
                 style={ListItemStyleEnum.mobile}
-                textColor={TextColorEnum.white}
+                textColor={ColorsEnum.white}
               />
             )})}
         </List>

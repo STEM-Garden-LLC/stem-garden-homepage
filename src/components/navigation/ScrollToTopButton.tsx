@@ -4,7 +4,7 @@ import { AppContext } from "../../context/AppContext";
 import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 // TYPES
-import { TextColorEnum } from "../../@types/TypographyProps";
+import { ColorsEnum } from '../../@types/Colors';
 import { ColorThemeEnum } from "../../@types/ColorTheme";
 
 
@@ -20,7 +20,7 @@ export default function ScrollToTopButton() {
   const scrollPosition = useScrollPosition()
   const { containerWidth } = useContext(AppContext)
   const { colorTheme } = useContext(ColorThemeContext)
-  const bgcolor = colorTheme === ColorThemeEnum.light ? TextColorEnum.white : TextColorEnum.black
+  const bgcolor = colorTheme === ColorThemeEnum.light ? ColorsEnum.white : ColorsEnum.black
 
   const iconSize = containerWidth < 450 ? 'xl' : 
     containerWidth < 600 ? '2x' :
