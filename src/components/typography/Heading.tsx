@@ -4,7 +4,8 @@ import { useContext } from 'react'
 import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 // TYPES
-import { TypographyProps, TextColorEnum } from '../../@types/TypographyProps';
+import { ColorsEnum } from '../../@types/Colors';
+import { TypographyProps } from '../../@types/TypographyProps';
 
 // MUI
 import { Typography } from '@mui/material';
