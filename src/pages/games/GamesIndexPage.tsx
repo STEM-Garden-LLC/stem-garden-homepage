@@ -66,7 +66,7 @@ export default function GamesIndexPage() {
     <ThemedBackground>
       <Container maxWidth="md" >
         <Heading 
-          Text="Math Games"
+          text="Math Games"
           subtitle="These games have something to offer students at all levels! Some aim to make practicing foundation facts a little more fun. Others have built in lessons on binary numbers, probability, combinatorics, and proof."
         />
         <Grid container spacing={2} >
