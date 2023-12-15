@@ -20,7 +20,7 @@ export interface PictureCardProps {
 
 
 export interface PuzzleCardProps {
-  name: string;
+  title: string;
   tags: PuzzleTag[];
   imageUrl: string;
   googleDriveFileId: string;
