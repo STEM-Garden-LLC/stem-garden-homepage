@@ -11,7 +11,7 @@ import {
   tic_tac_toe_screenshot,
   fifteen_game_screenshot,
   under_construction
-} from '../../assets/math-games'
+} from '@assets/math-games'
 // } from '@assets/math-games' // Not Working
 
 const connect_four_description = "The classic game with a twist. Each time you select a column to drop a chip in you will be presented with a math question. Answer it correctly or your turn will be skipped!"
@@ -21,7 +21,7 @@ const fifteen_game_description = "Two players go head to head trying to collect 
 
 
 
-export const gamesData = [
+const gamesData = [
   {
     title: 'The 15 Game',
     imageUrl: fifteen_game_screenshot,
@@ -36,3 +36,5 @@ export const gamesData = [
     linkTo: '/games/the-15-game/*',
   }
 ]
+
+export default gamesData;
