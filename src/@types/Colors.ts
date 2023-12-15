@@ -1,7 +1,8 @@
 export enum ColorsEnum {
-  black = 'black',
-  white = 'white',
   green = '#2e6b12', // Primary
-  darkGrey = '60,60,60' ,
-  offWhite = '230,230,220'
+  black = '#000000',
+  darkGrey = '#202020',
+  lightGrey = '#333333',
+  offWhite = '#F0F0E6',   // '232,232,224'
+  white = '#FFFFFF',
 }
