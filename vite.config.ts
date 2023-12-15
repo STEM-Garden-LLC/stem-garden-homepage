@@ -9,6 +9,7 @@ export default defineConfig({
       '@src': path.resolve(__dirname, './src'),
       '@types': path.resolve(__dirname, './src/types'),
       '@pages': path.resolve(__dirname, './src/pages'),
+      '@data': path.resolve(__dirname, './src/data'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@components': path.resolve(__dirname, './src/components'),
       '@typography': path.resolve(__dirname, './src/components/typography'),
