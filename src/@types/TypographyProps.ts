@@ -1,6 +1,10 @@
 import { ColorsEnum } from "./Colors";
 
-type AlignEnum = 'center' | 'left' | 'right'
+export enum AlignEnum {
+    center = 'center',
+    left = 'left',
+    right = 'right'
+}
 
 export enum FontWeightEnum {
     light = '300',
