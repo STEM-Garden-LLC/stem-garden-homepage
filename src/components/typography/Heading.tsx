@@ -16,13 +16,13 @@ export default function Heading(props: TypographyProps) {
 
   const padding = (gutterBottom) ? "0 0 0.4rem" : "0"
   // Color can be set manually. If unset light/dark mode default is used.
-  const color = textColor ? textColor : (colorTheme === "dark") ? TextColorEnum.white : TextColorEnum.black
+  const color = textColor ? textColor : (colorTheme === "dark") ? ColorsEnum.white : ColorsEnum.black
 
   const fontSizes = {
     xs: '1.1rem',
-    sm: '1.4rem',
-    md: '1.7rem',
-    lg: '1.7rem'
+    sm: '1.3rem',
+    md: '1.5rem',
+    lg: '1.6rem'
   }
 
   const lineHeights = {
