@@ -1,8 +1,17 @@
-import { Link as RouterLink } from 'react-router-dom';
-import { Container, Grid, Card, CardMedia, Typography, Button, Stack } from '@mui/material';
+import { useContext } from 'react'
+import { AppContext } from '../../context/AppContext';
+import { ColorThemeContext } from '../../context/ColorThemeContext';
 
-import { ThemedBackground } from '@components/backgrounds';
-import { Heading } from "@components/typography";
+import { hexToRGB, toTitleCase } from '../../helpers'
+
+// COMPONENTS
+import { Title, Heading, Paragraph } from "@components/typography";
+import { Box, Container, Grid, Card, CardMedia, Typography, Button, Stack } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+
+
+// DATA 
+import { gamesData } from '../../data'
 
 // IMAGES
 import { 
@@ -12,140 +21,133 @@ import {
   under_construction
 } from '../../assets/math-games'
 
-const connect_four_description = "The classic game with a twist. Each time you select a column to drop a chip in you will be presented with a math question. Answer it correctly or your turn will be skipped!"
-const tic_tac_toe_description = "Play the most underestimated strategy game of all time with a coach that will help you see its true depth. Tic Tac Toe serves as a wonderful tool for introducing kids to mathematical proof, tree diagrams, symmetry, and counting techniqes. "
-const fifteen_game_description = "Two players go head to head trying to collect a set of three cards that add up to 15. This game is a fantastic tool for building mental addition skills. For advanced players it has connections to combinations, permutations, and magic squares."
+// TYPES
+import { ColorsEnum } from '../../@types/Colors';
+import { AlignEnum } from '../../@types/TypographyProps'
+import { GameCardProps } from '../../@types/Cards';
 
-const mathGamesCardData = [
-  {
-    title: "Math Fact Connect Four",
-    description: connect_four_description,
-    linkTo: "connect-four",
-    imgUrl: connect_four_screenshot,
-    disabled: false
-  },
-  {
-    title: "Tic Tac Toe Coach",
-    description: tic_tac_toe_description,
-    linkTo: "tic-tac-toe",
-    imgUrl: tic_tac_toe_screenshot,
-    disabled: false
-  },
-  {
-    title: "The Fifteen Game",
-    description: fifteen_game_description,
-    linkTo: "the-15-game",
-    imgUrl: fifteen_game_screenshot,
-    disabled: false
-  },
-  {
-    title: "Fluency Checklist",
-    linkTo: "the-15-game",
-    imgUrl: under_construction,
-    disabled: true
-  },
-  {
-    title: "Classic Nim",
-    linkTo: "the-15-game",
-    imgUrl: under_construction,
-    disabled: true
-  },
-  {
-    title: "Fibonacci Nim",
-    linkTo: "the-15-game",
-    imgUrl: under_construction,
-    disabled: true
-  },
- 
-]
 
 export default function GamesIndexPage() {
 
 
-  const gameCard = (
-    <PictureCard 
-      title={ourStory!.label} 
-      linkTo={ourStory!.linkTo}
-      linkType={LinkTypeEnum.HashLink}
-      imageUrl={profile_pic_with_hoe} 
-      cardWidth={cardWidth}
-      cardHeight={cardHeight}
-      textColor={textColor}
-      bgColor={bgColor}
-    />
-  )
+  // const gameCard = (
+  //   <PictureCard 
+  //     title={ourStory!.label} 
+  //     linkTo={ourStory!.linkTo}
+  //     linkType={LinkTypeEnum.HashLink}
+  //     imageUrl={profile_pic_with_hoe} 
+  //     cardWidth={cardWidth}
+  //     cardHeight={cardHeight}
+  //     textColor={textColor}
+  //     bgColor={bgColor}
+  //   />
+  // )
   
   return (
-    <ThemedBackground>
-      <Container maxWidth="md" >
-        <Heading 
-          text="Math Games"
-          subtitle="These games have something to offer students at all levels! Some aim to make practicing foundation facts a little more fun. Others have built in lessons on binary numbers, probability, combinatorics, and proof."
-        />
-        <Grid container spacing={2} >
-          {
-            mathGamesCardData.map((cardData, index) => {
-              return (
-                <Grid item xs={6} md={4} key={index} >
-                  {/* <MathGameCard data={cardData}  /> */}
-                  <PictureCard 
-                    title={ourStory!.label} 
-                    linkTo={ourStory!.linkTo}
-                    linkType={LinkTypeEnum.HashLink}
-                    imageUrl={profile_pic_with_hoe} 
-                    cardWidth={cardWidth}
-                    cardHeight={cardHeight}
-                    textColor={textColor}
-                    bgColor={bgColor}
-                    // title={ourStory!.label} 
-                    // linkTo={ourStory!.linkTo}
-                    // linkType={LinkTypeEnum.HashLink}
-                    // imageUrl={profile_pic_with_hoe} 
-                    // cardWidth={cardWidth}
-                    // cardHeight={cardHeight}
-                    // textColor={textColor}
-                    // bgColor={bgColor}
-                  />
-                </Grid>
-              )
-            })
-          }
-        </Grid>
-      </Container>
-    </ThemedBackground>
+    <>
+      <Title text="Games" gutterBottom />
+      {
+        gamesData.map((game, index) => (
+            <GameCard 
+              key={index}
+              title={game!.title} 
+              linkTo={game!.linkTo} 
+              imageUrl={game!.imageUrl} 
+              disabled={game!.disabled} 
+              description={game!.description} 
+            />
+        ))
+      }
+    </>
   )
 }
 
-function MathGameCard(props) {
-  const { title, linkTo, imgUrl, disabled } = props.data
+function GameCard(props: GameCardProps) {
+  const { colorTheme } = useContext(ColorThemeContext)
+  const { containerWidth } = useContext(AppContext)
 
+  const { title, linkTo, imageUrl, description, disabled = false } = props
+
+  const bgColor = colorTheme === 'dark' ? ColorsEnum.lightGrey : ColorsEnum.offWhite
+  const textColor = colorTheme === 'dark' ? ColorsEnum.white : ColorsEnum.black
+
+  
   return (
-    <Card raised
-      sx={{ height: '100%', borderRadius: 1, 
-        bgcolor: 'black'
-      }}
-    >
-      <Stack height='100%' display='flex' justifyContent='space-between' p={1} >
-        <Typography 
-          children={title}
-          color="white"
-          align='center'
-          fontSize='1.2rem'
-        />
-        <CardMedia
-          component="img"
-          image={imgUrl}
-          alt={title}
-        />
-        <Button 
-          component={RouterLink} 
-          to={linkTo}
-          disabled={disabled}
-          children="Play Now!"
-          variant='contained'
-          sx={{ mt: 1 }}
-        />
-      </Stack>
-    </Card>
+        <Card raised 
+          sx={{
+            marginY: '1rem', 
+            width: '100%',
+            bgcolor: bgColor,
+            position: 'relative',
+            borderRadius: '1rem',
+            display: 'flex'
+          }}
+        >
+          <Grid container margin={1} spacing={2}
+            display='flex'
+            alignItems='stretch'
+          >
+            <Grid item 
+              id='game-screenshot'
+              xs={12} sm={4} md={5}
+            >
+              <Box 
+                width='100%' 
+                paddingTop='100%'
+                position='relative'
+              >
+                <Box 
+                  width='100%' 
+                  height='100%'
+                  sx={{
+                    position: 'absolute', 
+                    top: 0,
+                    backgroundImage:`url(${imageUrl})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: 'top center',
+                  }}
+                />
+              </Box>
+            </Grid>
+            <Grid item 
+              id='game-info'
+              xs={12} sm={8} md={7}
+              paddingBottom={2}
+            >
+              <Box 
+                width='100%'
+                height='100%'
+                display='flex'
+                flexDirection='column'
+                alignItems='start'
+                justifyContent='space-between'
+              >
+                <Heading text={title} />
+                {
+                  description.map((paragraph, index) => (
+                    <Paragraph 
+                      key={index}
+                      text={paragraph}
+                    />
+                ))
+                }
+                <Button 
+                  children="Play Now"
+                  disabled={disabled}
+                  href={linkTo}
+                  variant='contained'
+                  // size='small'
+                  sx={{ 
+                    minWidth: '30%',
+                    alignSelf: 'center'
+                  }}
+                />
+
+              </Box>
+            </Grid>
+          </Grid>
+        </Card>
   )
 }
+
