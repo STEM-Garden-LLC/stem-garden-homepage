@@ -20,6 +20,7 @@ export default function Footer() {
         position: "static",
         width: '100vw',
         height: '8rem',
+        marginTop: '2rem',
         paddingTop: '2rem',
         backgroundColor: "primary.main", 
         color: "white",
