@@ -112,7 +112,7 @@ const navData = [
     section: "Resources",
     label: 'Printable Drills',
     icon: faCopy,  // faHeadSideBrain
-    linkTo: 'resources',
+    linkTo: 'resources/drills',
   },
   // {
   //   section: "Resources",
