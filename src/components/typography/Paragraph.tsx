@@ -8,7 +8,7 @@ import { ColorsEnum } from '../../@types/Colors';
 import { TypographyProps } from '../../@types/TypographyProps';
 
 export default function Paragraph(props: TypographyProps) {
-  const { text, textColor } = props
+  const { text, textColor, align = 'left' } = props
   const { colorTheme } = useContext(ColorThemeContext)
 
   // const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
@@ -19,8 +19,8 @@ export default function Paragraph(props: TypographyProps) {
     <Typography 
       children={text}
       color={color}
-      p="0.7rem 0"
-      align='left'
+      padding="0.3rem 0.7rem"
+      align={align}
       sx={{
         fontWeight: 200,
         fontSize: '0.95rem',
