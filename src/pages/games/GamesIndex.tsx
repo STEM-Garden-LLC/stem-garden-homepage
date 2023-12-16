@@ -11,7 +11,6 @@ import {
   fifteen_game_screenshot,
   under_construction
 } from '../../assets/math-games'
-// } from '@assets/math-games' // Not Working
 
 const connect_four_description = "The classic game with a twist. Each time you select a column to drop a chip in you will be presented with a math question. Answer it correctly or your turn will be skipped!"
 const tic_tac_toe_description = "Play the most underestimated strategy game of all time with a coach that will help you see its true depth. Tic Tac Toe serves as a wonderful tool for introducing kids to mathematical proof, tree diagrams, symmetry, and counting techniqes. "
@@ -61,6 +60,20 @@ const mathGamesCardData = [
 ]
 
 export default function GamesIndexPage() {
+
+
+  const gameCard = (
+    <PictureCard 
+      title={ourStory!.label} 
+      linkTo={ourStory!.linkTo}
+      linkType={LinkTypeEnum.HashLink}
+      imageUrl={profile_pic_with_hoe} 
+      cardWidth={cardWidth}
+      cardHeight={cardHeight}
+      textColor={textColor}
+      bgColor={bgColor}
+    />
+  )
   
   return (
     <ThemedBackground>
@@ -74,7 +87,25 @@ export default function GamesIndexPage() {
             mathGamesCardData.map((cardData, index) => {
               return (
                 <Grid item xs={6} md={4} key={index} >
-                  <MathGameCard data={cardData}  />
+                  {/* <MathGameCard data={cardData}  /> */}
+                  <PictureCard 
+                    title={ourStory!.label} 
+                    linkTo={ourStory!.linkTo}
+                    linkType={LinkTypeEnum.HashLink}
+                    imageUrl={profile_pic_with_hoe} 
+                    cardWidth={cardWidth}
+                    cardHeight={cardHeight}
+                    textColor={textColor}
+                    bgColor={bgColor}
+                    // title={ourStory!.label} 
+                    // linkTo={ourStory!.linkTo}
+                    // linkType={LinkTypeEnum.HashLink}
+                    // imageUrl={profile_pic_with_hoe} 
+                    // cardWidth={cardWidth}
+                    // cardHeight={cardHeight}
+                    // textColor={textColor}
+                    // bgColor={bgColor}
+                  />
                 </Grid>
               )
             })
