@@ -1,5 +1,5 @@
-import { lazy, Suspense  } from 'react'
-import { Routes, Route } from "react-router-dom"
+import { lazy, Suspense, Fragment  } from 'react'
+import { Routes, Route, Outlet } from "react-router-dom"
 
 import { ThreeCircles } from 'react-loader-spinner';
 
@@ -31,7 +31,7 @@ const LessonPlansPage = lazy(() => import('../pages/resources/LessonPlansPage'))
 const DivisibilityPlaygroundPage = lazy(() => import('../pages/resources/DivisibilityPlayground'))
 
 
-// // Math Games
+// Math Games
 const GamesPage = lazy(() => import('../pages/games/GamesPage'))
 const GamesIndex = lazy(() => import('../pages/games/GamesIndex'))
 const ConnectFourRoot = lazy(() => import('../pages/games/connect-four'))
@@ -71,9 +71,9 @@ export default function MainRouter() {
         <Route path="/resources" element={<ResourcesPage />} >
           <Route index element={<ResourcesIndex />} />
           <Route path="/resources/puzzles" element={<PuzzlesPage />} />
-          <Route path="fluency-drills"  element={<FluencyDrillsPage />} />
-          <Route path="lesson-plans"  element={<LessonPlansPage />} />
-          <Route path="divisibility-playground"  element={<DivisibilityPlaygroundPage />} />
+          <Route path="/resources/drills"  element={<FluencyDrillsPage />} />
+          <Route path="/resources/lessons"  element={<LessonPlansPage />} />
+          <Route path="/resources/divisibility-playground"  element={<DivisibilityPlaygroundPage />} />
         </Route>
 
         {/*  GAMES  */}
