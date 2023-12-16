@@ -1,5 +1,3 @@
-
-
 // TYPES
 import { PuzzleCardProps } from '../@types/Cards';
 
@@ -68,7 +66,7 @@ export type PuzzleTag = 'combinations'
 | 'linear systems'
 
 
-const puzzlesData : PuzzleCardProps[]  = [
+const puzzlesData : PuzzleCardProps[] = [
   {
     title: 'Weighing Pumpkins',
     tags: ['combinations', 'logic'],
