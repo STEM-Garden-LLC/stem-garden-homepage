@@ -123,14 +123,7 @@ function CropSelectorButton(props: CropSelectorButtonProps) {
   const { narrowScreen } = useContext(AppContext)
   const { colorTheme } = useContext(ColorThemeContext)
   const textColor = (colorTheme === ColorThemeEnum.dark) ? ColorsEnum.white : ColorsEnum.black
-  const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? 
-    hexToRGB(ColorsEnum.lightGrey) : 
-    hexToRGB(ColorsEnum.offWhite)
-  // const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? '60,60,60' : '230,230,220'
-
-  // console.log(`Test of hexToRGB. #EEEEEE is ${hexToRGB('#eeeeee')}`)
-  // console.log(`Test of hexToRGB. Enum offWhite is ${hexToRGB(ColorsEnum.offWhite)}`)
-
+  const bgColorRGB = (colorTheme === ColorThemeEnum.dark) ? hexToRGB(ColorsEnum.lightGrey) : hexToRGB(ColorsEnum.offWhite)
 
   const selected = (cropName === selectedCrop)
   const border = selected ? narrowScreen ? 'solid yellow 2px' : 'solid yellow 5px' : 'none'
