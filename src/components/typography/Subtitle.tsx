@@ -35,7 +35,7 @@ export default function Subtitle(props: TypographyProps) {
       color={color}
       p={padding}
       sx={{
-        align: align,
+        textAlign: align,
         fontWeight: 400,
         fontSize: fontSizes.xs,
         lineHeight: lineHeights.xs,

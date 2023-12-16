@@ -19,7 +19,7 @@ export default function Paragraph(props: TypographyProps) {
     <Typography 
       children={text}
       color={color}
-      padding="0.3rem 0.7rem"
+      padding="0.3rem 0rem"
       align={align}
       sx={{
         fontWeight: 200,
