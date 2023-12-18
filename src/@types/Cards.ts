@@ -29,8 +29,8 @@ export interface PuzzleCardProps {
 
 export interface GameCardProps {
   title: string;
-  imageUrl: string;
   linkTo: string;
-  description: string;
+  imageUrl: string;
+  description: string[];
   disabled?: boolean;
 }
