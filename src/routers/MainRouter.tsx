@@ -38,7 +38,7 @@ const ConnectFourRoot = lazy(() => import('../pages/games/connect-four'))
 const TicTacToeRoutes = lazy(() => import('../pages/games/tic-tac-toe'))
 
 // Fifteen Game
-const FifteenGameRouter = import('./FifteenGameRouter')
+// const FifteenGameRouter = import('./FifteenGameRouter')
 const Welcome = lazy(() => import('../pages/games/fifteen-game/Welcome'))
 const FifteenGameVsFriend = lazy(() => import('../pages/games/fifteen-game/PlayVsFriend'))
 const FifteenGameVsBot = lazy(() => import('../pages/games/fifteen-game/PlayVsBot'))
