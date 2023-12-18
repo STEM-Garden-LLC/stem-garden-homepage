@@ -7,6 +7,7 @@ import { TypographyProps} from '../../@types/TypographyProps';
 
 // MUI
 import { Typography } from '@mui/material';
+import { ColorsEnum } from '../../@types/Colors';
 
 export default function Title(props: TypographyProps) {
   const { text, textColor, gutterBottom } = props
@@ -14,7 +15,7 @@ export default function Title(props: TypographyProps) {
 
   const padding = (gutterBottom) ? "0 0 3.0rem" : "0"
   const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
-  const shadow = (color === "white") ? '0.15rem 0.15rem 0.3rem black' : 'none'
+  const shadow = (color === ColorsEnum.white) ? '0.15rem 0.15rem 0.3rem black' : 'none'
 
   return (
     <Typography 
