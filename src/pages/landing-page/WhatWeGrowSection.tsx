@@ -13,7 +13,7 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 // CUSTOM COMPONENTS
 import { Title, ButtonLabel, Paragraph } from '../../components/typography';
-import { ButtonWithIcon } from '../../components/navigation'
+import { ButtonWithIcon } from '../../components'
 
 // ASSETS
 // import { crops } from '../../text/landing'

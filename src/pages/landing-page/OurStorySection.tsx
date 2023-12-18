@@ -14,7 +14,7 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 // CUSTOM COMPONENTS
 import { Title, Paragraph } from '../../components/typography';
-import { ButtonWithIcon } from '../../components/navigation'
+import { ButtonWithIcon } from '../../components'
 import PictureRow from '../../components/PictureRow';
 // import WhatWeGrowSection from './WhatWeGrowSection';
 // import { Footer, ScrollToTopButton } from '../../components/navigation';

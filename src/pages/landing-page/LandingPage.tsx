@@ -10,7 +10,7 @@ import { ColorsEnum } from '../../@types/Colors';
 
 // COMPONENTS
 import { Title } from '../../components/typography';
-import { Footer, ScrollToTopButton } from '../../components/navigation';
+import { Footer, ScrollToTopButton } from '../../components';
 import { LeafyBackground, ThemedBackground } from '../../components/backgrounds';
 import PictureCard from '../../components/cards/PictureCard';
 import OurStorySection from './OurStorySection';
