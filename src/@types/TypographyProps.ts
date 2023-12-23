@@ -18,5 +18,6 @@ export interface TypographyProps {
     textColor?: ColorsEnum;
     align?: AlignEnum;
     fontWeight?: FontWeightEnum;
+    textWrap?: boolean;
     gutterBottom?: boolean;
 }
