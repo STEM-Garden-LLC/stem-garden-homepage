@@ -17,7 +17,7 @@ type GameButtonProps = {
   selected?: boolean,
 }
 
-export function GameButton(props: GameButtonProps) {
+export default function GameButton(props: GameButtonProps) {
   const { label, icon, onClick, disabled = false, selected = false } = props
   return (
     <Button
@@ -92,7 +92,8 @@ export function NewGameButton(props: GameButtonProps) {
       onClick={() => handleNewGameClick()}
       variant="contained"
       color="primary"
-      disabled={!gameOver(movelist)}
+      // disabled={!gameOver(movelist)}
+      disabled={disabled}
       sx={{ flexGrow: 2 }}
     >
       <Box mr={1} display={{ xs: 'none', sm: 'flex' }} alignContent="center" >
