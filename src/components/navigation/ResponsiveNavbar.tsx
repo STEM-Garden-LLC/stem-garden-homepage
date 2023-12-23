@@ -89,7 +89,7 @@ export function NavMenuItem(props: NavigationListItemProps) {
 
   const contents = (
     <Box display='flex' alignItems='center' >
-      <Box width={24} paddingRight={2} >
+      <Box width={24} paddingRight={2} display='flex' justifyContent='center' >
         <FontAwesomeIcon
           icon={icon} 
           color='white'
