@@ -1,5 +1,4 @@
 
-import { TextColorEnum } from "./TypographyProps";
 import { ColorsEnum } from "./Colors";
 
 import { LinkTypeEnum } from './Links'
@@ -12,7 +11,7 @@ export interface PictureCardProps {
   linkTo?: string;
   linkType?: LinkTypeEnum;
   onClick?: Function;
-  textColor?: TextColorEnum;
+  textColor?: ColorsEnum;
   bgColor?: string;
   cardWidth: string;
   cardHeight: string;
