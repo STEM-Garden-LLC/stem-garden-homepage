@@ -14,7 +14,7 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 // CUSTOM COMPONENTS
 import { Title, Paragraph } from '../../components/typography';
-import { ButtonWithIcon } from '../../components'
+import { NavigationButton } from '../../components'
 import PictureRow from '../../components/PictureRow';
 // import WhatWeGrowSection from './WhatWeGrowSection';
 // import { Footer, ScrollToTopButton } from '../../components/navigation';
@@ -38,14 +38,14 @@ export default function OurStorySection() {
       <Paragraph text={our_story_paragraphs[2]} />
       <PictureRow imgUrls={[tearoom, solar_panels_on_classroom]} />
       <Paragraph text={our_story_paragraphs[3]} />
-      <ButtonWithIcon 
-        text='Read more' 
-        href='our-story' 
+      <NavigationButton 
+        label='Read more' 
+        linkTo='our-story' 
         endIcon={faArrowCircleRight} 
       />
-      <ButtonWithIcon 
-        text='Volunteer' 
-        href='/contact' 
+      <NavigationButton 
+        label='Volunteer' 
+        linkTo='/contact' 
         endIcon={faArrowCircleRight} 
       />
     </Box>

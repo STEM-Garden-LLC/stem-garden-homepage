@@ -13,7 +13,7 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 // CUSTOM COMPONENTS
 import { Title, ButtonLabel, Paragraph } from '../../components/typography';
-import { ButtonWithIcon } from '../../components'
+import { NavigationButton } from '../../components'
 
 // ASSETS
 // import { crops } from '../../text/landing'
@@ -40,15 +40,15 @@ export default function WhatWeGrowSection() {
       <CropDetail
         selectedCrop={selectedCrop}
       />
-      <ButtonWithIcon
-        text='Buy Our Produce'
-        href='contact-us'
+      <NavigationButton
+        label='Buy Our Produce'
+        linkTo='contact-us'
         endIcon={faArrowCircleRight}
       />
       {/* TODO */}
-      {/* <ButtonWithIcon
-        text='Distribution Partners'
-        href='partners'
+      {/* <NavigationButton
+        label='Distribution Partners'
+        linkTo='partners'
         endIcon={faArrowCircleRight}
       /> */}
     </Box>
