@@ -1,7 +1,9 @@
 import React, { lazy, useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom';
 
+// COMPONENTS
 import { Container, Box } from '@mui/material';
+import { TextSection } from '@components/typography'
 
 // ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -111,28 +113,6 @@ function BigIconButton(props: BigIconButtonProps) {
 }
 
 
-type TextSectionProps = {
-  data: {
-    heading: string,
-    paragraphs: string[]
-  }
-}
-
-function TextSection(props: TextSectionProps) {
-  const { heading, paragraphs } = props.data
-  return (
-    <Box paddingBottom={2} >
-      <Heading text={heading} align={AlignEnum.left} />
-      {
-        paragraphs.map((paragraph, index) => (
-          <Paragraph text={paragraph} key={index} />
-        ))
-      }
-    </Box>
-  )
-}
-
-const fifteenGameData = {
   description: {
     heading: '',
     paragraphs: [

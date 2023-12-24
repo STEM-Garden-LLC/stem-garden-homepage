@@ -6,6 +6,7 @@ export {default as Subheading} from './Subheading';
 export {default as ButtonLabel} from './ButtonLabel';
 export {default as MenuItem} from './MenuItem';
 
+export {default as TextSection} from './TextSection';
 
 // export {default as Section} from './Section';
 // export {default as Quote} from './Quote';
