@@ -9,7 +9,7 @@ import {
   NewGameButton, 
   DifficultyModeButton, 
   UndoMoveButton
-} from './Buttons'
+} from '../../../components/buttons/GameButton'
 
 export function FriendPanel(props) {
   const { 
