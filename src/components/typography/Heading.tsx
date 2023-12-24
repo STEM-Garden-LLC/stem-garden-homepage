@@ -5,18 +5,20 @@ import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 // TYPES
 import { ColorsEnum } from '../../@types/Colors';
-import { TypographyProps } from '../../@types/TypographyProps';
+import { TypographyProps, FontWeightEnum } from '../../@types/TypographyProps';
 
 // MUI
 import { Typography } from '@mui/material';
 
 export default function Heading(props: TypographyProps) {
-  const { text, textColor, align, fontWeight, gutterBottom } = props
+  const { text, textColor, align, fontWeight = FontWeightEnum.normal, textWrap = false, gutterBottom } = props
   const { colorTheme } = useContext(ColorThemeContext)
 
-  const padding = (gutterBottom) ? "0 0 0.4rem" : "0"
+  const padding = (gutterBottom) ? "0 0 2.0rem" : "0"
   // Color can be set manually. If unset light/dark mode default is used.
   const color = textColor ? textColor : (colorTheme === "dark") ? ColorsEnum.white : ColorsEnum.black
+  const shadow = (color === ColorsEnum.white) ? '0.15rem 0.15rem 0.3rem black' : 'none'
+
 
   const fontSizes = {
     xs: '1.1rem',
@@ -34,12 +36,14 @@ export default function Heading(props: TypographyProps) {
 
   return (
     <Typography 
-      noWrap
+      // noWrap={}
+      noWrap={!textWrap}
       children={text}
       color={color}
       align={align} 
       p={padding}
       sx={{
+        textShadow: shadow,
         fontWeight: fontWeight,
         fontSize: fontSizes.xs,
         lineHeight: lineHeights.xs,
