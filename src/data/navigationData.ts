@@ -22,14 +22,15 @@ import {
   faChessKnight,
   faGraduationCap,
   // faDisplayCode,  // not free
-  faLaptopCode,
+  // faLaptopCode,
   faCopy,
-  faDivide,
+  // faDivide,
   faCalculator,
   // faBrain,
   // faHeadSideBrain  PRO
   // faFlask,
   // faScaleBalanced,
+  faHouse,
  } from '@fortawesome/free-solid-svg-icons'
 
 // TYPES
@@ -120,7 +121,6 @@ const navData = [
   //   icon: faDivide,
   //   linkTo: 'resources/divisibility-playground',
   // },
-
 ]
   
 export default navData
