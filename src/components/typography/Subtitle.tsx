@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
 // TYPES
-import { TypographyProps} from '../../@types/TypographyProps';
+import { TypographyProps, FontWeightEnum } from '../../@types/TypographyProps';
 
 // MUI
 import { Typography } from '@mui/material';
@@ -9,7 +9,7 @@ import { Typography } from '@mui/material';
 import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 export default function Subtitle(props: TypographyProps) {
-  const { text, textColor, align, gutterBottom } = props
+  const { text, textColor, align, fontWeight = FontWeightEnum.normal, gutterBottom } = props
   const { colorTheme } = useContext(ColorThemeContext)
 
   const padding = (gutterBottom) ? "0 0 0.5rem" : "0"
@@ -36,7 +36,7 @@ export default function Subtitle(props: TypographyProps) {
       p={padding}
       sx={{
         textAlign: align,
-        fontWeight: 400,
+        fontWeight: fontWeight,
         fontSize: fontSizes.xs,
         lineHeight: lineHeights.xs,
         '@media (min-width: 450px)': {
