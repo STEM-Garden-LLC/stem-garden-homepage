@@ -1,6 +1,9 @@
 
 import { Box, Typography } from '@mui/material';
 
+// TYPES 
+import { PlayModeEnum } from '../helpers/magicSquareHelpers';
+
 export default function WinLossDrawRecord(props) {
   const { 
     gameNumber,
@@ -10,59 +13,33 @@ export default function WinLossDrawRecord(props) {
     humanGoesFirst, 
   } = props
 
-  let playerOne = ""
-  let playerTwo = ""
+  let playerOne = <></>
+  let playerTwo = <></>
   
-  if (game === "tic-tac-toe") {
-    if (playMode === "play-vs-friend") {
-      if (gameNumber % 2 === 1) {
-        playerOne = <Box>"X - Player One"</Box>
-        playerTwo = "O - Player Two:"
-      }
-      else {
-        playerOne = "O - Player One:"
-        playerTwo = "X - Player Two:"
-      }
-    }
-    else if (playMode === "play-vs-bot") {
-        if (humanGoesFirst) {
-        playerOne = "X Human:"
-        playerTwo = "O Bot:"
-      }
-      else {
-        playerOne = "O Human:"
-        playerTwo = "X Bot:"
-      }
+  
+  if (playMode === PlayModeEnum.humanVsHuman) {
+    if (gameNumber % 2 === 1) {
+      playerOne = <PlayerRow label="Player One" goesFirst={true} score={winLossDrawRecord[0]} />
+      playerTwo = <PlayerRow label="Player Two" goesFirst={false} score={winLossDrawRecord[1]} />
     }
     else {
-      console.error("Invalid value of playMode passed to WinLossDrawRecord");
-    }  
-  }
-  else if (game === "fifteen-game") {
-    if (playMode === "play-vs-friend") {
-      if (gameNumber % 2 === 1) {
-        playerOne = <PlayerRow label="Player One" goesFirst={true} score={winLossDrawRecord[0]} />
-        playerTwo = <PlayerRow label="Player Two" goesFirst={false} score={winLossDrawRecord[1]} />
-      }
-      else {
-        playerOne = <PlayerRow label="Player One" goesFirst={false} score={winLossDrawRecord[0]} />
-        playerTwo = <PlayerRow label="Player Two" goesFirst={true} score={winLossDrawRecord[1]} />
-      }
+      playerOne = <PlayerRow label="Player One" goesFirst={false} score={winLossDrawRecord[0]} />
+      playerTwo = <PlayerRow label="Player Two" goesFirst={true} score={winLossDrawRecord[1]} />
     }
-    else if (playMode === "play-vs-bot") {
-      if (humanGoesFirst) {
-        playerOne = <PlayerRow label="Human" goesFirst={true} score={winLossDrawRecord[0]} />
-        playerTwo = <PlayerRow label="Bot" goesFirst={false} score={winLossDrawRecord[1]} />
-      }
-      else {
-        playerOne = <PlayerRow label="Human" goesFirst={false} score={winLossDrawRecord[0]} />
-        playerTwo = <PlayerRow label="Bot" goesFirst={true} score={winLossDrawRecord[1]} />
-      }
+  }
+  else if (playMode === PlayModeEnum.humanVsBot) {
+    if (humanGoesFirst) {
+      playerOne = <PlayerRow label="Human" goesFirst={true} score={winLossDrawRecord[0]} />
+      playerTwo = <PlayerRow label="Bot" goesFirst={false} score={winLossDrawRecord[1]} />
     }
     else {
-      console.error(`Invalid value of playMode passed to WinLossDrawRecord: ${playMode}`);
-    }  
+      playerOne = <PlayerRow label="Human" goesFirst={false} score={winLossDrawRecord[0]} />
+      playerTwo = <PlayerRow label="Bot" goesFirst={true} score={winLossDrawRecord[1]} />
+    }
   }
+  else {
+    console.error(`Invalid value of playMode passed to WinLossDrawRecord: ${playMode}`);
+  }  
   
   function PlayerRow(props) {
     const { label, goesFirst, score } = props
