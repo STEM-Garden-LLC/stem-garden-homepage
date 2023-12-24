@@ -7,9 +7,11 @@ import { Box } from '@mui/material';
 // TYPES
 import { LinkTypeEnum } from '../../@types/Links'
 import { ColorsEnum } from '../../@types/Colors';
+import { AlignEnum, FontWeightEnum } from '../../@types/TypographyProps';
+
 
 // COMPONENTS
-import { Title } from '../../components/typography';
+import { Title, Subtitle, Heading  } from '../../components/typography';
 import { Footer, ScrollToTopButton } from '../../components';
 import { LeafyBackground, ThemedBackground } from '../../components/backgrounds';
 import PictureCard from '../../components/cards/PictureCard';
@@ -62,6 +64,16 @@ function LandingPageTitle() {
       <Title text='Sowing seeds of' textColor={ColorsEnum.white} />
       <Title text='life-long learning' textColor={ColorsEnum.white} />
       <Title text='and DIY-spirit' textColor={ColorsEnum.white} gutterBottom />
+      <Box px={3} >
+        <Heading 
+          align={AlignEnum.left}
+          textColor={ColorsEnum.white} 
+          fontWeight={FontWeightEnum.light} 
+          textWrap={true}
+          gutterBottom 
+          text='The STEM Garden is a micro-farm in the heart of New Orleans. We sell organic banana, papaya, fig, turmeric, and more. We also offer tutoring services and free resources for learning math.' 
+        />
+      </Box>
     </Box>
   )
 }
