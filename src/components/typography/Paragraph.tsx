@@ -14,6 +14,19 @@ export default function Paragraph(props: TypographyProps) {
   // const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
   const color = textColor ? textColor : (colorTheme === "dark") ? ColorsEnum.white : ColorsEnum.black
 
+  const fontSizes = {
+    xs: '0.95rem',
+    sm: '1.0rem',
+    md: '1.1rem',
+    lg: '1.2rem'
+  }
+
+  const lineHeights = {
+    xs: '1.1rem',
+    sm: '1.2rem',
+    md: '1.3rem',
+    lg: '1.4rem'
+  }
 
   return (
     <Typography 
@@ -23,15 +36,19 @@ export default function Paragraph(props: TypographyProps) {
       align={align}
       sx={{
         fontWeight: 200,
-        fontSize: '0.95rem',
-        lineHeight: '1.2rem',
+        fontSize: fontSizes.xs,
+        lineHeight: lineHeights.xs,
+        '@media (min-width: 450px)': {
+          fontSize: fontSizes.sm,
+          lineHeight: lineHeights.sm,
+        },
         '@media (min-width: 600px)': {
-          fontSize: '1.1rem',
-          lineHeight: '1.3rem',
+          fontSize: fontSizes.md,
+          lineHeight: lineHeights.md,
         },
         '@media (min-width: 900px)': {
-          fontSize: '1.2rem',
-          lineHeight: '1.4rem',
+          fontSize: fontSizes.lg,
+          lineHeight: lineHeights.lg,
         },
       }}
     />
