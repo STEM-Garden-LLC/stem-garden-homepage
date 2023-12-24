@@ -1,82 +1,60 @@
 import { Box, Typography } from '@mui/material';
 
-import { status } from "../helpers/magicSquareHelpers";
+import { PlayersEnum, PlayModeEnum, GameStatusEnum, status, MovelistType } from "../helpers/magicSquareHelpers";
 
-export default function GameStatusDisplay(props) {
+type GameStatusDisplayProps = {
+  movelist: MovelistType, 
+  playMode: PlayModeEnum, 
+  gameNumber: number,
+  humanGoesFirst: boolean
+}
+
+export default function GameStatusDisplay(props: GameStatusDisplayProps) {
   const { 
-    moveList, 
-    playMode, // 
+    movelist, 
+    playMode, 
     gameNumber,
     humanGoesFirst 
   } = props
 
-  console.assert((playMode === "play-vs-friend" || playMode === "play-vs-bot"), `Status Header recieved invalid playMode: ${playMode}`)
 
+  // TODO 
+  // const gameStatus = status(movelist);
+  const gameStatus: GameStatusEnum = GameStatusEnum.playerOneToMove
+
+
+
+  let message = "Error finding status message."
   
-  let message = "Error in switch."
-  const gameStatus = status(moveList);
-
-  
-  if (playMode === "play-vs-friend") {
-    const whoFirstThisGame = (gameNumber % 2 === 1) ? "Player One" : "Player Two"
-    const whoSecondThisGame = (gameNumber % 2 === 1) ? "Player Two" : "Player One"
-    const playerOneWentFirst = (whoFirstThisGame === "Player One")
-    const itsTheFirstPlayersTurn = (moveList.length % 2 === 0)
-    const whoseTurnNow = playerOneWentFirst ? 
-      (itsTheFirstPlayersTurn ? "Player One" : "Player Two") :
-      (itsTheFirstPlayersTurn ? "Player Two" : "Player One")
-
-    
-    if (moveList.length === 0) {
-      message = `${whoseTurnNow} goes first.`
-    }
-    else {
-      switch (gameStatus) {
-      case "xWins":
-        message = `${whoFirstThisGame} Wins!`
-        break;
-      case "oWins":
-        message = `${whoSecondThisGame} Wins!`
-        break;
-      case "draw":
-        message = `Game Over! Draw.`
-        break;
-      case "xNext":
-        message = `${whoFirstThisGame}'s turn.`
-        break;
-      case "oNext":
-        message = `${whoSecondThisGame}'s turn.`
-        break;
-      default:
-        message = "error" 
-      }
-    }
-    
-    
-    
+  if (playMode === PlayModeEnum.humanVsHuman) {
+    const whoFirstThisGame = (gameNumber % 2 === 1) ? PlayersEnum.playerOne : PlayersEnum.playerTwo
+    message = (movelist.length === 0) ?
+      `${whoFirstThisGame} goes first this time.` :
+      gameStatus
   }
-  else if (playMode === "play-vs-bot") {
+  else if (playMode === PlayModeEnum.humanVsBot) {
     switch (gameStatus) {
-    case "xWins":
-      message = (humanGoesFirst) ? "Game Over. Human Wins!" : "Game Over. Bot Wins!"
-      break;
-    case "oWins":
-      message = (humanGoesFirst) ? "Game Over. Bot Wins!" : "Game Over. Human Wins!" 
-      break;
-    case "draw":
-      message = "Game Over! Draw."
-      break;
-    case "xNext":
+    // case GameStatusEnum.playerOneWins:
+    //   message = (humanGoesFirst) ? "Game Over. Human Wins!" : "Game Over. Bot Wins!"
+    //   break;
+    // case GameStatusEnum.playerTwoWins:
+    //   message = (humanGoesFirst) ? "Game Over. Bot Wins!" : "Game Over. Human Wins!" 
+    //   break;
+    // case GameStatusEnum.draw:
+    //   message = "Game Over! Draw."
+    //   break;
+    case GameStatusEnum.playerOneToMove:
       message = (humanGoesFirst) ? "Human's Turn" : "Bot's Turn" 
       break;
-    case "oNext":
-      message = (humanGoesFirst) ? "Bot's Turn" : "Human's Turn"
-      break;
+    // case GameStatusEnum.playerTwoToMove:
+    //   message = (humanGoesFirst) ? "Bot's Turn" : "Human's Turn"
+    //   break;
     default:
       message = "error" 
     }
   }
   else {
+    message = "Invalid value provided for Play Mode"
   }
     
   return (
