@@ -13,14 +13,6 @@ import { Link as RouterLink } from 'react-router-dom';
 // DATA 
 import { gamesData } from '../../data'
 
-// IMAGES
-import { 
-  connect_four_screenshot,
-  tic_tac_toe_screenshot,
-  fifteen_game_screenshot,
-  under_construction
-} from '../../assets/math-games'
-
 // TYPES
 import { ColorsEnum } from '../../@types/Colors';
 import { AlignEnum } from '../../@types/TypographyProps'
@@ -123,7 +115,7 @@ function GameCard(props: GameCardProps) {
                 alignItems='start'
                 justifyContent='space-between'
               >
-                <Heading text={title} />
+                <Heading text={title} align={AlignEnum.left} />
                 {
                   description.map((paragraph, index) => (
                     <Paragraph 
