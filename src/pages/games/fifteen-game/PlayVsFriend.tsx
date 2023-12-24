@@ -6,24 +6,35 @@ import { Container, Box } from '@mui/material';
 
 
 
-import { Title, Subtitle } from '../../../components/typography'
 
-
-
-// My Components
+// COMPONENTS 
 import FifteenGameBoard from "./Board";
+import GameStatusDisplay from './GameStatusDisplay';
+import WinLossDrawDisplay from './WinLossDrawDisplay';
+import { Title, Subtitle } from '../../../components/typography'
+import { GameButton, NavigationButton } from '../../../components'
+
 import {  FriendPanel as FifteenGamePanel } from "./Panel";
 
 // Game Logic
-import { status, gameOver } from "../helpers/magicSquareHelpers";
+import { status, gameOver, MovelistType } from "../helpers/magicSquareHelpers";
 
-const startingPosition = "" 
 
 // TYPES
-import { CardId } from "../helpers/magicSquareHelpers";
+import { CardId, PlayModeEnum } from "../helpers/magicSquareHelpers";
+
+// DATA
+import { gamesData } from '../../../data'
+// import { gamesData } from '@data'
+
+
+
+const startingPosition: MovelistType = []
+
+
 
 export default function PlayVsFriend(props) {
-  const { outcomeMap } = props
+  const { outcomeMap = new Map() } = props
 
   const [movelist, setMovelist] = useState(startingPosition)
   const [gameNumber, setGameNumber] = useState(1);
@@ -92,14 +103,42 @@ export default function PlayVsFriend(props) {
         outcomeMap={outcomeMap}
       />
 
-      <FifteenGamePanel
+      <GameStatusDisplay 
+        movelist={movelist} 
+        gameNumber={gameNumber}
+        playMode={PlayModeEnum.humanVsHuman}
+      />
+      <WinLossDrawDisplay 
+        gameNumber={gameNumber}
+        winLossDrawRecord={winLossDrawRecord}
+        playMode={PlayModeEnum.humanVsHuman}
+        // humanGoesFirst={humanGoesFirst}
+      />
+
+      {/* <FifteenGamePanel
         movelist={movelist}
         gameNumber={gameNumber}
         winLossDrawRecord={winLossDrawRecord}
         handleNewGameClick={handleNewGameClick}
         handleUndoClick={handleUndoClick}
-      />
+      /> */}
 
+    </Box>
+  )
+}
+
+function FifteenGameButtons() {
+  const fifteenGameData = gamesData.filter(items => "The Fifteen Game" === items.title)[0]
+
+  return (
+    <Box display='flex' justifyContent='space-between' height={40} >
+      <NavigationButton 
+        label='home'
+        linkTo={fifteenGameData.linkTo}
+
+      />
+      <UndoMoveButton movelist={movelist} handleUndoClick={handleUndoClick} />
+      <NewGameButton movelist={movelist} handleNewGameClick={handleNewGameClick} />
     </Box>
   )
 }
