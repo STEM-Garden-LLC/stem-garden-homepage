@@ -1,17 +1,34 @@
 import { intersect } from "../helpers/probability";
 
+export type MovelistType = number[]
 
+export enum PlayersEnum {
+  playerOne = 'Player One',
+  playerTwo = 'Player Two'
+}
 
-enum GameStatusEnum {
-  playerOneWins = 'playerOneWins',
-  playerTwoWins = 'playerTwoWins',
-  draw = 'draw',
-  playerOneToMove = 'playerOneToMove',
-  playerTwoToMove = 'playerTwoToMove'
+export enum PlayModeEnum {
+  humanVsHuman = 'humanVsHuman',
+  humanVsBot = 'humanVsBot',
+  humanVsCoach = 'humanVsCoach'
 
 }
 
-export type CardId = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+export enum GameStatusEnum {
+  playerOneWins = 'Player One Wins',
+  playerTwoWins = 'Player Two Wins',
+  draw = 'It\'s a Draw',
+  playerOneToMove = 'Player One\'s Turn',
+  playerTwoToMove = 'Player Two\'s Turn'
+}
+
+export enum OutcomesEnum {
+  playerOneWins = 'Player One Wins',
+  playerTwoWins = 'Player Two Wins',
+  draw = 'It\'s a Draw',
+}
+
+export type CardId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 export enum DifficultyModes {
   easy = 'easy',
@@ -45,52 +62,54 @@ export function complementOf(sumOfTwo: number) {
 ////////////////////////////////////////////////////////////////
 //  Current Game Status: "xWins", "oWins", "draw",  "xNext", or "oNext"
 ////////////////////////////////////////////////////////////////
-export function status(movelist: string) {
+export function status(movelist: MovelistType) {
   if (playerOneWins(movelist)) {
     return (GameStatusEnum.playerOneWins)
   }
   else if (playerTwoWins(movelist)) {
     return (GameStatusEnum.playerTwoWins)
   }
-  else if (movelist.length === 9) {
+  else if (movelist!.length === 9) {
     return (GameStatusEnum.draw)
   }
   else {
-    return nextPlayer(movelist)  // "xNext" || "oNext"
+    return nextPlayer(movelist)
   }
 }
 ////////////////////////////////////////////////////////////////
 // Game Status Helpers: BOOLEAN
 ////////////////////////////////////////////////////////////////
-export function nextPlayer(movelist: string) {
-  return (movelist.length % 2 === 0) ? "xNext" : "oNext"
+export function nextPlayer(movelist: MovelistType) {
+  return (movelist.length % 2 === 0) ? 
+    GameStatusEnum.playerOneToMove : 
+    GameStatusEnum.playerTwoToMove
 }
 
-export function gameOver(movelist: string) {
+export function gameOver(movelist: MovelistType) {
   return (movelist.length === 9 || gameHasBeenWon(movelist))
 }
 
-function gameHasBeenWon(movelist: string) {
+function gameHasBeenWon(movelist: MovelistType) {
   return (playerOneWins(movelist) || playerTwoWins(movelist)) 
 }
 
-export function playerOneWins(movelist: string) {
+export function playerOneWins(movelist: MovelistType) {
   return sumsOfThree(playerOnesMoves(movelist)).includes(15)
 }
 
-export function playerTwoWins(movelist: string) {
+export function playerTwoWins(movelist: MovelistType) {
   return sumsOfThree(playerTwosMoves(movelist)).includes(15)
 }
 
-export function gameDrawn(movelist: string) {
+export function gameDrawn(movelist: MovelistType) {
   return (movelist.length === 9 && !gameHasBeenWon(movelist))
 }
 
-export function moveNumber(movelist: string) {
+export function moveNumber(movelist: MovelistType) {
     return (movelist.length + 1)
 }
 
-export function numbersInWin(movelist: string) {
+export function numbersInWin(movelist: MovelistType) {
   let Xs = playerOnesMoves(movelist)
   let Os = playerTwosMoves(movelist)
   let winningTrios = trioList.filter(trio =>
@@ -100,11 +119,11 @@ export function numbersInWin(movelist: string) {
 }
 
 // Includes final and predicted
-export function outcome(movelist: string, outcomeMap) {
+export function outcome(movelist: MovelistType, outcomeMap: Map<MovelistType, OutcomesEnum>) {
   return (gameOver(movelist)) ? finalOutcome(movelist) : predictedOutcome(movelist, outcomeMap)
 }
 
-function finalOutcome(movelist: string) {
+function finalOutcome(movelist: MovelistType) {
   let outcome = playerOneWins(movelist) ? 
     GameStatusEnum.playerOneWins : 
     playerTwoWins(movelist) ?
@@ -117,34 +136,25 @@ function finalOutcome(movelist: string) {
 }
 
 
-function predictedOutcome(movelist: string, outcomeMap: Map<string, string>) {
-    let outcome = "error"
+function predictedOutcome(movelist: MovelistType, outcomeMap: Map<MovelistType, OutcomesEnum>) {
+    let outcome
 
-// TODO
+    const gameStatus = status(movelist)
 
     let childrensOutcomes = getChildren(movelist).map(child => outcomeMap.get(child))
     // console.log(`Position: ${position} --> childrensOutcomes: ${childrensOutcomes}`)
-    if (nextPlayer(movelist) === "xNext") {
-        if (childrensOutcomes.includes("xWins")) {
-            outcome = "xWins"
-        }
-        else if (childrensOutcomes.includes("draw")) {
-            outcome = "draw"
-        }
-        else {
-            outcome = "oWins"
-        }
+    
+    if (gameStatus === GameStatusEnum.playerOneToMove) {
+      outcome = childrensOutcomes.includes(OutcomesEnum.playerOneWins) ? 
+        OutcomesEnum.playerOneWins :
+        childrensOutcomes.includes(OutcomesEnum.draw) ?
+        OutcomesEnum.draw : OutcomesEnum.playerTwoWins
     }
-    else {
-        if (childrensOutcomes.includes("oWins")) {
-            outcome = "oWins"
-        }
-        else if (childrensOutcomes.includes("draw")) {
-            outcome = "draw"
-        }
-        else {
-            outcome = "xWins"
-        }
+    else if (gameStatus === GameStatusEnum.playerTwoToMove) {
+      outcome = childrensOutcomes.includes(OutcomesEnum.playerTwoWins) ? 
+        OutcomesEnum.playerTwoWins :
+        childrensOutcomes.includes(OutcomesEnum.draw) ?
+        OutcomesEnum.draw : OutcomesEnum.playerOneWins
     }
     return outcome
 }
@@ -152,35 +162,40 @@ function predictedOutcome(movelist: string, outcomeMap: Map<string, string>) {
 ////////////////////////////////////////////////////////////////
 // Isolate each players' claimed numbers: ARRAY(NUM)
 ////////////////////////////////////////////////////////////////
-export function playerOnesMoves(movelist: string) {
-  return moveListStringToArray(movelist).filter((move, turn) => turn % 2 === 0)
+export function playerOnesMoves(movelist: MovelistType) {
+  return movelist.filter((move, turn) => turn % 2 === 0)
+  // return []
 }
-export function playerTwosMoves(movelist: string) {
-  return moveListStringToArray(movelist).filter((move, turn) => turn % 2 === 1)
+export function playerTwosMoves(movelist: MovelistType) {
+  return movelist.filter((move, turn) => turn % 2 === 1)
+  // return moveListStringToArray(movelist).filter((move, turn) => turn % 2 === 1)
+  // return []
 }
 
-export function moveListStringToArray(movelist: string) {     // "123" --> [1,2,3]
-  return Array.from(movelist)!.map(e => Number(e))
-}
+// export function moveListStringToArray(movelist: MovelistType) {     // "123" --> [1,2,3]
+//   const array : number[] = Array.from(movelist).map(e => Number(e)) ?? []
+//   return array
+// }
 
-export function getChildren(movelist: string) {
-  let children: string[] = []
-  getValidMoves(movelist).forEach(move => children.push(movelist + move))
+export function getChildren(movelist: MovelistType) {
+  let children: MovelistType[] = []
+  getValidMoves(movelist).forEach(move => children.push(movelist.concat(move)))
   return children
 }
 
-export function getValidMoves(movelist: string) {
+export function getValidMoves(movelist: MovelistType) {
   return (gameOver(movelist)) ? [] : availableNumbers(movelist)
 }
 
-export function availableNumbers(movelist: string) {
+export function availableNumbers(movelist: MovelistType) {
   let availableNumbers = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9])
   for (let i = 0; i < movelist.length; i++) {
-    availableNumbers.delete(parseInt(movelist.charAt(i)))
+    availableNumbers.delete(movelist[i])
   }
   return Array.from(availableNumbers)
 }
-export function getParent(movelist: string) {
+
+export function getParent(movelist: MovelistType) {
     return movelist.slice(0, movelist.length - 1)
 }
 
@@ -227,11 +242,11 @@ function getListOfPossiblePositions() {
   // Layer 1) indices 0 thru 9 correspond to the lengths of the move lists contained there
   // Layer 2) an array containing all valid move lists of that length
   // Layer 3) Move List string representations
-  let positionsList = [[""]]
+  let positionsList = [[[]]]
   for (let parentLength = 0; parentLength < 9; parentLength++) {
-      let parentPositions = positionsList[parentLength]
-      let childPositions = parentPositions.map(parent => getChildren(parent)).flat()
-      positionsList.push(childPositions)
+    let parentPositions : MovelistType[] = positionsList[parentLength]
+    // let childPositions = parentPositions.map(parent => getChildren(parent)).flat()
+    // positionsList.push(childPositions)
   }
   return positionsList
 }
