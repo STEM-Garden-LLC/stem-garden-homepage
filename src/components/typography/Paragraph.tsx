@@ -18,7 +18,7 @@ export default function Paragraph(props: TypographyProps) {
     xs: '0.95rem',
     sm: '1.0rem',
     md: '1.1rem',
-    lg: '1.2rem'
+    lg: '1.1rem'
   }
 
   const lineHeights = {
