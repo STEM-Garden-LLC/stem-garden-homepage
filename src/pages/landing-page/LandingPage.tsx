@@ -163,7 +163,7 @@ function ResponsiveCards() {
       </Box>
       <Box 
         display='flex' 
-        justifyContent='space-around'
+        justifyContent='space-evenly'
         alignItems='stretch'
       > 
         { teachingServicesCard }
@@ -176,7 +176,7 @@ function ResponsiveCards() {
     <Box 
       width={containerWidth}
       display='flex' 
-      justifyContent='space-between'
+      justifyContent='space-around'
       alignItems='stretch'
     > 
       { whatWeGrowCard }
