@@ -31,7 +31,7 @@ export default function Heading(props: TypographyProps) {
     xs: '1.6rem',
     sm: '2.0rem',
     md: '2.3rem',
-    lg: '2.3rem'
+    lg: '2.4rem'
   }
 
   return (
