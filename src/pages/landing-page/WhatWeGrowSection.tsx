@@ -22,6 +22,7 @@ import { whatWeGrowData } from '../../data'
 // TYPES
 import { ColorsEnum } from '../../@types/Colors';
 import { ColorThemeEnum } from '../../@types/ColorTheme';
+import { AlignEnum } from '../../@types/TypographyProps';
 
 ////////////////////////
 //    What We Grow    //
@@ -215,7 +216,7 @@ function CropDetail(props: CropDetailProps) {
 
   return (
     <Box marginBottom="3.0rem" >
-      <Title text={capitalizedSelectedCrop} align='center' />
+      <Title text={capitalizedSelectedCrop} align={AlignEnum.center} />
       <Paragraph text={text} />
 
       <Box id="carousel-container"
