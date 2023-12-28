@@ -7,11 +7,3 @@ export enum ColorsEnum {
   white = '#FFFFFF',
 
 }
-
-export enum FifteenGameColorsEnum {
-  playerOne = '#ffea00',    // yellow
-  playerTwo = '#1020ff',    // blue
-  highlightWin = '#009900', // bright green
-
-}
-
