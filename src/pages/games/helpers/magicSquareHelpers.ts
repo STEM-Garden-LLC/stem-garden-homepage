@@ -1,5 +1,13 @@
 import { intersect } from "../helpers/probability";
 
+import { 
+  MovelistType, 
+  GameStatusEnum, 
+  GameOutcomesEnum,
+  PlayersEnum,
+  CardClaimStatusEnum,
+
+} from './magicSquareTypes'
   
 // Generate all sets of three that sum to 15
 export const trioList = generateTrioList()
@@ -132,16 +140,16 @@ function predictedOutcome(movelist: MovelistType, outcomeMap: Map<MovelistType, 
     // console.log(`Position: ${position} --> childrensOutcomes: ${childrensOutcomes}`)
     
     if (gameStatus === GameStatusEnum.playerOneToMove) {
-      outcome = childrensOutcomes.includes(OutcomesEnum.playerOneWins) ? 
-        OutcomesEnum.playerOneWins :
-        childrensOutcomes.includes(OutcomesEnum.draw) ?
-        OutcomesEnum.draw : OutcomesEnum.playerTwoWins
+      outcome = childrensOutcomes.includes(GameOutcomesEnum.playerOneWins) ? 
+        GameOutcomesEnum.playerOneWins :
+        childrensOutcomes.includes(GameOutcomesEnum.draw) ?
+        GameOutcomesEnum.draw : GameOutcomesEnum.playerTwoWins
     }
     else if (gameStatus === GameStatusEnum.playerTwoToMove) {
-      outcome = childrensOutcomes.includes(OutcomesEnum.playerTwoWins) ? 
-        OutcomesEnum.playerTwoWins :
-        childrensOutcomes.includes(OutcomesEnum.draw) ?
-        OutcomesEnum.draw : OutcomesEnum.playerOneWins
+      outcome = childrensOutcomes.includes(GameOutcomesEnum.playerTwoWins) ? 
+        GameOutcomesEnum.playerTwoWins :
+        childrensOutcomes.includes(GameOutcomesEnum.draw) ?
+        GameOutcomesEnum.draw : GameOutcomesEnum.playerOneWins
     }
     return outcome
 }
