@@ -24,6 +24,21 @@ export function complementOf(sumOfTwo: number) {
   return (15 - sumOfTwo)
 }
 
+
+
+export function getCardClaimStatus(cardId: string, movelist: MovelistType) {
+  console.log(`ML: ${movelist}`)
+  console.log(`Type of ML first element: ${typeof(movelist[0])}`)
+  
+  let turn = movelist.indexOf(cardId)
+  if (turn === -1) {
+    return CardClaimStatusEnum.unclaimed
+  }
+  else {
+    return (turn % 2 === 0) ? CardClaimStatusEnum.playerOne : CardClaimStatusEnum.playerTwo
+  }
+}
+
 ////////////////////////////////////////////////////////////////
 //  Current Game Status: "xWins", "oWins", "draw",  "xNext", or "oNext"
 ////////////////////////////////////////////////////////////////
