@@ -1,40 +1,5 @@
 import { intersect } from "../helpers/probability";
 
-export type MovelistType = number[]
-
-export enum PlayersEnum {
-  playerOne = 'Player One',
-  playerTwo = 'Player Two'
-}
-
-export enum PlayModeEnum {
-  humanVsHuman = 'humanVsHuman',
-  humanVsBot = 'humanVsBot',
-  humanVsCoach = 'humanVsCoach'
-
-}
-
-export enum GameStatusEnum {
-  playerOneWins = 'Player One Wins',
-  playerTwoWins = 'Player Two Wins',
-  draw = 'It\'s a Draw',
-  playerOneToMove = 'Player One\'s Turn',
-  playerTwoToMove = 'Player Two\'s Turn'
-}
-
-export enum OutcomesEnum {
-  playerOneWins = 'Player One Wins',
-  playerTwoWins = 'Player Two Wins',
-  draw = 'It\'s a Draw',
-}
-
-export type CardId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-
-export enum DifficultyModes {
-  easy = 'easy',
-  medium = 'medium',
-  hard = 'hard'
-}
   
 // Generate all sets of three that sum to 15
 export const trioList = generateTrioList()
