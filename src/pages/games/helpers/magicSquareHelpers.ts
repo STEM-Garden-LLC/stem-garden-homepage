@@ -65,8 +65,15 @@ export function nextPlayer(movelist: MovelistType) {
     GameStatusEnum.playerTwoToMove
 }
 
-export function gameOver(movelist: MovelistType) {
+export function gameOverFromMovelist(movelist: MovelistType) {
   return (movelist.length === 9 || gameHasBeenWon(movelist))
+}
+export function gameOverFromStatus(status: GameStatusEnum) {
+  return ([
+    GameStatusEnum.draw, 
+    GameStatusEnum.playerOneWins, 
+    GameStatusEnum.playerTwoWins
+  ].includes(status))
 }
 
 function gameHasBeenWon(movelist: MovelistType) {
