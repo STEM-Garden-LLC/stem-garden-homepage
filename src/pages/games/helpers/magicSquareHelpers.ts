@@ -158,19 +158,33 @@ function predictedOutcome(movelist: MovelistType, outcomeMap: Map<MovelistType, 
 // Isolate each players' claimed numbers: ARRAY(NUM)
 ////////////////////////////////////////////////////////////////
 export function playerOnesMoves(movelist: MovelistType) {
-  return movelist.filter((move, turn) => turn % 2 === 0)
-  // return []
+  // console.log(`Original Movelist: ${movelist}`)
+  let playerOnesMoves = ''
+  for (let c = 0; c < movelist.length; c++) {
+    if (c % 2 === 0) {
+      playerOnesMoves = playerOnesMoves.concat(movelist.charAt(c))
+    }
+  }
+  // console.log(`Filtered Movelist: ${filteredMovelist}`)
+  return playerOnesMoves
+  // return playerOnesMoves
 }
 export function playerTwosMoves(movelist: MovelistType) {
-  return movelist.filter((move, turn) => turn % 2 === 1)
-  // return moveListStringToArray(movelist).filter((move, turn) => turn % 2 === 1)
-  // return []
+  // console.log(`Original Movelist: ${movelist}`)
+  let playerTwosMoves = ''
+  for (let c = 0; c < movelist.length; c++) {
+    if (c % 2 === 0) {
+      playerTwosMoves = playerTwosMoves.concat(movelist.charAt(c))
+    }
+  }
+  // console.log(`Filtered Movelist: ${filteredMovelist}`)
+  return playerTwosMoves
 }
 
-// export function moveListStringToArray(movelist: MovelistType) {     // "123" --> [1,2,3]
-//   const array : number[] = Array.from(movelist).map(e => Number(e)) ?? []
-//   return array
-// }
+export function movelistToNumberArray(movelist: MovelistType) {     // "123" --> [1,2,3]
+  const array : number[] = Array.from(movelist).map(e => Number(e)) ?? []
+  return array
+}
 
 export function getChildren(movelist: MovelistType) {
   let children: MovelistType[] = []
@@ -179,7 +193,7 @@ export function getChildren(movelist: MovelistType) {
 }
 
 export function getValidMoves(movelist: MovelistType) {
-  return (gameOver(movelist)) ? [] : availableNumbers(movelist)
+  return (gameOverFromMovelist(movelist)) ? [] : availableNumbers(movelist)
 }
 
 export function availableNumbers(movelist: MovelistType) {
