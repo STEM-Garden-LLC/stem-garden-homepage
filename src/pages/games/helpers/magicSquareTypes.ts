@@ -9,6 +9,12 @@ export enum PlayModeEnum {
   botGoesFirst = 'Bot Goes First',               // Human Vs. Bot
   playWithCoach = 'Coaching Mode'
 }
+export enum DifficultyModesEnum {
+  easy = 'easy',
+  medium = 'medium',
+  hard = 'hard'
+}
+
 ////////////////////
 //    CONSTANTS   //
 ////////////////////
@@ -60,10 +66,4 @@ export enum CardId {
   _7,
   _8,
   _9
-}
-
-export enum DifficultyModes {
-  easy = 'easy',
-  medium = 'medium',
-  hard = 'hard'
 }
