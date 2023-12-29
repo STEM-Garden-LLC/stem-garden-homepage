@@ -1,83 +1,91 @@
 
+// COMPONENTS
 import { Box, Typography } from '@mui/material';
+import { Heading } from '@components/typography'
+
+// HELPERS
+import { playModeIsHumanVsHuman, playModeIsHumanVsBot } from '../helpers/magicSquareHelpers';
 
 // TYPES 
-import { PlayModeEnum } from '../helpers/magicSquareHelpers';
+import { FifteenGameColorsEnum, PlayersEnum } from '../helpers/magicSquareTypes';
 
-export default function WinLossDrawRecord(props) {
+export default function WinLossDrawDisplay(props) {
   const { 
-    gameNumber,
-    winLossDrawRecord,
-    game = "fifteen-game",
-    playMode = "play-vs-friend",
-    humanGoesFirst, 
+    playMode,
+    winLossDrawRecord
   } = props
 
-  let playerOne = <></>
-  let playerTwo = <></>
   
   
-  if (playMode === PlayModeEnum.humanVsHuman) {
-    if (gameNumber % 2 === 1) {
-      playerOne = <PlayerRow label="Player One" goesFirst={true} score={winLossDrawRecord[0]} />
-      playerTwo = <PlayerRow label="Player Two" goesFirst={false} score={winLossDrawRecord[1]} />
-    }
-    else {
-      playerOne = <PlayerRow label="Player One" goesFirst={false} score={winLossDrawRecord[0]} />
-      playerTwo = <PlayerRow label="Player Two" goesFirst={true} score={winLossDrawRecord[1]} />
-    }
-  }
-  else if (playMode === PlayModeEnum.humanVsBot) {
-    if (humanGoesFirst) {
-      playerOne = <PlayerRow label="Human" goesFirst={true} score={winLossDrawRecord[0]} />
-      playerTwo = <PlayerRow label="Bot" goesFirst={false} score={winLossDrawRecord[1]} />
-    }
-    else {
-      playerOne = <PlayerRow label="Human" goesFirst={false} score={winLossDrawRecord[0]} />
-      playerTwo = <PlayerRow label="Bot" goesFirst={true} score={winLossDrawRecord[1]} />
-    }
-  }
-  else {
-    console.error(`Invalid value of playMode passed to WinLossDrawRecord: ${playMode}`);
-  }  
-  
-  function PlayerRow(props) {
-    const { label, goesFirst, score } = props
+  if (playModeIsHumanVsHuman(playMode)) {
     return (
-      <Box display='flex' flexDirection='row' justifyContent='space-between' alignItems='center' >
-        <ColorTile goesFirst={goesFirst} /> 
-        <Typography align='left' variant='h5' children={label} />
-        <Typography align='right' variant='h5' marginLeft='auto' children={score} />
-          
-      </Box>
+      <>
+        <OutcomeRow 
+          label={PlayersEnum.playerOne}
+          score={winLossDrawRecord[0]} 
+          humanVsHuman 
+        />
+        <OutcomeRow 
+          label={PlayersEnum.playerTwo}
+          score={winLossDrawRecord[1]} 
+          humanVsHuman 
+        />
+        <OutcomeRow 
+          label="Draw"
+          score={winLossDrawRecord[2]} 
+          humanVsHuman 
+        />
+      </>
     )
-  } 
-
-
-  function ColorTile(props) {
-    const { goesFirst } = props
-    const bgColor = (goesFirst === true) ? "magicSquareGames.playerOne" : (goesFirst === false) ? "magicSquareGames.playerTwo" : "transparent"
-
+  }
+  else if (playModeIsHumanVsBot(playMode)) {
     return (
+      <>
+        <OutcomeRow 
+          label="Human"
+          score={winLossDrawRecord[0]} />
+        <OutcomeRow 
+          label="Bot"
+          score={winLossDrawRecord[1]} />
+        <OutcomeRow 
+          label="Draw"
+          score={winLossDrawRecord[2]} />
+      </>
+    )
+  }
+}
+  
+type OutcomeRowProps =  {
+  label: PlayersEnum | string,
+  score: number, 
+  humanVsHuman?: boolean
+}
+
+function OutcomeRow(props: OutcomeRowProps) {
+  const { label, score } = props
+  
+  const tileColor = 
+    label === GameOutcomesEnum.playerOneWins ? 
+    FifteenGameColorsEnum.playerOne : 
+    outcome === GameOutcomesEnum.playerTwoWins ?
+    FifteenGameColorsEnum.playerTwo : 
+
+  
+  console.log(`Player: ${player}`)
+  console.log(`Label: ${label}`)
+  
+  return (
+    <Box display='flex' flexDirection='row' justifyContent='space-between' alignItems='center' >
       <Box 
         width='1.2rem'
         height='1.2rem'
         borderRadius='15%'
         margin='0 .5rem 0 0'
-        backgroundColor={bgColor}
+        backgroundColor={tileColor}
       />
-    )
-  } 
-  
-  
-
-  return (
-    <Box display='flex' flexDirection='column' px='25%' >
-      {/* <PlayerRow label="Player One" goesFirst={true} score={winLossDrawRecord[0]} /> */}
-      {/* <PlayerRow label="Player Two" goesFirst={false} score={winLossDrawRecord[1]} /> */}
-      {playerOne}
-      {playerTwo}
-      <PlayerRow label="Drawn" goesFirst={undefined} score={winLossDrawRecord[2]} />
-    </Box>  
+      <Heading text={label} />
+      <Typography align='right' variant='h5' marginLeft='auto' children={score} />
+        
+    </Box>
   )
-}
+} 
