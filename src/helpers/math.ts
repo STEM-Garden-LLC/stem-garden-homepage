@@ -1,3 +1,9 @@
+export function arraySum(array: number[]) {
+  array.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue
+  },0); // The second argument is the initialValue
+}
+
 export function intersect(listOne: any[], listTwo: any[]) {
   return listOne.filter(item => listTwo.includes(item))
 }
