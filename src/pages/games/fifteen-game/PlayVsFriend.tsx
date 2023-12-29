@@ -122,7 +122,7 @@ export default function PlayVsFriend(props: any) {
         <WinLossDrawDisplay 
           gameNumber={gameNumber}
           winLossDrawRecord={winLossDrawRecord}
-          playMode={PlayModeEnum.humanVsHuman}
+          humanVsHuman={true}
           // humanGoesFirst={humanGoesFirst}
         />
       </CenteredFlexBox>
