@@ -1,27 +1,34 @@
+import { useContext } from 'react';
+import { AppContext } from '@/context/AppContext';
+import { ColorThemeContext } from '@/context/ColorThemeContext';
 
 
 // COMPONENTS
 import { Box, Paper, Typography } from '@mui/material';
 
 // TYPES
-import { ColorsEnum, FifteenGameColorsEnum } from '@types/Colors';
+import { CardClaimStatusEnum, CardId, FifteenGameColorsEnum, MovelistType } from "../helpers/magicSquareTypes";
+
 
 // Magic Square Helpers
-import { numbersInWin } from "../helpers/magicSquareHelpers";
-import { types } from 'util';
+import { getCardClaimStatus, numbersInWin } from "../helpers/magicSquareHelpers";
+import { ColorsEnum } from '@/@types/Colors';
+
 
 type FifteenGameBoardProps = {
-  movelist: string,
+  movelist: MovelistType,
   handleCardClick: Function
 }
 
-export default function FifteenGameBoard(props: FifteenGameBoardProps) {
+const cardNumbers = [1,2,3,4,5,6,7,8,9]
+
+
+export default function Board(props: FifteenGameBoardProps) {
   const { movelist, handleCardClick } = props
-  
-  const cardNumbers = [1,2,3,4,5,6,7,8,9]
+
   const cardsWithWinBorder = numbersInWin(movelist)
   const cardsData = cardNumbers.map(num => {
-    let claimStatus = getCardClaimStatus(num, movelist)
+    let claimStatus: CardClaimStatusEnum = getCardClaimStatus(String(num), movelist)
     let isInWin = cardsWithWinBorder.includes(num)
     
     return ({
@@ -48,20 +55,15 @@ export default function FifteenGameBoard(props: FifteenGameBoardProps) {
   return (
     <Box  
       id='board height container'
-      // height={theme.breakpoints.values.sm}
-      maxHeight='50%'
+      height='100%'
       width='100%'
       maxWidth='100vw'
       display='flex'
-      padding='0.5rem'
+      flexDirection='column'
+      justifyContent='flex-end'
     >  
-      <Box id='board width container'
-        height='100%'
-        width='100%'
-      >  
         <Box id='row1' 
           children={cards.slice(0,5)}
-          width='100%'
           height='50%' 
           display='flex'
           justifyContent='center'
@@ -73,33 +75,36 @@ export default function FifteenGameBoard(props: FifteenGameBoardProps) {
           justifyContent='center'
           marginX='10%'
         />
-      </Box>
     </Box>
   )
 }
 
 
-function getCardClaimStatus(cardNum, movelist) {
-  let turn = movelist.indexOf(cardNum)
-  if (turn === -1) {
-    return 'unclaimed'
-  }
-  else {
-    return (turn % 2 === 0) ? 'playerOne' : 'playerTwo'
-  }
+type NumberCardProps = {
+  // cardId: CardId; 
+  number: number; 
+  claimStatus: CardClaimStatusEnum;
+  isInWin: boolean;
+  handleCardClick: Function;
 }
 
-
-function NumberCard(props) {
+function NumberCard(props: NumberCardProps) {
   const { number, claimStatus, isInWin, handleCardClick } = props
 
+  const { containerWidth } = useContext(AppContext)
+  const { colorTheme } = useContext(ColorThemeContext)
+
+
+  const fontSize = 0.18 * containerWidth
+  const unclaimedCardColor = colorTheme === 'dark' ? ColorsEnum.offWhite : ColorsEnum.darkGrey
+
   let claimColor = (
-    claimStatus === 'unclaimed' ? '#fff' : 
-    claimStatus === 'playerOne' ? 'magicSquareGames.playerOne' :
-    claimStatus === 'playerTwo' ? 'magicSquareGames.playerTwo' : 'error.main'
+    claimStatus === CardClaimStatusEnum.unclaimed ? unclaimedCardColor : 
+    claimStatus === CardClaimStatusEnum.playerOne ? FifteenGameColorsEnum.playerOne :
+    claimStatus === CardClaimStatusEnum.playerTwo ? FifteenGameColorsEnum.playerTwo : 'error.main'
   )
-  const textColor = (claimStatus === 'playerTwo') ? 'white' : 'black'
-  const borderColor = (isInWin ? 'magicSquareGames.highlightWins' : 'transparent' )
+  const textColor = (claimStatus === CardClaimStatusEnum.playerTwo) ? ColorsEnum.white : ColorsEnum.black
+  const borderColor = (isInWin ? FifteenGameColorsEnum.isInWin : 'transparent' )
 
   return (
     <Paper
@@ -110,7 +115,7 @@ function NumberCard(props) {
         borderStyle: 'solid',
         borderWidth: '0.7rem',
         borderColor: borderColor,
-        margin: '1.2%',
+        margin: '1.5%',
         display: 'flex',
         flex: '2 0 2rem',
         justifyContent: 'center',
@@ -121,6 +126,7 @@ function NumberCard(props) {
         color={textColor}
         children={number}
         variant='h1'
+        fontSize={fontSize}
       />
     </Paper>
   )
