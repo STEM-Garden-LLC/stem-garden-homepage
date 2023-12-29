@@ -94,41 +94,48 @@ export default function PlayVsFriend(props) {
     }
   }
 
+  const heights = {
+    total: `${availableHeight}px`,
+    board: '50%',
+    status: '10%',
+    record: '20%',
+    buttons: '20%',
+  }
+
   return (
-    <Box 
-      width='100%' 
-      height='calc(100vh - 96px)'
-      overflow='hidden'
-      bgcolor='common.black'
-      color='common.white'
-    >
-      <FifteenGameBoard 
-        movelist={movelist}
-        // showSolution={false}
-        handleCardClick={handleCardClick}
-        outcomeMap={outcomeMap}
-      />
-
-      <GameStatusDisplay 
-        movelist={movelist} 
-        gameNumber={gameNumber}
-        playMode={PlayModeEnum.humanVsHuman}
-      />
-      <WinLossDrawDisplay 
-        gameNumber={gameNumber}
-        winLossDrawRecord={winLossDrawRecord}
-        playMode={PlayModeEnum.humanVsHuman}
-        // humanGoesFirst={humanGoesFirst}
-      />
-
-      {/* <FifteenGamePanel
-        movelist={movelist}
-        gameNumber={gameNumber}
-        winLossDrawRecord={winLossDrawRecord}
-        handleNewGameClick={handleNewGameClick}
-        handleUndoClick={handleUndoClick}
-      /> */}
-
+    <Box height={heights.total} >
+      <CenteredFlexBox height={heights.board} >
+        <Board 
+          movelist={movelist}
+          handleCardClick={handleCardClick}
+          // outcomeMap={outcomeMap}
+        />
+      </CenteredFlexBox>
+      <CenteredFlexBox height={heights.status} >
+        <GameStatusDisplay 
+          movelist={movelist} 
+          gameNumber={gameNumber}
+          playMode={gameNumber % 2 === 1 ? PlayModeEnum.playerOneGoesFirst : PlayModeEnum.playerTwoGoesFirst}
+        />
+      </CenteredFlexBox>
+      <CenteredFlexBox height={heights.record}    >
+        <WinLossDrawDisplay 
+          gameNumber={gameNumber}
+          winLossDrawRecord={winLossDrawRecord}
+          playMode={PlayModeEnum.humanVsHuman}
+          // humanGoesFirst={humanGoesFirst}
+        />
+      </CenteredFlexBox>
+      <CenteredFlexBox 
+        height={heights.buttons} 
+        border='solid green 1px'
+      >
+        <PlayVsFriendButtons 
+          movelist={movelist}
+          handleUndoClick={handleUndoClick}
+          handleNewGameClick={handleNewGameClick}
+        />
+      </CenteredFlexBox>
     </Box>
   )
 }
