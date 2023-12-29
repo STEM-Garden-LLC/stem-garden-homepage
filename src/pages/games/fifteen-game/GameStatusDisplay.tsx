@@ -24,52 +24,72 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
     gameNumber,
   } = props
 
+  const gameStatus = status(movelist);
 
-  // TODO 
-  const gameStatus = status(movelist, playMode);
-  // const gameStatus: GameStatusEnum = GameStatusEnum.playerOneToMove
-
-  console.log(`GS: ${gameStatus}`)
-
-  let message = "Error finding status message."
+  let message = ""
   
   if (playModeIsHumanVsHuman(playMode)) {
     const whoFirstThisGame = (gameNumber % 2 === 1) ? PlayersEnum.playerOne : PlayersEnum.playerTwo
-    message = (movelist.length === 0) ?
-      `${whoFirstThisGame} goes first.` :
-      `${gameStatus}${gameStatus.includes('ins') ? '!' : '.'}`
-  }
-
-  else if (playModeIsHumanVsBot(playMode)) {
+    const whoSecondThisGame = (gameNumber % 2 === 1) ? PlayersEnum.playerTwo : PlayersEnum.playerOne
     switch (gameStatus) {
-    case GameStatusEnum.playerOneWins:
-      message = (humanGoesFirst) ? "Game Over. Human Wins!" : "Game Over. Bot Wins!"
-      break;
-    case GameStatusEnum.playerTwoWins:
-      message = (humanGoesFirst) ? "Game Over. Bot Wins!" : "Game Over. Human Wins!" 
-      break;
-    case GameStatusEnum.draw:
-      message = "Game Over! Draw."
-      break;
-    case GameStatusEnum.playerOneToMove:
-      message = (humanGoesFirst) ? "Human's Turn" : "Bot's Turn" 
-      break;
-    // case GameStatusEnum.playerTwoToMove:
-    //   message = (humanGoesFirst) ? "Bot's Turn" : "Human's Turn"
-    //   break;
-    default:
-      message = "error" 
+      case GameStatusEnum.draw:
+        message = GameStatusEnum.draw
+        break;
+      case GameStatusEnum.firstPlayerToMove:
+        message = (movelist.length === 0) ? 
+          `${whoFirstThisGame} Goes First.` : 
+          `${whoFirstThisGame}'s Turn.`
+        break;
+      case GameStatusEnum.secondPlayerToMove:
+        message = `${whoSecondThisGame}'s Turn.`
+        break;
+      case GameStatusEnum.firstPlayerWins:
+        message = `${whoFirstThisGame} Wins!`
+        break;
+      case GameStatusEnum.secondPlayerWins:
+        message = `${whoSecondThisGame} Wins!`
+        break;
+      default:
+        message = "Error getting status message in playModeIsHumanVsHuman section."
     }
   }
-  else {
-    message = "Invalid value provided for Play Mode"
+  else if (playModeIsHumanVsBot(playMode)) {
+    const humanGoesFirst = (playMode === PlayModeEnum.humanGoesFirst) 
+    const itsTheFirstMove = (movelist.length === 0)
+    switch (gameStatus) {
+      case GameStatusEnum.draw:
+        message = GameStatusEnum.draw
+        break;
+      case GameStatusEnum.firstPlayerToMove:
+        message = (itsTheFirstMove) ? 
+          (humanGoesFirst ? 
+            `You can go first or let the Bot.` : 
+            `Ok, the Bot will go first.`) :
+          (humanGoesFirst ? 
+            `It's your turn.` : 
+            `It's the Bot's turn.`)
+        break;
+      case GameStatusEnum.secondPlayerToMove:
+        message = (humanGoesFirst ? 
+          `It's the Bot's turn.` : 
+          `It's your turn.`)
+        break;
+      case GameStatusEnum.firstPlayerWins:
+        message = (humanGoesFirst ? 
+          `Congratulations, You beat the Bot!` : 
+          `Oops, You let the Bot win. Try Again!`)
+        break;
+      case GameStatusEnum.secondPlayerWins:
+        message = (humanGoesFirst ? 
+          `Oops, You let the Bot win. Try Again!` :
+          `Congratulations, You beat the Bot!`)
+        break;
+      default:
+        message = "Error getting status message in playModeIsHumanVsBot section."
+    }
   }
     
   return (
-    <Subtitle  
-      text={`Game ${gameNumber}: ${message}`}
-      // textColor={ColorsEnum.white} 
-      align={AlignEnum.center} 
-    />
+    <Subtitle text={`Game ${gameNumber}: ${message}`} />
   )
 }
