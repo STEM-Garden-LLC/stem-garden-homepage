@@ -1,12 +1,20 @@
 import { Box, Typography } from '@mui/material';
 
-import { PlayersEnum, PlayModeEnum, GameStatusEnum, status, MovelistType } from "../helpers/magicSquareHelpers";
+import { PlayersEnum, PlayModeEnum, GameStatusEnum, MovelistType } from "../helpers/magicSquareTypes";
+import { status } from "../helpers/magicSquareHelpers";
+
+// COMPONENTS
+import { Subtitle } from '@/components'
+import { AlignEnum } from '@/@types/TypographyProps';
+
+// HELPERS
+import { playModeIsHumanVsHuman, playModeIsHumanVsBot } from '../helpers/magicSquareHelpers';
+
 
 type GameStatusDisplayProps = {
   movelist: MovelistType, 
   playMode: PlayModeEnum, 
   gameNumber: number,
-  humanGoesFirst: boolean
 }
 
 export default function GameStatusDisplay(props: GameStatusDisplayProps) {
@@ -14,35 +22,35 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
     movelist, 
     playMode, 
     gameNumber,
-    humanGoesFirst 
   } = props
 
 
   // TODO 
-  // const gameStatus = status(movelist);
-  const gameStatus: GameStatusEnum = GameStatusEnum.playerOneToMove
+  const gameStatus = status(movelist, playMode);
+  // const gameStatus: GameStatusEnum = GameStatusEnum.playerOneToMove
 
-
+  console.log(`GS: ${gameStatus}`)
 
   let message = "Error finding status message."
   
-  if (playMode === PlayModeEnum.humanVsHuman) {
+  if (playModeIsHumanVsHuman(playMode)) {
     const whoFirstThisGame = (gameNumber % 2 === 1) ? PlayersEnum.playerOne : PlayersEnum.playerTwo
     message = (movelist.length === 0) ?
-      `${whoFirstThisGame} goes first this time.` :
-      gameStatus
+      `${whoFirstThisGame} goes first.` :
+      `${gameStatus}${gameStatus.includes('ins') ? '!' : '.'}`
   }
-  else if (playMode === PlayModeEnum.humanVsBot) {
+
+  else if (playModeIsHumanVsBot(playMode)) {
     switch (gameStatus) {
-    // case GameStatusEnum.playerOneWins:
-    //   message = (humanGoesFirst) ? "Game Over. Human Wins!" : "Game Over. Bot Wins!"
-    //   break;
-    // case GameStatusEnum.playerTwoWins:
-    //   message = (humanGoesFirst) ? "Game Over. Bot Wins!" : "Game Over. Human Wins!" 
-    //   break;
-    // case GameStatusEnum.draw:
-    //   message = "Game Over! Draw."
-    //   break;
+    case GameStatusEnum.playerOneWins:
+      message = (humanGoesFirst) ? "Game Over. Human Wins!" : "Game Over. Bot Wins!"
+      break;
+    case GameStatusEnum.playerTwoWins:
+      message = (humanGoesFirst) ? "Game Over. Bot Wins!" : "Game Over. Human Wins!" 
+      break;
+    case GameStatusEnum.draw:
+      message = "Game Over! Draw."
+      break;
     case GameStatusEnum.playerOneToMove:
       message = (humanGoesFirst) ? "Human's Turn" : "Bot's Turn" 
       break;
@@ -58,23 +66,10 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
   }
     
   return (
-    <Box>
-      <Typography 
-        children={`Game ${gameNumber}:`}
-        color="common.white" 
-        align='center' 
-        variant='h4' 
-        pt={2}
-        noWrap 
-      />
-      <Typography 
-        children={message}
-        color="common.white" 
-        align='center' 
-        variant='h4' 
-        gutterBottom
-        noWrap 
-      />
-    </Box>
+    <Subtitle  
+      text={`Game ${gameNumber}: ${message}`}
+      // textColor={ColorsEnum.white} 
+      align={AlignEnum.center} 
+    />
   )
 }
