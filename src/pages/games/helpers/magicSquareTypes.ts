@@ -32,6 +32,7 @@ export enum FifteenGameColorsEnum {
   playerOne = '#eed022',   // yellow
   playerTwo = '#3311ff',   // blue
   isInWin = '#009900',   // green
+  transparent = 'rgba(0,0,0,0)',  
   // unclaimed = 'unclaimed' // use context
 }
 
