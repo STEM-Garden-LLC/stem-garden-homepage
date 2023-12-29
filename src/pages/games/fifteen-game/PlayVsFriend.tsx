@@ -1,58 +1,54 @@
-import { lazy, useState, useEffect } from 'react'
+import { useState, useContext } from 'react'
 
-
-import { Container, Box } from '@mui/material';
-
-
-
-
+import { Box, Grid } from '@mui/material';
 
 // COMPONENTS 
-import FifteenGameBoard from "./Board";
+import Board from "./Board";
 import GameStatusDisplay from './GameStatusDisplay';
 import WinLossDrawDisplay from './WinLossDrawDisplay';
-import { Title, Subtitle } from '../../../components/typography'
-import { GameButton, NavigationButton } from '../../../components'
-
-import {  FriendPanel as FifteenGamePanel } from "./Panel";
+import { GameButton, CenteredFlexBox } from '@/components'
 
 // Game Logic
-import { status, gameOver, MovelistType } from "../helpers/magicSquareHelpers";
-
+import { status, gameOver } from "../helpers/magicSquareHelpers";
 
 // TYPES
-import { CardId, PlayModeEnum } from "../helpers/magicSquareHelpers";
+import { CardId, PlayModeEnum, MovelistType, GameStatusEnum, PlayersEnum, OutcomesEnum } from "../helpers/magicSquareTypes";
 
 // DATA
 import { gamesData } from '../../../data'
 // import { gamesData } from '@data'
 
+import { faHouse, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { AppContext } from '@/context/AppContext';
 
 
-const startingPosition: MovelistType = []
+const startingPosition: MovelistType = ""
 
 
 
-export default function PlayVsFriend(props) {
+export default function PlayVsFriend(props: any) {
   const { outcomeMap = new Map() } = props
+  const { availableHeight } = useContext(AppContext)
 
   const [movelist, setMovelist] = useState(startingPosition)
   const [gameNumber, setGameNumber] = useState(1);
+  // const [gameStatus, setGameStatus] = useState(GameStatusEnum.playerOneToMove)
   const [winLossDrawRecord, setWinLossDrawRecord] = useState([0, 0, 0]);
 
   // CLICK HANDLERS
   function handleCardClick(squareClicked: CardId) {
-    if (movelist.includes(squareClicked)) {
+    if (movelist.includes(String(squareClicked))) {
       console.log("NO EFFECT. That number has already been claimed.")
     }
-    else if (gameOver(movelist)) {
+    else if (gameOverFromMovelist(movelist)) {
       console.log("NO EFFECT. The Game is already over.")
     }
     else {
-      let updatedMovelist = movelist.concat(squareClicked)
+      const updatedMovelist: MovelistType = movelist.concat(String(squareClicked))
       setMovelist(updatedMovelist)
-      if (gameOver(updatedMovelist)) {
-        handleGameOver(updatedMovelist)
+      console.log(`Updated Movelist: ${updatedMovelist}`)
+      if (gameOverFromMovelist(updatedMovelist)) {
+        handleGameOver()
       } 
     }
   }
@@ -67,6 +63,10 @@ export default function PlayVsFriend(props) {
     setMovelist(startingPosition)
   }
 
+  // In Human Vs Human mode players alternate getting to go first.
+  function playMode() {
+    return (gameNumber % 2 === 1) ? PlayModeEnum.playerOneGoesFirst : PlayModeEnum.playerTwoGoesFirst
+  }
 
   function handleGameOver() {
     let result = status(movelist)
@@ -140,18 +140,58 @@ export default function PlayVsFriend(props) {
   )
 }
 
-function FifteenGameButtons() {
+type PlayVsFriendButtonsProps = {
+  movelist: MovelistType;
+  handleUndoClick: Function;
+  handleNewGameClick: Function;
+}
+
+function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
+  const { movelist, handleUndoClick, handleNewGameClick } = props
   const fifteenGameData = gamesData.filter(items => "The Fifteen Game" === items.title)[0]
+  const { containerWidth } = useContext(AppContext)
+
+  // TODO 
+  // Material Icons actually has a better selection here than Font Awesome. 
+  // Find out it that is compatible with type IconDefinition and if not fix it. 
+  // https://mui.com/material-ui/material-icons/?query=undo
+
 
   return (
-    <Box display='flex' justifyContent='space-between' height={40} >
-      <NavigationButton 
-        label='home'
-        linkTo={fifteenGameData.linkTo}
+    <Grid container
+      spacing={2}
+      width='100%' 
+      maxWidth='min(600px, 90%)'
+    >
+      <Grid item xs={4} >
+        <GameButton 
+          label='Home'
+          // hideLabel={containerWidth < 600}
+          icon={faHouse}
+          linkTo={fifteenGameData.linkTo}
+        />
+      </Grid> 
+      <Grid item xs={8} >
+        <GameButton 
+          label='Undo'
+          icon={faRotateLeft}
+          onClick={handleUndoClick} 
+          disabled={movelist.length === 0 || gameOverFromMovelist(movelist)} 
+          selected={false}
+        />
+      </Grid> 
+      <Grid item xs={12} >
+        <GameButton 
+          label='Play Again!'
+          icon={faRotateLeft}
+          onClick={handleNewGameClick} 
+          disabled={!gameOverFromMovelist(movelist)} 
+          selected={false}
+        />
+      </Grid> 
+      
+      
 
-      />
-      <UndoMoveButton movelist={movelist} handleUndoClick={handleUndoClick} />
-      <NewGameButton movelist={movelist} handleNewGameClick={handleNewGameClick} />
-    </Box>
+    </Grid>
   )
 }
