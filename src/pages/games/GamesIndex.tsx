@@ -1,13 +1,9 @@
 import { useContext } from 'react'
-import { AppContext } from '../../context/AppContext';
 import { ColorThemeContext } from '../../context/ColorThemeContext';
-
-import { hexToRGB, toTitleCase } from '../../helpers'
 
 // COMPONENTS
 import { Title, Heading, Paragraph } from "@components/typography";
-import { Box, Container, Grid, Card, CardMedia, Typography, Button, Stack } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box, Grid, Card, Button, } from '@mui/material';
 
 
 // DATA 
@@ -18,25 +14,10 @@ import { ColorsEnum } from '../../@types/Colors';
 import { AlignEnum } from '../../@types/TypographyProps'
 import { GameCardProps } from '../../@types/Cards';
 
-
 export default function GamesIndexPage() {
 
-
-  // const gameCard = (
-  //   <PictureCard 
-  //     title={ourStory!.label} 
-  //     linkTo={ourStory!.linkTo}
-  //     linkType={LinkTypeEnum.HashLink}
-  //     imageUrl={profile_pic_with_hoe} 
-  //     cardWidth={cardWidth}
-  //     cardHeight={cardHeight}
-  //     textColor={textColor}
-  //     bgColor={bgColor}
-  //   />
-  // )
-  
   return (
-    <>
+    <Box pt={5} >
       <Title text="Games" gutterBottom />
       {
         gamesData.map((game, index) => (
@@ -50,24 +31,22 @@ export default function GamesIndexPage() {
             />
         ))
       }
-    </>
+    </Box>
   )
 }
 
 function GameCard(props: GameCardProps) {
   const { colorTheme } = useContext(ColorThemeContext)
-  const { containerWidth } = useContext(AppContext)
 
   const { title, linkTo, imageUrl, description, disabled = false } = props
 
   const bgColor = colorTheme === 'dark' ? ColorsEnum.lightGrey : ColorsEnum.offWhite
-  const textColor = colorTheme === 'dark' ? ColorsEnum.white : ColorsEnum.black
 
   
   return (
         <Card raised 
           sx={{
-            marginY: '1rem', 
+            marginY: '2.0rem', 
             width: '100%',
             bgcolor: bgColor,
             position: 'relative',
