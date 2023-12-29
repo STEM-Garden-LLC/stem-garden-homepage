@@ -10,28 +10,31 @@ import { ColorsEnum } from '../../@types/Colors';
 import { ColorThemeEnum } from '../../@types/ColorTheme';
 
 export default function ThemedBackground(props: any) {
-  const { children } = props
+  const { children, redBorder } = props
   const { navbarHeightPx } = useContext(AppContext)
   const { colorTheme } = useContext(ColorThemeContext)
 
   const bgColor = colorTheme === ColorThemeEnum.dark ? ColorsEnum.darkGrey : ColorsEnum.offWhite
   
+  const border = redBorder ? 'solid red 1px' : 'none'
+
   return (
     <Box 
       sx={{ 
         width: '100vw', 
         minHeight: '100vh',
-        paddingTop: `${navbarHeightPx + 48}px`,
+        paddingTop: `${navbarHeightPx}px`,
         backgroundColor: bgColor 
       }} 
     >
       <Container
         maxWidth='md' 
-        // disableGutters
+        disableGutters
         sx={{
           display: 'flex',
           flexDirection: 'column',
           textAlign: 'center',
+          border: border
         }}    
       >     
         {children}
