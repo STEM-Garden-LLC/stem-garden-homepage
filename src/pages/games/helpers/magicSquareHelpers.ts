@@ -62,7 +62,7 @@ export function nextPlayer(movelist: MovelistType) {
   return (movelist.length % 2 === 0) ? GameStatusEnum.firstPlayerToMove : GameStatusEnum.secondPlayerToMove
 }
 
-export function gameOverFromMovelist(movelist: MovelistType) {
+export function gameOver(movelist: MovelistType) {
   return (movelist.length === 9 || gameHasBeenWon(movelist))
 }
 
@@ -168,7 +168,7 @@ export function getChildren(movelist: MovelistType) {
 }
 
 export function getValidMoves(movelist: MovelistType) {
-  return (gameOverFromMovelist(movelist)) ? [] : availableNumbers(movelist)
+  return (gameOver(movelist)) ? [] : availableNumbers(movelist)
 }
 
 export function availableNumbers(movelist: MovelistType) {
