@@ -7,12 +7,19 @@ import { Heading } from '@components/typography'
 import { playModeIsHumanVsHuman, playModeIsHumanVsBot } from '../helpers/magicSquareHelpers';
 
 // TYPES 
-import { FifteenGameColorsEnum, PlayersEnum } from '../helpers/magicSquareTypes';
+import { FifteenGameColorsEnum, PlayModeEnum, PlayersEnum } from '../helpers/magicSquareTypes';
 
-export default function WinLossDrawDisplay(props) {
+type WinLossDrawDisplayProps = {
+  playMode: PlayModeEnum;
+  winLossDrawRecord: number[];
+  humanVsHuman: boolean;
+}
+
+export default function WinLossDrawDisplay(props: WinLossDrawDisplayProps) {
   const { 
     playMode,
-    winLossDrawRecord
+    winLossDrawRecord,
+    humanVsHuman
   } = props
 
   
