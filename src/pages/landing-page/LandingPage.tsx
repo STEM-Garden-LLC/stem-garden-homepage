@@ -48,10 +48,10 @@ export default function LandingPage() {
 
 function TopSection() {
   return (
-    <>
+    <Box pt={5}>
       <LandingPageTitle />
       <ResponsiveCards />
-    </>    
+    </Box>    
   )
 }
 
