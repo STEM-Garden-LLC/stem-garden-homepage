@@ -18,3 +18,7 @@ export {default as MenuItem} from './typography/MenuItem';
 // BUTTONS 
 export {default as NavigationButton} from './buttons/NavigationButton'
 export {default as GameButton} from './buttons/GameButton'
+
+// LAYOUT
+export {default as CenteredFlexBox} from './layout/CenteredFlexBox'
+
