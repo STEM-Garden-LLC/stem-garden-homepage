@@ -6,7 +6,9 @@ export default function GamesPage() {
   
   return (
     <>
-      <ThemedBackground>
+      <ThemedBackground 
+        // redBorder
+      >
         <Outlet />
       </ThemedBackground>
       <Footer />
