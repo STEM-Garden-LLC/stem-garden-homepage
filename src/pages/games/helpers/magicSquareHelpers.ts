@@ -51,14 +51,14 @@ export function getCardClaimStatus(cardId: string, movelist: MovelistType) {
 //  Current Game Status: "xWins", "oWins", "draw",  "xNext", or "oNext"
 ////////////////////////////////////////////////////////////////
 export function status(movelist: MovelistType) {
-  if (playerOneWins(movelist)) {
-    return (GameStatusEnum.playerOneWins)
+  if (firstPlayerWins(movelist)) {
+    return GameStatusEnum.firstPlayerWins
   }
-  else if (playerTwoWins(movelist)) {
-    return (GameStatusEnum.playerTwoWins)
+  else if (secondPlayerWins(movelist)) {
+    return GameStatusEnum.secondPlayerWins
   }
-  else if (movelist!.length === 9) {
-    return (GameStatusEnum.draw)
+  else if (movelist.length === 9) {
+    return GameStatusEnum.draw
   }
   else {
     return nextPlayer(movelist)
