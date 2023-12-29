@@ -3,10 +3,9 @@ import { intersect } from "../helpers/probability";
 import { 
   MovelistType, 
   GameStatusEnum, 
-  GameOutcomesEnum,
-  PlayersEnum,
+  OutcomesEnum,
   CardClaimStatusEnum,
-
+  PlayModeEnum,
 } from './magicSquareTypes'
   
 // Generate all sets of three that sum to 15
@@ -35,9 +34,6 @@ export function complementOf(sumOfTwo: number) {
 
 
 export function getCardClaimStatus(cardId: string, movelist: MovelistType) {
-  console.log(`ML: ${movelist}`)
-  console.log(`Type of ML first element: ${typeof(movelist[0])}`)
-  
   let turn = movelist.indexOf(cardId)
   if (turn === -1) {
     return CardClaimStatusEnum.unclaimed
@@ -47,9 +43,6 @@ export function getCardClaimStatus(cardId: string, movelist: MovelistType) {
   }
 }
 
-////////////////////////////////////////////////////////////////
-//  Current Game Status: "xWins", "oWins", "draw",  "xNext", or "oNext"
-////////////////////////////////////////////////////////////////
 export function status(movelist: MovelistType) {
   if (firstPlayerWins(movelist)) {
     return GameStatusEnum.firstPlayerWins
@@ -64,13 +57,9 @@ export function status(movelist: MovelistType) {
     return nextPlayer(movelist)
   }
 }
-////////////////////////////////////////////////////////////////
-// Game Status Helpers: BOOLEAN
-////////////////////////////////////////////////////////////////
+
 export function nextPlayer(movelist: MovelistType) {
-  return (movelist.length % 2 === 0) ? 
-    GameStatusEnum.playerOneToMove : 
-    GameStatusEnum.playerTwoToMove
+  return (movelist.length % 2 === 0) ? GameStatusEnum.firstPlayerToMove : GameStatusEnum.secondPlayerToMove
 }
 
 export function gameOverFromMovelist(movelist: MovelistType) {
@@ -78,28 +67,25 @@ export function gameOverFromMovelist(movelist: MovelistType) {
 }
 
 function gameHasBeenWon(movelist: MovelistType) {
-  return (playerOneWins(movelist) || playerTwoWins(movelist)) 
+  return (firstPlayerWins(movelist) || secondPlayerWins(movelist)) 
 }
 
-export function playerOneWins(movelist: MovelistType) {
-  return sumsOfThree(playerOnesMoves(movelist)).includes(15)
+export function firstPlayerWins(movelist: MovelistType) {
+  return sumsOfThree(firstPlayersMoves(movelist)).includes(15)
 }
 
-export function playerTwoWins(movelist: MovelistType) {
-  return sumsOfThree(playerTwosMoves(movelist)).includes(15)
+export function secondPlayerWins(movelist: MovelistType) {
+  return sumsOfThree(secondPlayersMoves(movelist)).includes(15)
 }
 
 export function gameDrawn(movelist: MovelistType) {
   return (movelist.length === 9 && !gameHasBeenWon(movelist))
 }
 
-export function moveNumber(movelist: MovelistType) {
-    return (movelist.length + 1)
-}
 
 export function numbersInWin(movelist: MovelistType) {
-  let Xs = playerOnesMoves(movelist)
-  let Os = playerTwosMoves(movelist)
+  let Xs = firstPlayersMoves(movelist)
+  let Os = secondPlayersMoves(movelist)
   let winningTrios = trioList.filter(trio =>
     intersect(trio, Xs).length === 3 || intersect(trio, Os).length === 3
   )
@@ -112,10 +98,10 @@ export function outcome(movelist: MovelistType, outcomeMap: Map<MovelistType, Ou
 }
 
 function finalOutcome(movelist: MovelistType) {
-  let outcome = playerOneWins(movelist) ? 
-    GameStatusEnum.playerOneWins : 
-    playerTwoWins(movelist) ?
-    GameStatusEnum.playerTwoWins : 
+  let outcome = firstPlayerWins(movelist) ? 
+    GameStatusEnum.firstPlayerWins : 
+    secondPlayerWins(movelist) ?
+    GameStatusEnum.secondPlayerWins : 
     movelist.length === 9 ?
     GameStatusEnum.draw : 
     Error
@@ -132,17 +118,17 @@ function predictedOutcome(movelist: MovelistType, outcomeMap: Map<MovelistType, 
     let childrensOutcomes = getChildren(movelist).map(child => outcomeMap.get(child))
     // console.log(`Position: ${position} --> childrensOutcomes: ${childrensOutcomes}`)
     
-    if (gameStatus === GameStatusEnum.playerOneToMove) {
-      outcome = childrensOutcomes.includes(GameOutcomesEnum.playerOneWins) ? 
-        GameOutcomesEnum.playerOneWins :
-        childrensOutcomes.includes(GameOutcomesEnum.draw) ?
-        GameOutcomesEnum.draw : GameOutcomesEnum.playerTwoWins
+    if (gameStatus === GameStatusEnum.firstPlayerToMove) {
+      outcome = childrensOutcomes.includes(OutcomesEnum.firstPlayerWins) ? 
+        OutcomesEnum.firstPlayerWins :
+        childrensOutcomes.includes(OutcomesEnum.draw) ?
+        OutcomesEnum.draw : OutcomesEnum.secondPlayerWins
     }
-    else if (gameStatus === GameStatusEnum.playerTwoToMove) {
-      outcome = childrensOutcomes.includes(GameOutcomesEnum.playerTwoWins) ? 
-        GameOutcomesEnum.playerTwoWins :
-        childrensOutcomes.includes(GameOutcomesEnum.draw) ?
-        GameOutcomesEnum.draw : GameOutcomesEnum.playerOneWins
+    else if (gameStatus === GameStatusEnum.secondPlayerToMove) {
+      outcome = childrensOutcomes.includes(OutcomesEnum.secondPlayerWins) ? 
+        OutcomesEnum.secondPlayerWins :
+        childrensOutcomes.includes(OutcomesEnum.draw) ?
+        OutcomesEnum.draw : OutcomesEnum.firstPlayerWins
     }
     return outcome
 }
@@ -150,28 +136,24 @@ function predictedOutcome(movelist: MovelistType, outcomeMap: Map<MovelistType, 
 ////////////////////////////////////////////////////////////////
 // Isolate each players' claimed numbers: ARRAY(NUM)
 ////////////////////////////////////////////////////////////////
-export function playerOnesMoves(movelist: MovelistType) {
-  // console.log(`Original Movelist: ${movelist}`)
-  let playerOnesMoves = ''
+export function firstPlayersMoves(movelist: MovelistType) {
+  let firstPlayersMoves = ''
   for (let c = 0; c < movelist.length; c++) {
     if (c % 2 === 0) {
-      playerOnesMoves = playerOnesMoves.concat(movelist.charAt(c))
+      firstPlayersMoves = firstPlayersMoves.concat(movelist.charAt(c))
     }
   }
-  // console.log(`Filtered Movelist: ${filteredMovelist}`)
-  return playerOnesMoves
-  // return playerOnesMoves
+  return firstPlayersMoves.split('').map(s => Number(s))
 }
-export function playerTwosMoves(movelist: MovelistType) {
-  // console.log(`Original Movelist: ${movelist}`)
-  let playerTwosMoves = ''
+
+export function secondPlayersMoves(movelist: MovelistType) {
+  let secondPlayersMoves = ''
   for (let c = 0; c < movelist.length; c++) {
-    if (c % 2 === 0) {
-      playerTwosMoves = playerTwosMoves.concat(movelist.charAt(c))
+    if (c % 2 === 1) {
+      secondPlayersMoves = secondPlayersMoves.concat(movelist.charAt(c))
     }
   }
-  // console.log(`Filtered Movelist: ${filteredMovelist}`)
-  return playerTwosMoves
+  return secondPlayersMoves.split('').map(s => Number(s))
 }
 
 export function movelistToNumberArray(movelist: MovelistType) {     // "123" --> [1,2,3]
