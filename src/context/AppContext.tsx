@@ -30,7 +30,7 @@ export const AppContextProvider = (props: any) => {
   const layoutAndColorContext = {
     screenWidth,
     containerWidth,
-    screenHeight,
+    // screenHeight,
     availableHeight,
     narrowScreen,
 
