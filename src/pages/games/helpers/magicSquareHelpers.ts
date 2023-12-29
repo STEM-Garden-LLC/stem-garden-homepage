@@ -43,6 +43,20 @@ export function getCardClaimStatus(cardId: string, movelist: MovelistType) {
   }
 }
 
+export function playModeIsHumanVsHuman(playMode: PlayModeEnum) {
+  return (
+    playMode === PlayModeEnum.playerOneGoesFirst || 
+    playMode === PlayModeEnum.playerTwoGoesFirst
+  )
+} 
+  
+export function playModeIsHumanVsBot(playMode: PlayModeEnum) {
+  return (
+    playMode === PlayModeEnum.humanGoesFirst || 
+    playMode === PlayModeEnum.botGoesFirst
+  )
+} 
+
 export function status(movelist: MovelistType) {
   if (firstPlayerWins(movelist)) {
     return GameStatusEnum.firstPlayerWins
