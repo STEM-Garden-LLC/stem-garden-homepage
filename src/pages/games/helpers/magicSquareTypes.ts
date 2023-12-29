@@ -1,3 +1,18 @@
+////////////////////
+//    SETTINGS    //
+////////////////////
+
+export enum PlayModeEnum {
+  playerOneGoesFirst = 'Player One Goes First',  // Human Vs. Human
+  playerTwoGoesFirst = 'Player Two Goes First',  // Human Vs. Human
+  humanGoesFirst = 'Human Goes First',           // Human Vs. Bot
+  botGoesFirst = 'Bot Goes First',               // Human Vs. Bot
+  playWithCoach = 'Coaching Mode'
+}
+////////////////////
+//    CONSTANTS   //
+////////////////////
+
 export type MovelistType = string
 
 export enum PlayersEnum {
@@ -5,11 +20,7 @@ export enum PlayersEnum {
   playerTwo = 'Player Two'
 }
 
-export enum PlayModeEnum {
-  humanVsHuman = 'humanVsHuman',
-  humanVsBot = 'humanVsBot',
-  humanVsCoach = 'humanVsCoach'
-}
+
 
 export enum CardClaimStatusEnum {
   playerOne = 'playerOne',
