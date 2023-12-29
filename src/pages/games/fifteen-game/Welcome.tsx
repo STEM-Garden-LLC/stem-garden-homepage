@@ -18,6 +18,7 @@ import { type } from 'os';
 // DATA
 // import {  } from '@data'
 import { fifteenGameData } from '../../../data'
+import { ColorsEnum } from '@/@types/Colors';
 
 
 // Game Logic
@@ -85,31 +86,39 @@ function BigIconButton(props: BigIconButtonProps) {
   const border = "solid white 1px"
 
   return (
-    <RouterLink 
-      to={linkTo}
+    <Box
+      sx={{
+        minWidth: '25%',
+      }}
     >
-      <Box
-        sx={{
-          border: border,
-          borderRadius: 2,
-          marginX: 2,
-          paddingX: 2,
-          paddingY: 4,
-          flexDirection: 'column',
-          justifyContent: 'space-evenly'
-        }}
+      <RouterLink 
+        to={linkTo}
       >
-        <Heading
-          text={label}
-          gutterBottom
-        />
-        <FontAwesomeIcon
-          icon={icon} 
-          color='white'
-          size='4x'
-        />
-      </Box>
-    </RouterLink>
+        <Box
+          sx={{
+            bgcolor: ColorsEnum.lightGrey,
+            border: border,
+            borderRadius: 2,
+            marginX: 2,
+            paddingX: 2,
+            paddingY: 4,
+            minWidth: '30%',
+            flexDirection: 'column',
+            justifyContent: 'space-evenly'
+          }}
+        >
+          <Heading
+            text={label}
+            gutterBottom
+          />
+          <FontAwesomeIcon
+            icon={icon} 
+            color='white'
+            size='4x'
+          />
+        </Box>
+      </RouterLink>
+    </Box>
   )
 }
 
