@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AppContext } from '@/context/AppContext';
+
 
 import theme from '../../theme';
 
@@ -28,14 +30,14 @@ import { NavigationSectionProps, ListItemStyleEnum } from './ResponsiveNavbar'
 /////////////////////////
 
 export function DesktopNavbar() {
-  const navbarHeight = 96
+  const { navbarHeightPx } = useContext(AppContext)
 
   return (
     <AppBar
       position="fixed"
       elevation={3}
       sx={{ 
-        height: navbarHeight,
+        height: navbarHeightPx,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center'
@@ -47,7 +49,7 @@ export function DesktopNavbar() {
         flexDirection='row'
         justifyContent='space-between'
       >
-        <Logo dimensions={navbarHeight} />
+        <Logo dimensions={navbarHeightPx} />
         <DesktopCompanyName />
         <DesktopMenus />
       </Box>

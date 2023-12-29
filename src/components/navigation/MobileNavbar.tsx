@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { AppContext } from '@/context/AppContext';
 
 
 // COMPONENTS
@@ -32,7 +33,7 @@ import { NavigationSectionProps, ListItemStyleEnum } from './ResponsiveNavbar'
 ////////////////////////
 
 export function MobileNavbar() {
-  const navbarHeightPx = 48
+  const { navbarHeightPx } = useContext(AppContext)
 
   return (
     <AppBar
