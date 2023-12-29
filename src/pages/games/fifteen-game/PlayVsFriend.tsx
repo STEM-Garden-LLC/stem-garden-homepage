@@ -68,23 +68,29 @@ export default function PlayVsFriend(props) {
   }
 
 
-  function handleGameOver(movelist: string) {
-    const playerOneWentFirst = (gameNumber % 2 === 1)
+  function handleGameOver() {
     let result = status(movelist)
-    const playerOneWins = playerOneWentFirst ? (result === "xWins") : (result === "oWins")  
-    const playerTwoWins = playerOneWentFirst ? (result === "oWins") : (result === "xWins")  
-    console.assert((result !== "xNext" && result !== "oNext"), `handleGameOver got invalid result when calling status(ml).`)
-    if (result === "draw") {
-      setWinLossDrawRecord([winLossDrawRecord[0], winLossDrawRecord[1], ++winLossDrawRecord[2]])
+    if (result === GameStatusEnum.draw) {
+      setWinLossDrawRecord([winLossDrawRecord[0], winLossDrawRecord[1], ++winLossDrawRecord[2]]) // Draw
     }
-    else if (playerOneWins) {
-      setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]])
+    else if (playMode() === PlayModeEnum.playerOneGoesFirst) {
+      if (result === GameStatusEnum.firstPlayerWins) {
+        setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
+      }
+      else if (result === GameStatusEnum.secondPlayerWins) {
+        setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]]) // Player Two Wins
+      }
     }
-    else if (playerTwoWins) {
-      setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]])
+    else if (playMode() === PlayModeEnum.playerTwoGoesFirst){
+      if (result === GameStatusEnum.firstPlayerWins) {
+        setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]]) // Player Two Wins
+      }
+      else if (result === GameStatusEnum.secondPlayerWins) {
+        setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
+      }
     }
     else {
-        console.error(`handleGameOver called with invalid game result: ${result}. `)
+      console.error("Error in handleGameOver()")
     }
   }
 
