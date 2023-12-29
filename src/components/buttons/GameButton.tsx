@@ -6,33 +6,53 @@ import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faRotateLeft, faAnglesLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-import { gameOver } from "../../pages/games/helpers/magicSquareHelpers";
+import { gameOverFromMovelist, gameOverFromStatus } from "../../pages/games/helpers/magicSquareHelpers";
 
 
 type GameButtonProps = {
   label: string,
   icon: IconDefinition,
-  onClick: Function,
+  onClick?: Function,
+  linkTo?: string,
   disabled?: boolean,
   selected?: boolean,
+  hideLabel?: boolean,
 }
 
 export default function GameButton(props: GameButtonProps) {
-  const { label, icon, onClick, disabled = false, selected = false } = props
+  const { 
+    label, 
+    icon, 
+    onClick = () => {}, 
+    linkTo = '', 
+    disabled = false, 
+    selected = false,
+    hideLabel = false
+  } = props
+
+  const display = hideLabel ? 'none' : 'block'
+
+  const border = selected ? 'solid white 3px' : 'none' 
+
   return (
     <Button
       variant="contained"
       color="primary"
       onClick={() => onClick()}
+      href={linkTo}
       disabled={disabled}
-      sx={{ flexGrow: 2, mx: 1 }}
+      sx={{ 
+        border: border,
+        flexGrow: 2, 
+        // mx: 1 ,
+        width: '100%'
+      }}
     >
       <Box display="flex" alignContent="center" >
-        <FontAwesomeIcon icon={faHouse} size='lg' />
+        <FontAwesomeIcon icon={icon} size='lg' />
       </Box>
-      <Typography children={label} variant="button" ml={1} display={{ xs: 'none', sm: 'block' }}  />
-      {/* <Typography children="Let" variant="button" display={{ xs: 'none', sm: 'block' }}  />
-      <Typography children="Bot Go First" variant="button" noWrap /> */}
+      <Typography children={label} variant="button" ml={1} display={display}  />
+      {/* <ButtonLabel text={label} display={display}  />  Doesn't handle disabled */}
     </Button>
   )
 }
@@ -107,7 +127,7 @@ export function NewGameButton(props: GameButtonProps) {
 export function UndoMoveButton(props) {
   const { movelist, handleUndoClick } = props
 
-  const disabled = (movelist.length === 0 || gameOver(movelist))
+  const disabled = (movelist.length === 0 || gameOverFromMovelist(movelist))
   
   return (
     <Button
