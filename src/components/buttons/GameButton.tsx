@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faRotateLeft, faAnglesLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-import { gameOverFromMovelist, gameOverFromStatus } from "../../pages/games/helpers/magicSquareHelpers";
+import { gameOverFromMovelist } from "../../pages/games/helpers/magicSquareHelpers";
 
 
 type GameButtonProps = {
