@@ -25,20 +25,19 @@ export enum FifteenGameColorsEnum {
 }
 
 export enum GameStatusEnum {
-  playerOneWins = 'Player One Wins',
-  playerTwoWins = 'Player Two Wins',
-  draw = 'It\'s a Draw',
-  playerOneToMove = 'Player One\'s Turn',
-  playerTwoToMove = 'Player Two\'s Turn',
-  // gameOver        = 'Game Over'
+  firstPlayerWins = 'First Player Wins!',
+  secondPlayerWins = 'Second Player Wins!',
+  draw = 'It\'s a Draw.',
+  firstPlayerToMove = 'First Player\'s Turn.',
+  secondPlayerToMove = 'Second Player\'s Turn.',
 }
 
-export enum GameOutcomesEnum {
-  playerOneWins = 'Player One Wins',
-  playerTwoWins = 'Player Two Wins',
+export enum OutcomesEnum {
+  firstPlayerWins = 'Player One Wins!',
+  secondPlayerWins = 'Player Two Wins!',
   draw = 'It\'s a Draw',
 }
-
+ 
 export enum CardId {
   _1 = 1, 
   _2,
