@@ -45,7 +45,7 @@ export enum FifteenGameColorsEnum {
 export enum GameStatusEnum {
   firstPlayerWins = 'First Player Wins!',
   secondPlayerWins = 'Second Player Wins!',
-  draw = 'It\'s a Draw.',
+  draw = 'Game Over. It\'s a Draw.',
   firstPlayerToMove = 'First Player\'s Turn.',
   secondPlayerToMove = 'Second Player\'s Turn.',
 }
