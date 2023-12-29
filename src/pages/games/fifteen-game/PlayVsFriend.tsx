@@ -40,14 +40,14 @@ export default function PlayVsFriend(props: any) {
     if (movelist.includes(String(squareClicked))) {
       console.log("NO EFFECT. That number has already been claimed.")
     }
-    else if (gameOverFromMovelist(movelist)) {
+    else if (gameOver(movelist)) {
       console.log("NO EFFECT. The Game is already over.")
     }
     else {
       const updatedMovelist: MovelistType = movelist.concat(String(squareClicked))
       setMovelist(updatedMovelist)
       console.log(`Updated Movelist: ${updatedMovelist}`)
-      if (gameOverFromMovelist(updatedMovelist)) {
+      if (gameOver(updatedMovelist)) {
         handleGameOver()
       } 
     }
@@ -176,7 +176,7 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
           label='Undo'
           icon={faRotateLeft}
           onClick={handleUndoClick} 
-          disabled={movelist.length === 0 || gameOverFromMovelist(movelist)} 
+          disabled={movelist.length === 0 || gameOver(movelist)} 
           selected={false}
         />
       </Grid> 
@@ -185,7 +185,7 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
           label='Play Again!'
           icon={faRotateLeft}
           onClick={handleNewGameClick} 
-          disabled={!gameOverFromMovelist(movelist)} 
+          disabled={!gameOver(movelist)} 
           selected={false}
         />
       </Grid> 
