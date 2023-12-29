@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faRotateLeft, faAnglesLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-import { gameOverFromMovelist } from "../../pages/games/helpers/magicSquareHelpers";
+import { gameOver } from "../../pages/games/helpers/magicSquareHelpers";
 
 
 type GameButtonProps = {
@@ -127,7 +127,7 @@ export function NewGameButton(props: GameButtonProps) {
 export function UndoMoveButton(props) {
   const { movelist, handleUndoClick } = props
 
-  const disabled = (movelist.length === 0 || gameOverFromMovelist(movelist))
+  const disabled = (movelist.length === 0 || gameOver(movelist))
   
   return (
     <Button
