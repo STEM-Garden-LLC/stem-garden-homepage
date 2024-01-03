@@ -9,11 +9,16 @@ import { TypographyProps} from '../../@types/TypographyProps';
 import { Typography } from '@mui/material';
 import { ColorsEnum } from '../../@types/Colors';
 
-export default function Title(props: TypographyProps) {
-  const { text, textColor, gutterBottom } = props
+interface TitleProps extends TypographyProps {
+  gutterTop: boolean;
+}
+
+export default function Title(props: TitleProps) {
+  const { text, textColor, gutterTop, gutterBottom } = props
   const { colorTheme } = useContext(ColorThemeContext)
 
-  const padding = (gutterBottom) ? "0 0 3.0rem" : "0"
+  const paddingTop = (gutterTop) ? 5 : 0
+  const paddingBottom = (gutterBottom) ? 5 : 0
   const color = textColor ? textColor : (colorTheme === "dark") ? "white" : "black"
   const shadow = (color === ColorsEnum.white) ? '0.15rem 0.15rem 0.3rem black' : 'none'
 
@@ -23,7 +28,8 @@ export default function Title(props: TypographyProps) {
       color={color}
       align="center" 
       sx={{
-        padding: padding, 
+        paddingTop: paddingTop, 
+        paddingBottom: paddingBottom, 
         textShadow: shadow,
         fontWeight: 200,
         fontSize: '2.4rem',
