@@ -1,4 +1,4 @@
-import { intersect } from "../helpers/probability";
+import { intersect } from "../../../helpers/math";
 
 import { 
   MovelistType, 
