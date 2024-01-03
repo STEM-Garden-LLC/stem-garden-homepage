@@ -33,13 +33,16 @@ export function complementOf(sumOfTwo: number) {
 
 
 
-export function getCardClaimStatus(cardId: string, movelist: MovelistType) {
+export function getCardClaimStatus(cardId: string, movelist: MovelistType, playMode: PlayModeEnum) {
   let turn = movelist.indexOf(cardId)
   if (turn === -1) {
     return CardClaimStatusEnum.unclaimed
   }
-  else {
+  else if (playMode === PlayModeEnum.playerOneGoesFirst || playMode === PlayModeEnum.humanGoesFirst) {
     return (turn % 2 === 0) ? CardClaimStatusEnum.playerOne : CardClaimStatusEnum.playerTwo
+  }
+  else {
+    return (turn % 2 === 1) ? CardClaimStatusEnum.playerOne : CardClaimStatusEnum.playerTwo
   }
 }
 
