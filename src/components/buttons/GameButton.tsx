@@ -11,7 +11,7 @@ import { gameOver } from "../../pages/games/helpers/magicSquareHelpers";
 
 type GameButtonProps = {
   label: string,
-  icon: IconDefinition,
+  icon?: IconDefinition,
   onClick?: Function,
   linkTo?: string,
   disabled?: boolean,
@@ -48,9 +48,15 @@ export default function GameButton(props: GameButtonProps) {
         width: '100%'
       }}
     >
-      <Box display="flex" alignContent="center" >
-        <FontAwesomeIcon icon={icon} size='lg' />
-      </Box>
+      {
+        icon ? (
+          <Box display="flex" alignContent="center" >
+            <FontAwesomeIcon icon={icon} size='lg' />
+          </Box>
+        ) : (
+          <></>
+        )
+      }
       <Typography children={label} variant="button" ml={1} display={display}  />
       {/* <ButtonLabel text={label} display={display}  />  Doesn't handle disabled */}
     </Button>
