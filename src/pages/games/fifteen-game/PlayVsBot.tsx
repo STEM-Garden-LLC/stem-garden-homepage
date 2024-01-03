@@ -1,41 +1,47 @@
 import { useState, useContext } from 'react'
 
-import { Box, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material'
 
 
 // COMPONENTS 
-import Board from "./Board";
-import GameStatusDisplay from './GameStatusDisplay';
-import WinLossDrawDisplay from './WinLossDrawDisplay';
+import Board from "./Board"
+import GameStatusDisplay from './GameStatusDisplay'
+import WinLossDrawDisplay from './WinLossDrawDisplay'
 import { GameButton, CenteredFlexBox } from '@/components'
 
 
-// Game Logic
-import { status, gameOverFromMovelist } from "../helpers/magicSquareHelpers";
+// HELPERS
+import { status, gameOver } from '../helpers/magicSquareHelpers'
+import { getBotMove } from '../helpers/getBotMove'
 
 // TYPES
-import { CardId, PlayModeEnum, MovelistType, GameStatusEnum, PlayersEnum, OutcomesEnum, DifficultyModes, DifficultyModesEnum } from "../helpers/magicSquareTypes";
+import { CardId, PlayModeEnum, MovelistType, GameStatusEnum, DifficultyModesEnum } from "../helpers/magicSquareTypes";
 
 // DATA
-import { gamesData } from '../../../data'
-// import { gamesData } from '@data'
+import { gamesData } from '@/data'
 
-import { faHouse, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faRotateLeft, faRobot } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/context/AppContext';
 
 
 const defaultPlayMode: PlayModeEnum = PlayModeEnum.humanGoesFirst
 const startingPosition: MovelistType = ""
 
+// type OutcomeMap 
+
 export default function PlayVsBot(props: any) {
   const { outcomeMap = new Map() } = props
+
+ console.log(`OutcomeMap: ${outcomeMap.size}`)
+
   const { availableHeight } = useContext(AppContext)
 
   const [playMode, setPlayMode] = useState(defaultPlayMode)
+  const [difficultyMode, setDifficultyMode] = useState(DifficultyModesEnum.easy) 
+
   const [movelist, setMovelist] = useState(startingPosition)
   const [gameNumber, setGameNumber] = useState(1);
   const [winLossDrawRecord, setWinLossDrawRecord] = useState([0, 0, 0]);
-  const [difficultyMode, setDifficultyMode] = useState(DifficultyModesEnum.easy) 
 
   function humanGoesNext() {  
     if (playMode === PlayModeEnum.humanGoesFirst) {
@@ -50,21 +56,23 @@ export default function PlayVsBot(props: any) {
   function handleCardClick(squareClicked: CardId) {
     if (!humanGoesNext()) {
       console.warn("NO EFFECT. Be patient, the bot takes a second to move.")
-      return 1
     }
     else if (movelist.includes(String(squareClicked))) {
       console.log("NO EFFECT. That number has already been claimed.")
     }
-    else if (gameOverFromMovelist(movelist)) {
+    else if (gameOver(movelist)) {
       console.log("NO EFFECT. The Game is already over.")
     }
     else {
       const updatedMovelist: MovelistType = movelist.concat(String(squareClicked))
       setMovelist(updatedMovelist)
       console.log(`Updated Movelist: ${updatedMovelist}`)
-      if (gameOverFromMovelist(updatedMovelist)) {
+      if (gameOver(updatedMovelist)) {
         handleGameOver()
       } 
+      else {
+        handleBotsTurn(updatedMovelist)
+      }
     }
   }
 
@@ -86,12 +94,13 @@ export default function PlayVsBot(props: any) {
 
   // Find and make a move for the Bot with a slight delay. 
   function handleBotsTurn(movelist: MovelistType) {
+    const humanGoesFirst = (playMode === PlayModeEnum.humanGoesFirst)
     let botMove = getBotMove(difficultyMode, movelist, humanGoesFirst, outcomeMap)
-    let updatedMoveList = movelist.concat(botMove)
+    let updatedMovelist = movelist.concat(botMove)
     setTimeout(() => {
-      setMoveList(updatedMoveList)
-      if (gameOver(updatedMoveList)) {
-        handleGameOver(updatedMoveList)
+      setMovelist(updatedMovelist)
+      if (gameOver(updatedMovelist)) {
+        handleGameOver(updatedMovelist)
       }
     }, 600)
   }
@@ -102,30 +111,33 @@ export default function PlayVsBot(props: any) {
   }
 
 
-  function handleGameOver() {
+  function handleGameOver(movelist: MovelistType) {
     let result = status(movelist)
+    const firstPlayerWins = result === GameStatusEnum.firstPlayerWins
+    const secondPlayerWins = result === GameStatusEnum.secondPlayerWins
+    const humanGoesFirst = playMode === PlayModeEnum.humanGoesFirst
     if (result === GameStatusEnum.draw) {
-      setWinLossDrawRecord([winLossDrawRecord[0], winLossDrawRecord[1], ++winLossDrawRecord[2]]) // Draw
+      incrementDrawRecord()
     }
-    else if (playMode === PlayModeEnum.playerOneGoesFirst) {
-      if (result === GameStatusEnum.firstPlayerWins) {
-        setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
-      }
-      else if (result === GameStatusEnum.secondPlayerWins) {
-        setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]]) // Player Two Wins
-      }
+    else if ((humanGoesFirst && firstPlayerWins) || (!humanGoesFirst && secondPlayerWins)) {
+      incrementWinRecord()
     }
-    else if (playMode === PlayModeEnum.playerTwoGoesFirst){
-      if (result === GameStatusEnum.firstPlayerWins) {
-        setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]]) // Player Two Wins
-      }
-      else if (result === GameStatusEnum.secondPlayerWins) {
-        setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
-      }
+    else if ((!humanGoesFirst && firstPlayerWins) || (humanGoesFirst && secondPlayerWins)) {
+        incrementLossRecord()
     }
     else {
       console.error("Error in handleGameOver()")
     }
+  }
+
+  function incrementWinRecord() {
+    setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]])
+  }
+  function incrementLossRecord() {
+    setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]])
+  }
+  function incrementDrawRecord() {
+    setWinLossDrawRecord([winLossDrawRecord[0], winLossDrawRecord[1], ++winLossDrawRecord[2]])
   }
 
   const heights = {
@@ -141,32 +153,30 @@ export default function PlayVsBot(props: any) {
       <CenteredFlexBox height={heights.board} >
         <Board 
           movelist={movelist}
+          playMode={playMode}
           handleCardClick={handleCardClick}
-          // outcomeMap={outcomeMap}
         />
       </CenteredFlexBox>
       <CenteredFlexBox height={heights.status} >
         <GameStatusDisplay 
           movelist={movelist} 
           gameNumber={gameNumber}
-          playMode={gameNumber % 2 === 1 ? PlayModeEnum.playerOneGoesFirst : PlayModeEnum.playerTwoGoesFirst}
+          playMode={gameNumber % 2 === 1 ? PlayModeEnum.humanGoesFirst : PlayModeEnum.botGoesFirst}
         />
       </CenteredFlexBox>
-      <CenteredFlexBox height={heights.record}    >
+      <CenteredFlexBox height={heights.record} >
         <WinLossDrawDisplay 
-          gameNumber={gameNumber}
+          playMode={playMode}
           winLossDrawRecord={winLossDrawRecord}
-          playMode={PlayModeEnum.humanVsHuman}
-          // humanGoesFirst={humanGoesFirst}
         />
       </CenteredFlexBox>
-      <CenteredFlexBox 
-        height={heights.buttons} 
-        border='solid green 1px'
-      >
+      <CenteredFlexBox height={heights.buttons} >
         <PlayVsBotButtons 
           movelist={movelist}
           handleNewGameClick={handleNewGameClick}
+          difficultyMode={difficultyMode}
+          changeDifficultyMode={changeDifficultyMode}
+          letBotGoFirst={letBotGoFirst}
         />
       </CenteredFlexBox>
     </Box>
@@ -176,20 +186,32 @@ export default function PlayVsBot(props: any) {
 type PlayVsBotButtonsProps = {
   movelist: MovelistType;
   handleNewGameClick: Function;
+  difficultyMode: DifficultyModesEnum;
   changeDifficultyMode: Function;
   letBotGoFirst: Function;
 }
 
 function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
-  const { movelist, handleNewGameClick, changeDifficultyMode, letBotGoFirst } = props
+  const { movelist, handleNewGameClick, difficultyMode, changeDifficultyMode, letBotGoFirst } = props
   const fifteenGameData = gamesData.filter(items => "The Fifteen Game" === items.title)[0]
-  const { containerWidth } = useContext(AppContext)
 
   // TODO 
   // Material Icons actually has a better selection here than Font Awesome. 
-  // Find out it that is compatible with type IconDefinition and if not fix it. 
+  // Find out if that is compatible with type IconDefinition and if not fix it. 
   // https://mui.com/material-ui/material-icons/?query=undo
 
+  function DifficultyModeButton(props: {mode: DifficultyModesEnum}) {
+    const { mode } = props
+    return (
+      <Grid item xs={4} >
+        <GameButton 
+          label={mode}
+          selected={difficultyMode === mode}
+          onClick={() => changeDifficultyMode(mode)}
+        />
+      </Grid> 
+    )
+  }
 
   return (
     <Grid container
@@ -197,32 +219,36 @@ function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
       width='100%' 
       maxWidth='min(600px, 90%)'
     >
-      <Grid item xs={4} >
+      <DifficultyModeButton mode={DifficultyModesEnum.easy} />
+      <DifficultyModeButton mode={DifficultyModesEnum.medium} />
+      <DifficultyModeButton mode={DifficultyModesEnum.hard} />
+      <Grid item xs={4} sm={6} >
         <GameButton 
           label='Home'
-          // hideLabel={containerWidth < 600}
           icon={faHouse}
           linkTo={fifteenGameData.linkTo}
         />
       </Grid> 
-      <Grid item xs={8} >
-        <GameButton 
-          label='Undo'
-          icon={faRotateLeft}
-          onClick={handleUndoClick} 
-          disabled={movelist.length === 0 || gameOverFromMovelist(movelist)} 
-          selected={false}
-        />
+      <Grid item xs={8} sm={6} >
+        {
+          movelist.length === 0 ? (
+            <GameButton 
+              label='Let Bot Go First'
+              icon={faRobot}
+              onClick={letBotGoFirst} 
+            />
+          ) : (
+            <GameButton 
+              label='Play Again!'
+              icon={faRotateLeft}
+              onClick={handleNewGameClick} 
+              disabled={!gameOver(movelist)} 
+            />
+          )
+          
+        }
       </Grid> 
-      <Grid item xs={12} >
-        <GameButton 
-          label='Play Again!'
-          icon={faRotateLeft}
-          onClick={handleNewGameClick} 
-          disabled={!gameOverFromMovelist(movelist)} 
-          selected={false}
-        />
-      </Grid> 
+      
       
       {/* <Box id='button-container' m={1} >
         <Box display='flex' justifyContent='space-between' height={40} mb={1}  > 
