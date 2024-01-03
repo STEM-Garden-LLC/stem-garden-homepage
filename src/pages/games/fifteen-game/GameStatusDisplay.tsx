@@ -33,7 +33,7 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
     const whoSecondThisGame = (gameNumber % 2 === 1) ? PlayersEnum.playerTwo : PlayersEnum.playerOne
     switch (gameStatus) {
       case GameStatusEnum.draw:
-        message = GameStatusEnum.draw
+        message = `Game Over. It\'s a Draw`
         break;
       case GameStatusEnum.firstPlayerToMove:
         message = (movelist.length === 0) ? 
@@ -58,7 +58,7 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
     const itsTheFirstMove = (movelist.length === 0)
     switch (gameStatus) {
       case GameStatusEnum.draw:
-        message = GameStatusEnum.draw
+        message = `Game Over. It\'s a Draw`
         break;
       case GameStatusEnum.firstPlayerToMove:
         message = (itsTheFirstMove) ? 
@@ -76,8 +76,8 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
         break;
       case GameStatusEnum.firstPlayerWins:
         message = (humanGoesFirst ? 
-          `Congratulations, You beat the Bot!` : 
-          `Oops, You let the Bot win. Try Again!`)
+          `Congratulations, you beat the bot!` : 
+          `Oops, you let the bot win. Try again!`)
         break;
       case GameStatusEnum.secondPlayerWins:
         message = (humanGoesFirst ? 
@@ -90,6 +90,8 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
   }
     
   return (
-    <Subtitle text={`Game ${gameNumber}: ${message}`} />
+    <Box maxWidth='70%' >
+      <Subtitle text={`Game ${gameNumber}: ${message}`} />
+    </Box>
   )
 }
