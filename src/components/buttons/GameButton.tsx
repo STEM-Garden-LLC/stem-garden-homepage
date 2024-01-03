@@ -2,11 +2,13 @@ import { Box, Button, Typography } from '@mui/material';
 
 import { Link as RouterLink } from 'react-router-dom';
 
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faRotateLeft, faAnglesLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-
-import { gameOver } from "../../pages/games/helpers/magicSquareHelpers";
+import { FifteenGameColorsEnum } from '@/pages/games/helpers/magicSquareTypes';
+import { useContext } from 'react';
+import { ColorThemeContext } from '@/context/ColorThemeContext';
+import { ColorThemeEnum } from '@/@types';
+import { ColorsEnum } from '@/@types/Colors';
 
 
 type GameButtonProps = {
@@ -30,9 +32,12 @@ export default function GameButton(props: GameButtonProps) {
     hideLabel = false
   } = props
 
+  const { colorTheme } = useContext(ColorThemeContext)
+  const borderColorIfSelected = (colorTheme === ColorThemeEnum.dark) ? ColorsEnum.white : ColorsEnum.lightGrey
+  const border = selected ? `solid ${borderColorIfSelected} 3px` : `solid ${FifteenGameColorsEnum.transparent} 3px` 
+
   const display = hideLabel ? 'none' : 'block'
 
-  const border = selected ? 'solid white 3px' : 'none' 
 
   return (
     <Button
@@ -43,8 +48,8 @@ export default function GameButton(props: GameButtonProps) {
       disabled={disabled}
       sx={{ 
         border: border,
+        // boxSizing: 'border-box',
         flexGrow: 2, 
-        // mx: 1 ,
         width: '100%'
       }}
     >
@@ -63,93 +68,92 @@ export default function GameButton(props: GameButtonProps) {
   )
 }
 
+// export function BotGoFirstButton(props: GameButtonProps) {
+//   const { movelist, letBotGoFirst } = props
+//   return (
+//     <Button
+//       variant="contained"
+//       color="primary"
+//       onClick={() => letBotGoFirst()}
+//       disabled={movelist.length !== 0}
+//       sx={{ flexGrow: 2, mx: 1 }}
+//     >
+//       <Typography children="Let" variant="button" display={{ xs: 'none', sm: 'block' }}  />
+//       <Typography children="Bot Go First" variant="button" noWrap />
+//     </Button>
+//   )
+// }
 
-export function BotGoFirstButton(props: GameButtonProps) {
-  const { movelist, letBotGoFirst } = props
-  return (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => letBotGoFirst()}
-      disabled={movelist.length !== 0}
-      sx={{ flexGrow: 2, mx: 1 }}
-    >
-      <Typography children="Let" variant="button" display={{ xs: 'none', sm: 'block' }}  />
-      <Typography children="Bot Go First" variant="button" noWrap />
-    </Button>
-  )
-}
+// export function DifficultyModeButton(props: GameButtonProps) {
+//   const { label, selected, onClick: setDifficultyMode } = props
+//   return (
+//     <Button
+//       children={label}
+//       sx={{flexGrow: 1, border: selected ? 'solid white 3px' : 'none', marginX: 2 }}
+//       variant={'contained'}
+//       onClick={() => setDifficultyMode(label)}
+//     />
+//   )
+// }
 
-export function DifficultyModeButton(props: GameButtonProps) {
-  const { label, selected, onClick: setDifficultyMode } = props
-  return (
-    <Button
-      children={label}
-      sx={{flexGrow: 1, border: selected ? 'solid white 3px' : 'none', marginX: 2 }}
-      variant={'contained'}
-      onClick={() => setDifficultyMode(label)}
-    />
-  )
-}
-
-export function HomeButton() {
-  return (
-    <Button
-      component={RouterLink}
-      to='../'
-      variant="contained"
-      color="primary"
-      sx={{ flexGrow: 1 }}
-    >
-      <Box display="flex" alignContent="center" >
-        <FontAwesomeIcon icon={faHouse} size='lg' />
-      </Box>
-      <Typography children="Home" variant="button" ml={1} display={{ xs: 'none', sm: 'block' }}  />
-    </Button>
-  )
-}
+// export function HomeButton() {
+//   return (
+//     <Button
+//       component={RouterLink}
+//       to='../'
+//       variant="contained"
+//       color="primary"
+//       sx={{ flexGrow: 1 }}
+//     >
+//       <Box display="flex" alignContent="center" >
+//         <FontAwesomeIcon icon={faHouse} size='lg' />
+//       </Box>
+//       <Typography children="Home" variant="button" ml={1} display={{ xs: 'none', sm: 'block' }}  />
+//     </Button>
+//   )
+// }
 
 
-export function NewGameButton(props: GameButtonProps) {
-  const { disabled, onClick: handleNewGameClick } = props
+// export function NewGameButton(props: GameButtonProps) {
+//   const { disabled, onClick: handleNewGameClick } = props
 
-  return (
-    <Button
-      onClick={() => handleNewGameClick()}
-      variant="contained"
-      color="primary"
-      // disabled={!gameOver(movelist)}
-      disabled={disabled}
-      sx={{ flexGrow: 2 }}
-    >
-      <Box mr={1} display={{ xs: 'none', sm: 'flex' }} alignContent="center" >
-        <FontAwesomeIcon icon={faRotateLeft} size='lg' />
-      </Box>
-      <Typography children="Play&nbsp;Again!" variant="button" noWrap />
-    </Button>
-  )
-}
+//   return (
+//     <Button
+//       onClick={() => handleNewGameClick()}
+//       variant="contained"
+//       color="primary"
+//       // disabled={!gameOver(movelist)}
+//       disabled={disabled}
+//       sx={{ flexGrow: 2 }}
+//     >
+//       <Box mr={1} display={{ xs: 'none', sm: 'flex' }} alignContent="center" >
+//         <FontAwesomeIcon icon={faRotateLeft} size='lg' />
+//       </Box>
+//       <Typography children="Play&nbsp;Again!" variant="button" noWrap />
+//     </Button>
+//   )
+// }
 
-export function UndoMoveButton(props) {
-  const { movelist, handleUndoClick } = props
+// export function UndoMoveButton(props) {
+//   const { movelist, handleUndoClick } = props
 
-  const disabled = (movelist.length === 0 || gameOver(movelist))
+//   const disabled = (movelist.length === 0 || gameOver(movelist))
   
-  return (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => handleUndoClick()}
-      disabled={disabled}
-      sx={{ flexGrow: 2, mx: 1 }}
-    >
-      <Box mr={1} display="flex" alignContent="center" >
-        <FontAwesomeIcon icon={faAnglesLeft} size='lg' />
-      </Box>
-      Undo
-    </Button>
-  )
-}
+//   return (
+//     <Button
+//       variant="contained"
+//       color="primary"
+//       onClick={() => handleUndoClick()}
+//       disabled={disabled}
+//       sx={{ flexGrow: 2, mx: 1 }}
+//     >
+//       <Box mr={1} display="flex" alignContent="center" >
+//         <FontAwesomeIcon icon={faAnglesLeft} size='lg' />
+//       </Box>
+//       Undo
+//     </Button>
+//   )
+// }
 
 
 
