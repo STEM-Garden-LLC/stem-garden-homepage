@@ -8,31 +8,25 @@ import GameStatusDisplay from './GameStatusDisplay';
 import WinLossDrawDisplay from './WinLossDrawDisplay';
 import { GameButton, CenteredFlexBox } from '@/components'
 
-// Game Logic
+// HELPERS
 import { status, gameOver } from "../helpers/magicSquareHelpers";
 
 // TYPES
-import { CardId, PlayModeEnum, MovelistType, GameStatusEnum, PlayersEnum, OutcomesEnum } from "../helpers/magicSquareTypes";
+import { CardId, PlayModeEnum, MovelistType, GameStatusEnum } from "../helpers/magicSquareTypes";
 
 // DATA
-import { gamesData } from '../../../data'
-// import { gamesData } from '@data'
+import { gamesData } from '@/data'
 
 import { faHouse, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/context/AppContext';
 
-
 const startingPosition: MovelistType = ""
 
-
-
-export default function PlayVsFriend(props: any) {
-  const { outcomeMap = new Map() } = props
+export default function PlayVsFriend() {
   const { availableHeight } = useContext(AppContext)
 
   const [movelist, setMovelist] = useState(startingPosition)
   const [gameNumber, setGameNumber] = useState(1);
-  // const [gameStatus, setGameStatus] = useState(GameStatusEnum.playerOneToMove)
   const [winLossDrawRecord, setWinLossDrawRecord] = useState([0, 0, 0]);
 
   // CLICK HANDLERS
@@ -48,7 +42,7 @@ export default function PlayVsFriend(props: any) {
       setMovelist(updatedMovelist)
       console.log(`Updated Movelist: ${updatedMovelist}`)
       if (gameOver(updatedMovelist)) {
-        handleGameOver()
+        handleGameOver(updatedMovelist)
       } 
     }
   }
@@ -68,30 +62,57 @@ export default function PlayVsFriend(props: any) {
     return (gameNumber % 2 === 1) ? PlayModeEnum.playerOneGoesFirst : PlayModeEnum.playerTwoGoesFirst
   }
 
-  function handleGameOver() {
+  function handleGameOver(movelist: MovelistType) {
     let result = status(movelist)
+    const firstPlayerWins = result === GameStatusEnum.firstPlayerWins
+    const secondPlayerWins = result === GameStatusEnum.secondPlayerWins
+    const playerOneGoesFirst = playMode() === PlayModeEnum.playerOneGoesFirst
     if (result === GameStatusEnum.draw) {
-      setWinLossDrawRecord([winLossDrawRecord[0], winLossDrawRecord[1], ++winLossDrawRecord[2]]) // Draw
+      incrementDrawRecord()
     }
-    else if (playMode() === PlayModeEnum.playerOneGoesFirst) {
-      if (result === GameStatusEnum.firstPlayerWins) {
-        setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
-      }
-      else if (result === GameStatusEnum.secondPlayerWins) {
-        setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]]) // Player Two Wins
-      }
+    else if ((playerOneGoesFirst && firstPlayerWins) || (!playerOneGoesFirst && secondPlayerWins)) {
+      incrementWinRecord()
     }
-    else if (playMode() === PlayModeEnum.playerTwoGoesFirst){
-      if (result === GameStatusEnum.firstPlayerWins) {
-        setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]]) // Player Two Wins
-      }
-      else if (result === GameStatusEnum.secondPlayerWins) {
-        setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
-      }
+    else if ((!playerOneGoesFirst && firstPlayerWins) || (playerOneGoesFirst && secondPlayerWins)) {
+        incrementLossRecord()
     }
     else {
       console.error("Error in handleGameOver()")
     }
+
+    // let result = status(movelist)
+    // if (result === GameStatusEnum.draw) {
+    //   incrementDrawRecord()
+    // }
+    // else if (playMode() === PlayModeEnum.playerOneGoesFirst) {
+    //   if (result === GameStatusEnum.firstPlayerWins) {
+    //     incrementWinRecord()
+    //   }
+    //   else if (result === GameStatusEnum.secondPlayerWins) {
+    //     incrementLossRecord()
+    //   }
+    // }
+    // else if (playMode() === PlayModeEnum.playerTwoGoesFirst){
+    //   if (result === GameStatusEnum.firstPlayerWins) {
+    //     incrementLossRecord()
+    //   }
+    //   else if (result === GameStatusEnum.secondPlayerWins) {
+    //     incrementWinRecord()      
+    //   }
+    // }
+    // else {
+    //   console.error("Error in handleGameOver()")
+    // }
+  }
+
+  function incrementWinRecord() {
+    setWinLossDrawRecord([++winLossDrawRecord[0], winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
+  }
+  function incrementLossRecord() {
+    setWinLossDrawRecord([winLossDrawRecord[0], ++winLossDrawRecord[1], winLossDrawRecord[2]]) // Player One Wins
+  }
+  function incrementDrawRecord() {
+    setWinLossDrawRecord([winLossDrawRecord[0], winLossDrawRecord[1], ++winLossDrawRecord[2]]) // Player One Wins
   }
 
   const heights = {
@@ -107,8 +128,8 @@ export default function PlayVsFriend(props: any) {
       <CenteredFlexBox height={heights.board} >
         <Board 
           movelist={movelist}
+          playMode={playMode()}
           handleCardClick={handleCardClick}
-          // outcomeMap={outcomeMap}
         />
       </CenteredFlexBox>
       <CenteredFlexBox height={heights.status} >
@@ -120,16 +141,11 @@ export default function PlayVsFriend(props: any) {
       </CenteredFlexBox>
       <CenteredFlexBox height={heights.record}    >
         <WinLossDrawDisplay 
-          gameNumber={gameNumber}
+          playMode={playMode()}
           winLossDrawRecord={winLossDrawRecord}
-          humanVsHuman={true}
-          // humanGoesFirst={humanGoesFirst}
         />
       </CenteredFlexBox>
-      <CenteredFlexBox 
-        height={heights.buttons} 
-        border='solid green 1px'
-      >
+      <CenteredFlexBox height={heights.buttons}  >
         <PlayVsFriendButtons 
           movelist={movelist}
           handleUndoClick={handleUndoClick}
@@ -149,13 +165,11 @@ type PlayVsFriendButtonsProps = {
 function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
   const { movelist, handleUndoClick, handleNewGameClick } = props
   const fifteenGameData = gamesData.filter(items => "The Fifteen Game" === items.title)[0]
-  const { containerWidth } = useContext(AppContext)
 
   // TODO 
   // Material Icons actually has a better selection here than Font Awesome. 
-  // Find out it that is compatible with type IconDefinition and if not fix it. 
+  // Find out if that is compatible with type IconDefinition and if not fix it. 
   // https://mui.com/material-ui/material-icons/?query=undo
-
 
   return (
     <Grid container
@@ -163,6 +177,14 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
       width='100%' 
       maxWidth='min(600px, 90%)'
     >
+      <Grid item xs={12} >
+        <GameButton 
+          label='Undo'
+          icon={faRotateLeft}
+          onClick={handleUndoClick} 
+          disabled={movelist.length === 0 || gameOver(movelist)} 
+        />
+      </Grid> 
       <Grid item xs={4} >
         <GameButton 
           label='Home'
@@ -173,25 +195,12 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
       </Grid> 
       <Grid item xs={8} >
         <GameButton 
-          label='Undo'
-          icon={faRotateLeft}
-          onClick={handleUndoClick} 
-          disabled={movelist.length === 0 || gameOver(movelist)} 
-          selected={false}
-        />
-      </Grid> 
-      <Grid item xs={12} >
-        <GameButton 
           label='Play Again!'
           icon={faRotateLeft}
           onClick={handleNewGameClick} 
           disabled={!gameOver(movelist)} 
-          selected={false}
         />
       </Grid> 
-      
-      
-
     </Grid>
   )
 }
