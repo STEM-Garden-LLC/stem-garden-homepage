@@ -1,24 +1,36 @@
-// X always goes first! X and O will be shorthand for the player who goes First and the player who goes second.
-// PlayerOne and PlayerTwo are NOT markers of who goes first or second in any given game!
-// In the 15 game, PlayerOne and PlayerTWo are distinguished by dark-blue and light-blue
+
+// HELPERS
 import { intersect } from "@/helpers/math";
-import { sumsOfTwo, complementOf, gameOver, xNumbers, oNumbers, nextPlayer, availableNumbers } from "./magicSquareHelpers";
-import { DifficultyModesEnum, MovelistType, PlayModeEnum } from "./magicSquareTypes";
+import { 
+  sumsOfTwo, 
+  complementOf, 
+  gameOver, 
+  firstPlayersMoves, 
+  secondPlayersMoves, 
+  nextPlayer, 
+  availableNumbers 
+} from "./magicSquareHelpers";
+
+
+// TYPES
+import { DifficultyModesEnum, GameStatusEnum, MovelistType, PlayModeEnum } from "./magicSquareTypes";
+import { useContext } from "react";
+import { ColorThemeContext } from "@/context/ColorThemeContext";
 
 
 //////////////////////////////////////////////////////////////     
 //  GET  BOT  MOVE  PROTOCOLS
 ////////////////////////////////////////////////////////////// 
-export function getBotMove(difficultyMode: DifficultyModesEnum, movelist: MovelistType, playMode: PlayModeEnum, outcomeMap: any) {
+export function getBotMove(difficultyMode: DifficultyModesEnum, movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: any) {
   const move = (difficultyMode === DifficultyModesEnum.easy) ? easyProtocol(movelist) : 
     difficultyMode === DifficultyModesEnum.medium ? mediumProtocol(movelist) :
-    difficultyMode === DifficultyModesEnum.hard ? hardProtocol(movelist, playMode, outcomeMap) : console.error(`getBotMove called with invalid difficulty mode!!!`)
+    difficultyMode === DifficultyModesEnum.hard ? hardProtocol(movelist, humanGoesFirst, outcomeMap) : console.error(`getBotMove called with invalid difficulty mode!!!`)
   return move
 }
 // In EASY mode: Bot wins immediately if it can and otherwise selects a random move. 
 function easyProtocol(movelist: MovelistType) {
   if (winningMoves(movelist).length > 0) {
-    // console.log(`BOT FOUND IMMEDIATELY WINNING MOVES: ${winningMoves(ml)}`)
+    // console.log(`BOT FOUND IMMEDIATELY WINNING MOVES: ${winningMoves(movelist)}`)
     return pickRandomFromArray(winningMoves(movelist))
   }
   else {
@@ -45,7 +57,7 @@ function mediumProtocol(movelist: MovelistType) {
 
 // In HARD mode Bot looks for forcing moves that will allow it to make double attacks on its next move.
 // In HARD mode Bot avoids letting Player make forcing moves that will lead to double attacks.
-function hardProtocol(movelist: MovelistType, humanGoesFirst, outcomeMap) {
+function hardProtocol(movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: any) {
   let sorted = sortBotMoves(movelist, humanGoesFirst, outcomeMap)
   if (sorted.winningForBot.length > 0) {
     return pickRandomFromArray(sorted.winningForBot)
@@ -62,49 +74,51 @@ function hardProtocol(movelist: MovelistType, humanGoesFirst, outcomeMap) {
 // Coach & Bot Logic: Immediately Winning & Urgent Defensive Moves 
 /////////////////////////////////////////////////////////////////////////
 // For NEXT Player on NEXT turn
-export function winningMoves(mls) { 
-  if (nextPlayer(mls) === "xNext") {
-    let complements = sumsOfTwo(xNumbers(mls)).map(sum => complementOf(sum))
-    return intersect(availableNumbers(mls), complements)
+export function winningMoves(movelist: MovelistType) { 
+  if (nextPlayer(movelist) === GameStatusEnum.firstPlayerToMove) {
+    let complements = sumsOfTwo(firstPlayersMoves(movelist)).map(sum => complementOf(sum))
+    return intersect(availableNumbers(movelist), complements)
   }
   else {
-    let complements = sumsOfTwo(oNumbers(mls)).map(sum => complementOf(sum))
-    return intersect(availableNumbers(mls), complements)
+    let complements = sumsOfTwo(secondPlayersMoves(movelist)).map(sum => complementOf(sum))
+    return intersect(availableNumbers(movelist), complements)
   }
 }
-export function urgentDefensiveMoves(mls) {
-  if (nextPlayer(mls) === "xNext") {
-    let complements = sumsOfTwo(oNumbers(mls)).map(sum => complementOf(sum))
-    return intersect(availableNumbers(mls), complements)
+export function urgentDefensiveMoves(movelist: MovelistType) {
+  if (nextPlayer(movelist) === GameStatusEnum.firstPlayerToMove) {
+    let complements = sumsOfTwo(secondPlayersMoves(movelist)).map(sum => complementOf(sum))
+    return intersect(availableNumbers(movelist), complements)
   }
   else {
-    let complements = sumsOfTwo(xNumbers(mls)).map(sum => complementOf(sum))
-    return intersect(availableNumbers(mls), complements)
+    let complements = sumsOfTwo(firstPlayersMoves(movelist)).map(sum => complementOf(sum))
+    return intersect(availableNumbers(movelist), complements)
   }
 }
-export function doubleAttackingMoves(mls) {
-  let doubleAttackingMoves = availableNumbers(mls).filter(num => urgentDefensiveMoves(mls.concat(num)).length > 1)
+export function doubleAttackingMoves(movelist: MovelistType) {
+  let doubleAttackingMoves = availableNumbers(movelist).filter(num => urgentDefensiveMoves(movelist.concat(num)).length > 1)
   return doubleAttackingMoves
 }
-export function drawingMoves(mls) { // For NEXT Player
-  if (nextPlayer(mls) === "xNext") {
-    let complements = sumsOfTwo(xNumbers(mls)).map(sum => complementOf(sum))
-    return intersect(availableNumbers(mls), complements)
+export function drawingMoves(movelist: MovelistType) { // For NEXT Player
+  if (nextPlayer(movelist) === GameStatusEnum.firstPlayerToMove) {
+    let complements = sumsOfTwo(firstPlayersMoves(movelist)).map(sum => complementOf(sum))
+    return intersect(availableNumbers(movelist), complements)
   }
   else {
-    let complements = sumsOfTwo(oNumbers(mls)).map(sum => complementOf(sum))
-    return intersect(availableNumbers(mls), complements)
+    let complements = sumsOfTwo(secondPlayersMoves(movelist)).map(sum => complementOf(sum))
+    return intersect(availableNumbers(movelist), complements)
   }
 }
 
-export function sortBotMoves(ml, humanGoesFirst, outcomeMap) {
-  let winningForBot = []
-  let drawing = []
-  let winningForHuman = []
 
-  let validMoves = getValidMoves(ml)
+
+function sortBotMoves(movelist, humanGoesFirst, outcomeMap) {
+  let winningForBot: number[]= []
+  let drawing: number[]= []
+  let winningForHuman: number[]= []
+
+  let validMoves = getValidMoves(movelist)
   validMoves.forEach(move => {
-    let newPosition = ml.concat(move)
+    let newPosition = movelist.concat(move)
     let outcome = outcomeMap.get(newPosition)
     if (outcome === "draw") {
       drawing.push(move)
@@ -144,37 +158,37 @@ function pickRandomFromArray(moveSet) {
 ////////////////////////////////////////////////////////////////
 // Get Children and Helpers:  An Array of move list Strings
 ////////////////////////////////////////////////////////////////
-export function getChildren(mls) {
+export function getChildren(movelist) {
     let children = []
-    getValidMoves(mls).forEach(move => children.push(mls + move))
-    // this.validMoves(mls).forEach(move => children.push(mls + move))
+    getValidMoves(movelist).forEach(move => children.push(movelist + move))
+    // this.validMoves(movelist).forEach(move => children.push(movelist + move))
     return children
 }
-function getValidMoves(mls) {
-    return (gameOver(mls)) ? [] : availableNumbers(mls)
+function getValidMoves(movelist) {
+    return (gameOver(movelist)) ? [] : availableNumbers(movelist)
 }
 
-export function getParent(ml) {
-    return ml.slice(0, ml.length - 1)
+export function getParent(movelist) {
+    return movelist.slice(0, movelist.length - 1)
 }
 
 ////////////////////////////////////////////////////////////////
 // Opening Book
 ////////////////////////////////////////////////////////////////
-// function getOpeningBookMove(ml) {
-//     console.assert(ml.length < 2)
+// function getOpeningBookMove(movelist) {
+//     console.assert(movelist.length < 2)
 //     console.log(`BOT MAKING AN OPENING BOOK MOVE.`)
 
-//     if (ml.length === 0) {
-//         return pickRandomFromArray(availableNumbers(ml))
+//     if (movelist.length === 0) {
+//         return pickRandomFromArray(availableNumbers(movelist))
 //     }
-//     else if (ml[0] === 5) {
+//     else if (movelist[0] === 5) {
 //         return pickRandomFromArray([2, 4, 6, 8])
 //     }
-//     else if (ml[0] % 2 === 0) {  // If player took a corner, bot must take center.
+//     else if (movelist[0] % 2 === 0) {  // If player took a corner, bot must take center.
 //         return [5]
 //     }
 //     else {
-//         return pickRandomFromArray(blockingMoves(ml))
+//         return pickRandomFromArray(blockingMoves(movelist))
 //     }
 // }
