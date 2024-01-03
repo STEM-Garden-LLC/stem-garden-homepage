@@ -7,16 +7,18 @@ import { ColorThemeContext } from '@/context/ColorThemeContext';
 import { Box, Paper, Typography } from '@mui/material';
 
 // TYPES
-import { CardClaimStatusEnum, CardId, FifteenGameColorsEnum, MovelistType } from "../helpers/magicSquareTypes";
+import { CardClaimStatusEnum, FifteenGameColorsEnum, MovelistType, PlayModeEnum } from "../helpers/magicSquareTypes";
 
 
 // Magic Square Helpers
 import { getCardClaimStatus, numbersInWin } from "../helpers/magicSquareHelpers";
 import { ColorsEnum } from '@/@types/Colors';
+import { ColorThemeEnum } from '@/@types';
 
 
 type FifteenGameBoardProps = {
   movelist: MovelistType,
+  playMode: PlayModeEnum,
   handleCardClick: Function
 }
 
@@ -24,11 +26,11 @@ const cardNumbers = [1,2,3,4,5,6,7,8,9]
 
 
 export default function Board(props: FifteenGameBoardProps) {
-  const { movelist, handleCardClick } = props
+  const { movelist, playMode, handleCardClick } = props
 
   const cardsWithWinBorder = numbersInWin(movelist)
   const cardsData = cardNumbers.map(num => {
-    let claimStatus: CardClaimStatusEnum = getCardClaimStatus(String(num), movelist)
+    let claimStatus: CardClaimStatusEnum = getCardClaimStatus(String(num), movelist, playMode)
     let isInWin = cardsWithWinBorder.includes(num)
     
     return ({
@@ -96,14 +98,19 @@ function NumberCard(props: NumberCardProps) {
 
 
   const fontSize = 0.18 * containerWidth
-  const unclaimedCardColor = colorTheme === 'dark' ? ColorsEnum.offWhite : ColorsEnum.darkGrey
+  const unclaimedCardColor = colorTheme === 'dark' ? ColorsEnum.offWhite : ColorsEnum.lightGrey
 
   let claimColor = (
     claimStatus === CardClaimStatusEnum.unclaimed ? unclaimedCardColor : 
     claimStatus === CardClaimStatusEnum.playerOne ? FifteenGameColorsEnum.playerOne :
     claimStatus === CardClaimStatusEnum.playerTwo ? FifteenGameColorsEnum.playerTwo : 'error.main'
   )
-  const textColor = (claimStatus === CardClaimStatusEnum.playerTwo) ? ColorsEnum.white : ColorsEnum.black
+  const textColor = (
+    claimStatus === CardClaimStatusEnum.playerTwo || 
+    (claimStatus === CardClaimStatusEnum.unclaimed) && colorTheme === ColorThemeEnum.light) ? 
+    ColorsEnum.white : ColorsEnum.black
+  
+  
   const borderColor = (isInWin ? FifteenGameColorsEnum.isInWin : 'transparent' )
 
   return (
