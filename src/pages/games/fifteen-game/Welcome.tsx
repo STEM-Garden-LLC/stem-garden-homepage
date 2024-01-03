@@ -1,8 +1,8 @@
-import React, { lazy, useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom';
 
 // COMPONENTS
-import { Container, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { TextSection } from '@components/typography'
 
 // ICONS
@@ -10,10 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition, faRobot, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 
-import { Title, Subtitle, Heading, Paragraph } from '../../../components/typography'
-import { Button } from '@mui/base';
+import { Title, Subtitle, Heading } from '../../../components/typography'
 import { AlignEnum } from '../../../@types/TypographyProps';
-import { type } from 'os';
 
 // DATA
 // import {  } from '@data'
@@ -37,7 +35,7 @@ export default function FifteenGameWelcome() {
 
   return (
     <>
-      <Title text="The Fifteen Game" gutterBottom />
+      <Title text="The Fifteen Game" gutterTop gutterBottom />
       <TextSection data={fifteenGameData.description} />
 
       <Box 
@@ -58,7 +56,6 @@ export default function FifteenGameWelcome() {
           icon={faUserFriends}
         />
       </Box>
-      
 
       <Subtitle text='Teaching Notes' align={AlignEnum.left} />
 
@@ -66,9 +63,6 @@ export default function FifteenGameWelcome() {
       <TextSection data={fifteenGameData.elementarySchool} />
       <TextSection data={fifteenGameData.middleSchool} />
       <TextSection data={fifteenGameData.highSchool} />
-
-
-      
     </>
   )
 }
