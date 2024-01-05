@@ -81,8 +81,8 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
         break;
       case GameStatusEnum.secondPlayerWins:
         message = (humanGoesFirst ? 
-          `Oops, You let the Bot win. Try Again!` :
-          `Congratulations, You beat the Bot!`)
+          `Oops, you let the bot win. Try Again!` :
+          `Congratulations, you beat the bot!`)
         break;
       default:
         message = "Error getting status message in playModeIsHumanVsBot section."
