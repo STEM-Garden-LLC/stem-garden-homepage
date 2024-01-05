@@ -63,6 +63,7 @@ export default function Board(props: FifteenGameBoardProps) {
       display='flex'
       flexDirection='column'
       justifyContent='flex-end'
+      padding={2}
     >  
         <Box id='row1' 
           children={cards.slice(0,5)}
