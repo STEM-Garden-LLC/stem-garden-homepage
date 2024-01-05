@@ -68,7 +68,7 @@ export default function PlayVsBot(props: any) {
       setMovelist(updatedMovelist)
       console.log(`Updated Movelist: ${updatedMovelist}`)
       if (gameOver(updatedMovelist)) {
-        handleGameOver()
+        handleGameOver(updatedMovelist)
       } 
       else {
         handleBotsTurn(updatedMovelist)
@@ -106,6 +106,7 @@ export default function PlayVsBot(props: any) {
   }
 
   function handleNewGameClick() {
+    setPlayMode(defaultPlayMode)
     setGameNumber(gameNumber => ++gameNumber)
     setMovelist(startingPosition)
   }
@@ -123,7 +124,7 @@ export default function PlayVsBot(props: any) {
       incrementWinRecord()
     }
     else if ((!humanGoesFirst && firstPlayerWins) || (humanGoesFirst && secondPlayerWins)) {
-        incrementLossRecord()
+      incrementLossRecord()
     }
     else {
       console.error("Error in handleGameOver()")
@@ -161,7 +162,7 @@ export default function PlayVsBot(props: any) {
         <GameStatusDisplay 
           movelist={movelist} 
           gameNumber={gameNumber}
-          playMode={gameNumber % 2 === 1 ? PlayModeEnum.humanGoesFirst : PlayModeEnum.botGoesFirst}
+          playMode={playMode}
         />
       </CenteredFlexBox>
       <CenteredFlexBox height={heights.record} >
