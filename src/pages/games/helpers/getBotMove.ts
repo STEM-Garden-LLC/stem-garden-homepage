@@ -1,6 +1,7 @@
 
 // HELPERS
 import { intersect } from "@/helpers/math";
+import { chooseRandomFromArray } from "@/helpers/randomization";
 import { 
   sumsOfTwo, 
   complementOf, 
@@ -31,10 +32,10 @@ export function getBotMove(difficultyMode: DifficultyModesEnum, movelist: Moveli
 function easyProtocol(movelist: MovelistType) {
   if (winningMoves(movelist).length > 0) {
     // console.log(`BOT FOUND IMMEDIATELY WINNING MOVES: ${winningMoves(movelist)}`)
-    return pickRandomFromArray(winningMoves(movelist))
+    return chooseRandomFromArray(winningMoves(movelist))
   }
   else {
-    return pickRandomFromArray(availableNumbers(movelist))
+    return chooseRandomFromArray(availableNumbers(movelist))
   }
 }
 // In MEDIUM mode, Bot wins immediately if possible.
@@ -44,14 +45,14 @@ function mediumProtocol(movelist: MovelistType) {
   let defensiveMoves = urgentDefensiveMoves(movelist)
   if (wins.length > 0) {
     // console.log(`BOT FOUND IMMEDIATELY WINNING MOVES: ${wins}`)
-    return pickRandomFromArray(wins)
+    return chooseRandomFromArray(wins)
   }
   else if (defensiveMoves.length > 0) {
     // console.log(`BOT FOUND URGENT DEFENSIVE MOVES: ${defensiveMoves}`)
-    return pickRandomFromArray(defensiveMoves)
+    return chooseRandomFromArray(defensiveMoves)
   }
   else {
-    return pickRandomFromArray(availableNumbers(movelist))
+    return chooseRandomFromArray(availableNumbers(movelist))
   }
 }
 
@@ -60,13 +61,13 @@ function mediumProtocol(movelist: MovelistType) {
 function hardProtocol(movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: any) {
   let sorted = sortBotMoves(movelist, humanGoesFirst, outcomeMap)
   if (sorted.winningForBot.length > 0) {
-    return pickRandomFromArray(sorted.winningForBot)
+    return chooseRandomFromArray(sorted.winningForBot)
   }
   else if (sorted.drawing.length > 0) {
-    return pickRandomFromArray(sorted.drawing)
+    return chooseRandomFromArray(sorted.drawing)
   }
   else {
-    return pickRandomFromArray(sorted.winningForHuman)    
+    return chooseRandomFromArray(sorted.winningForHuman)    
   }
 }
 
@@ -111,14 +112,14 @@ export function drawingMoves(movelist: MovelistType) { // For NEXT Player
 
 
 
-function sortBotMoves(movelist, humanGoesFirst, outcomeMap) {
+function sortBotMoves(movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: any) {
   let winningForBot: number[]= []
   let drawing: number[]= []
   let winningForHuman: number[]= []
 
   let validMoves = getValidMoves(movelist)
   validMoves.forEach(move => {
-    let newPosition = movelist.concat(move)
+    let newPosition = movelist.concat(move.toString())
     let outcome = outcomeMap.get(newPosition)
     if (outcome === "draw") {
       drawing.push(move)
@@ -140,7 +141,7 @@ function sortBotMoves(movelist, humanGoesFirst, outcomeMap) {
       }
     }
     else {
-      console.error(`Error in sortBotMoves`)
+      console.error(`Error in sortBotMoves: could not sort ${move}`)
     }
   })
   return {
@@ -150,10 +151,6 @@ function sortBotMoves(movelist, humanGoesFirst, outcomeMap) {
   }
 }
 
-// Randomly selects a move from a list of possible next moves.
-function pickRandomFromArray(moveSet) {
-  return moveSet[Math.floor(Math.random() * moveSet.length)]
-}
 
 ////////////////////////////////////////////////////////////////
 // Get Children and Helpers:  An Array of move list Strings
@@ -180,15 +177,15 @@ export function getParent(movelist) {
 //     console.log(`BOT MAKING AN OPENING BOOK MOVE.`)
 
 //     if (movelist.length === 0) {
-//         return pickRandomFromArray(availableNumbers(movelist))
+//         return chooseRandomFromArray(availableNumbers(movelist))
 //     }
 //     else if (movelist[0] === 5) {
-//         return pickRandomFromArray([2, 4, 6, 8])
+//         return chooseRandomFromArray([2, 4, 6, 8])
 //     }
 //     else if (movelist[0] % 2 === 0) {  // If player took a corner, bot must take center.
 //         return [5]
 //     }
 //     else {
-//         return pickRandomFromArray(blockingMoves(movelist))
+//         return chooseRandomFromArray(blockingMoves(movelist))
 //     }
 // }
