@@ -117,9 +117,9 @@ export default function PlayVsFriend() {
 
   const heights = {
     total: `${availableHeight}px`,
-    board: '50%',
+    board: '55%',
     status: '10%',
-    record: '20%',
+    record: '15%',
     buttons: '20%',
   }
 
