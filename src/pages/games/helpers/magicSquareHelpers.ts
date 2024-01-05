@@ -61,6 +61,9 @@ export function playModeIsHumanVsBot(playMode: PlayModeEnum) {
 } 
 
 export function status(movelist: MovelistType) {
+
+  console.log(`ML in status: ${movelist}`)
+
   if (firstPlayerWins(movelist)) {
     return GameStatusEnum.firstPlayerWins
   }
@@ -155,11 +158,15 @@ function predictedOutcome(movelist: MovelistType, outcomeMap: Map<MovelistType, 
 ////////////////////////////////////////////////////////////////
 export function firstPlayersMoves(movelist: MovelistType) {
   let firstPlayersMoves = ''
+
+  console.log(`ML in FPM: ${movelist}`)
+
   for (let c = 0; c < movelist.length; c++) {
     if (c % 2 === 0) {
       firstPlayersMoves = firstPlayersMoves.concat(movelist.charAt(c))
     }
   }
+  console.log(`First Players moves: ${firstPlayersMoves}`)
   return firstPlayersMoves.split('').map(s => Number(s))
 }
 
@@ -170,6 +177,8 @@ export function secondPlayersMoves(movelist: MovelistType) {
       secondPlayersMoves = secondPlayersMoves.concat(movelist.charAt(c))
     }
   }
+  console.log(`Second Players moves: ${secondPlayersMoves}`)
+
   return secondPlayersMoves.split('').map(s => Number(s))
 }
 
@@ -191,7 +200,7 @@ export function getValidMoves(movelist: MovelistType) {
 export function availableNumbers(movelist: MovelistType) {
   let availableNumbers = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9])
   for (let i = 0; i < movelist.length; i++) {
-    availableNumbers.delete(movelist[i])
+    availableNumbers.delete(Number(movelist.charAt(i)))
   }
   return Array.from(availableNumbers)
 }
@@ -243,12 +252,13 @@ function getListOfPossiblePositions() {
   // Layer 1) indices 0 thru 9 correspond to the lengths of the move lists contained there
   // Layer 2) an array containing all valid move lists of that length
   // Layer 3) Move List string representations
-  let positionsList = [[[]]]
+  let positionsList = [['']]
   for (let parentLength = 0; parentLength < 9; parentLength++) {
-    let parentPositions : MovelistType[] = positionsList[parentLength]
-    // let childPositions = parentPositions.map(parent => getChildren(parent)).flat()
-    // positionsList.push(childPositions)
+    let parentPositions: MovelistType[] = positionsList[parentLength]
+    let childPositions: MovelistType[] = parentPositions.map(parent => getChildren(parent)).flat()
+    positionsList.push(childPositions)
   }
+  console.log(`Positions List: ${positionsList}`)
   return positionsList
 }
 
