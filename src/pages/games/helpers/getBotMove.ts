@@ -153,20 +153,20 @@ function sortBotMoves(movelist: MovelistType, humanGoesFirst: boolean, outcomeMa
 
 
 ////////////////////////////////////////////////////////////////
-// Get Children and Helpers:  An Array of move list Strings
+// Get Children and Helpers:  An Array of movelist Strings
 ////////////////////////////////////////////////////////////////
-export function getChildren(movelist) {
-    let children = []
-    getValidMoves(movelist).forEach(move => children.push(movelist + move))
-    // this.validMoves(movelist).forEach(move => children.push(movelist + move))
-    return children
+export function getChildren(movelist: MovelistType) {
+  let children: MovelistType[] = []
+  getValidMoves(movelist).forEach(move => children.push(movelist + move))
+  // this.validMoves(movelist).forEach(move => children.push(movelist + move))
+  return children
 }
-function getValidMoves(movelist) {
-    return (gameOver(movelist)) ? [] : availableNumbers(movelist)
+function getValidMoves(movelist: MovelistType) {
+  return (gameOver(movelist)) ? [] : availableNumbers(movelist)
 }
 
-export function getParent(movelist) {
-    return movelist.slice(0, movelist.length - 1)
+export function getParent(movelist: MovelistType) {
+  return movelist.slice(0, movelist.length - 1)
 }
 
 ////////////////////////////////////////////////////////////////
