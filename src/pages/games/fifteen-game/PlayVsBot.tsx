@@ -1,9 +1,9 @@
 import { useState, useContext } from 'react'
 
-import { Box, Grid } from '@mui/material'
-
+import { S3Client, ListBucketsCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 
 // COMPONENTS 
+import { Box, Grid } from '@mui/material'
 import Board from "./Board"
 import GameStatusDisplay from './GameStatusDisplay'
 import WinLossDrawDisplay from './WinLossDrawDisplay'
@@ -29,7 +29,28 @@ const startingPosition: MovelistType = ""
 
 // type OutcomeMap 
 
+// const client = new S3Client({ region: "us-east-1" })
+// const client = new S3Client({
+//   region: "us-east-1",
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// })
+
+// const GetRequestParams = {
+//   Bucket: 'magic-square-solution-test-bucket', // your bucket name,
+//   Key: 'testFile.txt' // path to the object you're looking for
+// }
+// const command = new GetObjectCommand(GetRequestParams);
+// const response = await client.send(command);
+
+// console.log(response)
+
 export default function PlayVsBot(props: any) {
+
+console.log(`AWS access key: ${import.meta.env.VITE_AWS_ACCESS_KEY_ID}`)
+console.log(`AWS access key: ${process.env.NODE_ENV}`)
+
+
   const { outcomeMap = new Map() } = props
 
  console.log(`OutcomeMap: ${outcomeMap.size}`)
