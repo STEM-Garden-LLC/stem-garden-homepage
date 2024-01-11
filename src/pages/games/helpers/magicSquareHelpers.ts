@@ -61,9 +61,6 @@ export function playModeIsHumanVsBot(playMode: PlayModeEnum) {
 } 
 
 export function status(movelist: MovelistType) {
-
-  console.log(`ML in status: ${movelist}`)
-
   if (firstPlayerWins(movelist)) {
     return GameStatusEnum.firstPlayerWins
   }
@@ -158,15 +155,11 @@ function predictedOutcome(movelist: MovelistType, outcomeMap: Map<MovelistType, 
 ////////////////////////////////////////////////////////////////
 export function firstPlayersMoves(movelist: MovelistType) {
   let firstPlayersMoves = ''
-
-  console.log(`ML in FPM: ${movelist}`)
-
   for (let c = 0; c < movelist.length; c++) {
     if (c % 2 === 0) {
       firstPlayersMoves = firstPlayersMoves.concat(movelist.charAt(c))
     }
   }
-  console.log(`First Players moves: ${firstPlayersMoves}`)
   return firstPlayersMoves.split('').map(s => Number(s))
 }
 
@@ -177,8 +170,6 @@ export function secondPlayersMoves(movelist: MovelistType) {
       secondPlayersMoves = secondPlayersMoves.concat(movelist.charAt(c))
     }
   }
-  console.log(`Second Players moves: ${secondPlayersMoves}`)
-
   return secondPlayersMoves.split('').map(s => Number(s))
 }
 
@@ -263,7 +254,7 @@ function getListOfPossiblePositions() {
 }
 
 
-// export const outcomeMap = generatePositionToOutcomeMap()
+export const outcomeMap = generatePositionToOutcomeMap()
 export async function generatePositionToOutcomeMap() {
   let outcomeMap = new Map()
   let list = listOfPossiblePositions
