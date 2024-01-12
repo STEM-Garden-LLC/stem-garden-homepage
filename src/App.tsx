@@ -10,10 +10,11 @@ import MainRouter from './routers/MainRouter'
 // MUI
 import theme from "../src/theme"
 import { ThemeProvider } from '@mui/material';
+import { CenteredFlexBox } from "./components";
 
 export default function App() {
   return (
-    <> 
+    <CenteredFlexBox column width='100vw' > 
       <AppContextProvider>
         <ColorThemeContextProvider>
           <ThemeProvider theme={theme}>
@@ -23,11 +24,11 @@ export default function App() {
 
               <MainRouter />
 
-              </BrowserRouter>
+            </BrowserRouter>
           </ThemeProvider>
         </ColorThemeContextProvider>
       </AppContextProvider>
-    </>
+    </CenteredFlexBox>
   )
 }
 
