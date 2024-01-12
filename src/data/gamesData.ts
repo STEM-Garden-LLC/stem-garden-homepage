@@ -3,7 +3,7 @@ import { GameCardProps } from '../@types/Cards'
 // IMAGES
 import { 
   connect_four_screenshot,
-  tic_tac_toe_screenshot,
+  // tic_tac_toe_screenshot,
   fifteen_game_screenshot,
   under_construction
 } from '@assets/math-games'
@@ -25,16 +25,16 @@ const gamesData : GameCardProps[] = [
     disabled: false,
     description: ["The classic game with a twist: Each time you select a column to drop a chip in you will be presented with a math question. Answer it correctly or your turn will be skipped!"],
   },
-  {
-    title: "Tic Tac Toe Coach",
-    linkTo: "/games/tic-tac-toe",
-    imageUrl: tic_tac_toe_screenshot,
-    disabled: false,
-    description: [
-      "The game of Tic Tac Toe presents fantastic but often overlooked opportunities for introducing students to mathematical ideas including tree diagrams, symmetry, and rigorous proof. It is both popular and simple, accessible to very young kids while still having enough depth to be interesting to adults.",
-      "This is your chance to play against a master coach who will pose questions leading you to insight in any position. If you get stumped or want to check your answer the coach will show you which of the possible moves lead to wins, losses, and draws."
-    ]
-  },
+  // {
+  //   title: "Tic Tac Toe Coach",
+  //   linkTo: "/games/tic-tac-toe",
+  //   imageUrl: tic_tac_toe_screenshot,
+  //   disabled: false,
+  //   description: [
+  //     "The game of Tic Tac Toe presents fantastic but often overlooked opportunities for introducing students to mathematical ideas including tree diagrams, symmetry, and rigorous proof. It is both popular and simple, accessible to very young kids while still having enough depth to be interesting to adults.",
+  //     "This is your chance to play against a master coach who will pose questions leading you to insight in any position. If you get stumped or want to check your answer the coach will show you which of the possible moves lead to wins, losses, and draws."
+  //   ]
+  // },
   {
     title: "Classic Nim",
     linkTo: "the-15-game",
