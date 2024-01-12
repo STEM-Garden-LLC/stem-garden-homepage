@@ -1,4 +1,6 @@
 import { useState, useContext } from 'react'
+import { AppContext } from '@/context/AppContext';
+
 
 import { Box, Grid } from '@mui/material';
 
@@ -18,7 +20,6 @@ import { CardId, PlayModeEnum, MovelistType, GameStatusEnum } from "../helpers/m
 import { gamesData } from '@/data'
 
 import { faHouse, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import { AppContext } from '@/context/AppContext';
 
 const startingPosition: MovelistType = ""
 
