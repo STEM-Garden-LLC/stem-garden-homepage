@@ -21,7 +21,7 @@ import { ColorsEnum } from '@/@types/Colors';
 
 // Game Logic
 
-export default function FifteenGameWelcome() {
+export default function FifteenGame() {
   return (
     <>
       <Title text="The Fifteen Game" gutterTop gutterBottom />

@@ -33,23 +33,7 @@ import outcomeMapJSON from '../helpers/magicSquareGamesOutcomeMap.json'
 const defaultPlayMode: PlayModeEnum = PlayModeEnum.humanGoesFirst
 const startingPosition: MovelistType = ""
 
-// type OutcomeMap 
 
-// const client = new S3Client({ region: "us-east-1" })
-// const client = new S3Client({
-//   region: "us-east-1",
-//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-// })
-
-// const GetRequestParams = {
-//   Bucket: 'magic-square-solution-test-bucket', // your bucket name,
-//   Key: 'testFile.txt' // path to the object you're looking for
-// }
-// const command = new GetObjectCommand(GetRequestParams);
-// const response = await client.send(command);
-
-// console.log(response)
 
 export default function PlayVsBot() {
   const outcomeMap = new Map(Object.entries(outcomeMapJSON))

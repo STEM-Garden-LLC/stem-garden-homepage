@@ -1,4 +1,4 @@
-const fifteenGameData : Object = {
+const fifteenGameData : any = {
   description: {
     heading: '',
     paragraphs: [

@@ -38,7 +38,7 @@ const ConnectFourRoot = lazy(() => import('../pages/games/connect-four'))
 const TicTacToeRoutes = lazy(() => import('../pages/games/tic-tac-toe'))
 
 // Fifteen Game
-// const FifteenGameRouter = import('./FifteenGameRouter')
+const FifteenGame = lazy(() => import('../pages/games/fifteen-game/FifteenGame'))
 const Welcome = lazy(() => import('../pages/games/fifteen-game/Welcome'))
 const FifteenGameVsFriend = lazy(() => import('../pages/games/fifteen-game/PlayVsFriend'))
 const FifteenGameVsBot = lazy(() => import('../pages/games/fifteen-game/PlayVsBot'))
@@ -84,10 +84,11 @@ export default function MainRouter() {
           <Route path="/games/tic-tac-toe" element={<TicTacToeRoutes />} />
           {/* <FifteenGameRouter /> */}
           {/* { fifteenGameRoutes } */}
-          <Route path="/games/the-15-game" element={<Outlet />} >
-            <Route index element={<Welcome/>} />
+          {/* <Route path="/games/the-15-game" element={<Outlet />} > */}
+          <Route path="/games/the-15-game" element={<FifteenGame />} >
+            {/* <Route index element={<Welcome/>} />
             <Route path="/games/the-15-game/play-vs-friend" element={<FifteenGameVsFriend />} />
-            <Route path="/games/the-15-game/play-vs-bot" element={<FifteenGameVsBot />} />
+            <Route path="/games/the-15-game/play-vs-bot" element={<FifteenGameVsBot />} /> */}
           </Route>
         </Route>
 
