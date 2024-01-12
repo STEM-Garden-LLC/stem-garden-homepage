@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom';
 
 // COMPONENTS
@@ -22,17 +21,6 @@ import { ColorsEnum } from '@/@types/Colors';
 // Game Logic
 
 export default function FifteenGameWelcome() {
-  const [outcomeMap, setOutcomeMap] = useState(null)
-  
-  // useEffect(() => {
-  //   const generateOutcomeMapAsync = async () => {
-  //     const map = await generatePositionToOutcomeMap()
-  //     setOutcomeMap(map)
-  //     console.log("Outcome Map Generated");
-  //   }
-  //   generateOutcomeMapAsync()
-  // }, [])
-
   return (
     <>
       <Title text="The Fifteen Game" gutterTop gutterBottom />
