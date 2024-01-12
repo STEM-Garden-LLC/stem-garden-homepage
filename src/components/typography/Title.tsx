@@ -10,7 +10,7 @@ import { Typography } from '@mui/material';
 import { ColorsEnum } from '../../@types/Colors';
 
 interface TitleProps extends TypographyProps {
-  gutterTop: boolean;
+  gutterTop?: boolean;
 }
 
 export default function Title(props: TitleProps) {
