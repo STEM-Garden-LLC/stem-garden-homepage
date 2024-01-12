@@ -11,10 +11,10 @@ import WinLossDrawDisplay from './WinLossDrawDisplay';
 import { GameButton, CenteredFlexBox } from '@/components'
 
 // HELPERS
-import { status, gameOver } from "../helpers/magicSquareHelpers";
+import { status, gameOver } from "./fifteenGameHelpers";
 
 // TYPES
-import { CardId, PlayModeEnum, MovelistType, GameStatusEnum } from "../helpers/magicSquareTypes";
+import { CardId, PlayModeEnum, MovelistType, GameStatusEnum } from "./fifteenGameTypes";
 
 // DATA
 import { gamesData } from '@/data'

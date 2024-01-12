@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react'
 import { AppContext } from '@/context/AppContext';
 
-import { S3Client, ListBucketsCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 
 // COMPONENTS 
 import { Box, Grid } from '@mui/material'
@@ -12,11 +11,11 @@ import { GameButton, CenteredFlexBox } from '@/components'
 
 
 // HELPERS
-import { status, gameOver } from '../helpers/magicSquareHelpers'
-import { getBotMove } from '../helpers/getBotMove'
+import { status, gameOver } from './fifteenGameHelpers'
+import { getBotMove } from './getBotMove'
 
 // TYPES
-import { CardId, PlayModeEnum, MovelistType, GameStatusEnum, DifficultyModesEnum } from "../helpers/magicSquareTypes";
+import { CardId, PlayModeEnum, MovelistType, GameStatusEnum, DifficultyModesEnum } from "./fifteenGameTypes";
 
 // DATA
 import { gamesData } from '@/data'
@@ -25,7 +24,7 @@ import { gamesData } from '@/data'
 import { faHouse, faRotateLeft, faRobot } from '@fortawesome/free-solid-svg-icons';
 
 // OUTCOME MAP
-import outcomeMapJSON from '../helpers/magicSquareGamesOutcomeMap.json'
+import outcomeMapJSON from './magicSquareGamesOutcomeMap.json'
 
 
 
@@ -272,20 +271,6 @@ function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
         }
       </Grid> 
       
-      
-      {/* <Box id='button-container' m={1} >
-        <Box display='flex' justifyContent='space-between' height={40} mb={1}  > 
-          <DifficultyModeButton thisButtonsMode='easy'   difficultyMode={difficultyMode} changeDifficultyMode={changeDifficultyMode} />
-          <DifficultyModeButton thisButtonsMode='medium' difficultyMode={difficultyMode} changeDifficultyMode={changeDifficultyMode} marginX={1} />
-          <DifficultyModeButton thisButtonsMode='hard'   difficultyMode={difficultyMode} changeDifficultyMode={changeDifficultyMode}  />
-        </Box> 
-        <Box display='flex' justifyContent='space-between' height={40} >
-          <HomeButton />
-          <BotGoFirstButton moveList={moveList} letBotGoFirst={letBotGoFirst} />
-          <NewGameButton moveList={moveList} handleNewGameClick={handleNewGameClick} />
-        </Box>
-      </Box> */}
-
     </Grid>
   )
 }

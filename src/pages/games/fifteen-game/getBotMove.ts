@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { ColorThemeContext } from "@/context/ColorThemeContext";
-
 // HELPERS
 import { intersect } from "@/helpers/math";
 import { chooseRandomFromArray } from "@/helpers/randomization";
@@ -12,11 +9,11 @@ import {
   secondPlayersMoves, 
   nextPlayer, 
   availableNumbers 
-} from "./magicSquareHelpers";
+} from "./fifteenGameHelpers";
 
 
 // TYPES
-import { DifficultyModesEnum, GameStatusEnum, MovelistType, OutcomesEnum } from "./magicSquareTypes";
+import { DifficultyModesEnum, GameStatusEnum, MovelistType, OutcomesEnum } from "./fifteenGameTypes";
 
 
 //////////////////////////////////////////////////////////////     
@@ -96,7 +93,7 @@ export function urgentDefensiveMoves(movelist: MovelistType) {
   }
 }
 export function doubleAttackingMoves(movelist: MovelistType) {
-  let doubleAttackingMoves = availableNumbers(movelist).filter(num => urgentDefensiveMoves(movelist.concat(num)).length > 1)
+  let doubleAttackingMoves = availableNumbers(movelist).filter(num => urgentDefensiveMoves(movelist.concat(num.toString())).length > 1)
   return doubleAttackingMoves
 }
 export function drawingMoves(movelist: MovelistType) { // For NEXT Player

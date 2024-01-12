@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faRotateLeft, faAnglesLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { FifteenGameColorsEnum } from '@/pages/games/helpers/magicSquareTypes';
+import { FifteenGameColorsEnum } from '@/pages/games/fifteen-game/fifteenGameTypes';
 import { useContext } from 'react';
 import { ColorThemeContext } from '@/context/ColorThemeContext';
 import { ColorThemeEnum } from '@/@types';

@@ -7,11 +7,11 @@ import { ColorThemeContext } from '@/context/ColorThemeContext';
 import { Box, Paper, Typography } from '@mui/material';
 
 // TYPES
-import { CardClaimStatusEnum, FifteenGameColorsEnum, MovelistType, PlayModeEnum } from "../helpers/magicSquareTypes";
+import { CardClaimStatusEnum, FifteenGameColorsEnum, MovelistType, PlayModeEnum } from "./fifteenGameTypes";
 
 
 // Magic Square Helpers
-import { getCardClaimStatus, numbersInWin } from "../helpers/magicSquareHelpers";
+import { getCardClaimStatus, numbersInWin } from "./fifteenGameHelpers";
 import { ColorsEnum } from '@/@types/Colors';
 import { ColorThemeEnum } from '@/@types';
 

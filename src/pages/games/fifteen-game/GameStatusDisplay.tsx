@@ -1,14 +1,13 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
-import { PlayersEnum, PlayModeEnum, GameStatusEnum, MovelistType } from "../helpers/magicSquareTypes";
-import { status } from "../helpers/magicSquareHelpers";
+import { PlayersEnum, PlayModeEnum, GameStatusEnum, MovelistType } from "./fifteenGameTypes";
+import { status } from "./fifteenGameHelpers";
 
 // COMPONENTS
 import { Subtitle } from '@/components'
-import { AlignEnum } from '@/@types/TypographyProps';
 
 // HELPERS
-import { playModeIsHumanVsHuman, playModeIsHumanVsBot } from '../helpers/magicSquareHelpers';
+import { playModeIsHumanVsHuman, playModeIsHumanVsBot } from './fifteenGameHelpers';
 
 
 type GameStatusDisplayProps = {
@@ -81,7 +80,7 @@ export default function GameStatusDisplay(props: GameStatusDisplayProps) {
         break;
       case GameStatusEnum.secondPlayerWins:
         message = (humanGoesFirst ? 
-          `Oops, you let the bot win. Try Again!` :
+          `Oops, the bot won. Try Again!` :
           `Congratulations, you beat the bot!`)
         break;
       default:

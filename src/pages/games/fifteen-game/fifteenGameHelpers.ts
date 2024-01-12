@@ -6,7 +6,7 @@ import {
   OutcomesEnum,
   CardClaimStatusEnum,
   PlayModeEnum,
-} from './magicSquareTypes'
+} from './fifteenGameTypes'
   
 // Generate all sets of three that sum to 15
 export const trioList = generateTrioList()
@@ -180,7 +180,7 @@ export function movelistToNumberArray(movelist: MovelistType) {     // "123" -->
 
 export function getChildren(movelist: MovelistType) {
   let children: MovelistType[] = []
-  getValidMoves(movelist).forEach(move => children.push(movelist.concat(move)))
+  getValidMoves(movelist).forEach(move => children.push(movelist.concat(move.toString())))
   return children
 }
 

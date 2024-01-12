@@ -4,10 +4,10 @@ import { Box } from '@mui/material';
 import { Heading } from '@components/typography'
 
 // HELPERS
-import { playModeIsHumanVsHuman, playModeIsHumanVsBot } from '../helpers/magicSquareHelpers';
+import { playModeIsHumanVsHuman, playModeIsHumanVsBot } from './fifteenGameHelpers';
 
 // TYPES 
-import { FifteenGameColorsEnum, PlayModeEnum, PlayersEnum, OutcomesEnum } from '../helpers/magicSquareTypes';
+import { FifteenGameColorsEnum, PlayModeEnum, PlayersEnum, OutcomesEnum } from './fifteenGameTypes';
 import { CenteredFlexBox } from '@/components';
 
 type WinLossDrawDisplayProps = {
