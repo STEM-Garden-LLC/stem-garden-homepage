@@ -164,7 +164,7 @@ type PlayVsFriendButtonsProps = {
 
 function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
   const { movelist, handleUndoClick, handleNewGameClick } = props
-  const fifteenGameData = gamesData.filter(items => "The Fifteen Game" === items.title)[0]
+  const fifteenGameHomeLink = gamesData.filter(items => "The Fifteen Game" === items.title)[0].linkTo
 
   // TODO 
   // Material Icons actually has a better selection here than Font Awesome. 
@@ -190,7 +190,7 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
           label='Home'
           // hideLabel={containerWidth < 600}
           icon={faHouse}
-          linkTo={fifteenGameData.linkTo}
+          linkTo={fifteenGameHomeLink}
         />
       </Grid> 
       <Grid item xs={8} >

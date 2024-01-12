@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react'
+import { AppContext } from '@/context/AppContext';
 
 import { S3Client, ListBucketsCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 
@@ -20,8 +21,13 @@ import { CardId, PlayModeEnum, MovelistType, GameStatusEnum, DifficultyModesEnum
 // DATA
 import { gamesData } from '@/data'
 
+// ICONS
 import { faHouse, faRotateLeft, faRobot } from '@fortawesome/free-solid-svg-icons';
-import { AppContext } from '@/context/AppContext';
+
+// OUTCOME MAP
+import outcomeMapJSON from '../helpers/magicSquareGamesOutcomeMap.json'
+
+
 
 
 const defaultPlayMode: PlayModeEnum = PlayModeEnum.humanGoesFirst
@@ -45,15 +51,11 @@ const startingPosition: MovelistType = ""
 
 // console.log(response)
 
-export default function PlayVsBot(props: any) {
+export default function PlayVsBot() {
+  const outcomeMap = new Map(Object.entries(outcomeMapJSON))
 
-console.log(`AWS access key: ${import.meta.env.VITE_AWS_ACCESS_KEY_ID}`)
-console.log(`AWS access key: ${process.env.NODE_ENV}`)
+  // console.log(`OutcomeMap: ${Object.entries(outcomeMap)}`)
 
-
-  const { outcomeMap = new Map() } = props
-
- console.log(`OutcomeMap: ${outcomeMap.size}`)
 
   const { availableHeight } = useContext(AppContext)
 
@@ -87,7 +89,6 @@ console.log(`AWS access key: ${process.env.NODE_ENV}`)
     else {
       const updatedMovelist: MovelistType = movelist.concat(String(squareClicked))
       setMovelist(updatedMovelist)
-      console.log(`Updated Movelist: ${updatedMovelist}`)
       if (gameOver(updatedMovelist)) {
         handleGameOver(updatedMovelist)
       } 
@@ -215,7 +216,7 @@ type PlayVsBotButtonsProps = {
 
 function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
   const { movelist, handleNewGameClick, difficultyMode, changeDifficultyMode, letBotGoFirst } = props
-  const fifteenGameData = gamesData.filter(items => "The Fifteen Game" === items.title)[0]
+  const fifteenGameHomeLink = gamesData.filter(items => "The Fifteen Game" === items.title)[0].linkTo
 
   // TODO 
   // Material Icons actually has a better selection here than Font Awesome. 
@@ -248,7 +249,7 @@ function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
         <GameButton 
           label='Home'
           icon={faHouse}
-          linkTo={fifteenGameData.linkTo}
+          linkTo={fifteenGameHomeLink}
         />
       </Grid> 
       <Grid item xs={8} sm={6} >

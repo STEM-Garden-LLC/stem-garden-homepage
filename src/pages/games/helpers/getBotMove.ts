@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { ColorThemeContext } from "@/context/ColorThemeContext";
 
 // HELPERS
 import { intersect } from "@/helpers/math";
@@ -14,15 +16,13 @@ import {
 
 
 // TYPES
-import { DifficultyModesEnum, GameStatusEnum, MovelistType, PlayModeEnum } from "./magicSquareTypes";
-import { useContext } from "react";
-import { ColorThemeContext } from "@/context/ColorThemeContext";
+import { DifficultyModesEnum, GameStatusEnum, MovelistType, OutcomesEnum } from "./magicSquareTypes";
 
 
 //////////////////////////////////////////////////////////////     
 //  GET  BOT  MOVE  PROTOCOLS
 ////////////////////////////////////////////////////////////// 
-export function getBotMove(difficultyMode: DifficultyModesEnum, movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: any) {
+export function getBotMove(difficultyMode: DifficultyModesEnum, movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: Map<MovelistType, OutcomesEnum>) {
   const move = (difficultyMode === DifficultyModesEnum.easy) ? easyProtocol(movelist) : 
     difficultyMode === DifficultyModesEnum.medium ? mediumProtocol(movelist) :
     difficultyMode === DifficultyModesEnum.hard ? hardProtocol(movelist, humanGoesFirst, outcomeMap) : console.error(`getBotMove called with invalid difficulty mode!!!`)
@@ -58,7 +58,7 @@ function mediumProtocol(movelist: MovelistType) {
 
 // In HARD mode Bot looks for forcing moves that will allow it to make double attacks on its next move.
 // In HARD mode Bot avoids letting Player make forcing moves that will lead to double attacks.
-function hardProtocol(movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: any) {
+function hardProtocol(movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: Map<MovelistType, OutcomesEnum>) {
   let sorted = sortBotMoves(movelist, humanGoesFirst, outcomeMap)
   if (sorted.winningForBot.length > 0) {
     return chooseRandomFromArray(sorted.winningForBot)
@@ -112,7 +112,7 @@ export function drawingMoves(movelist: MovelistType) { // For NEXT Player
 
 
 
-function sortBotMoves(movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: any) {
+function sortBotMoves(movelist: MovelistType, humanGoesFirst: boolean, outcomeMap: Map<MovelistType, String>) {
   let winningForBot: number[]= []
   let drawing: number[]= []
   let winningForHuman: number[]= []
@@ -121,10 +121,12 @@ function sortBotMoves(movelist: MovelistType, humanGoesFirst: boolean, outcomeMa
   validMoves.forEach(move => {
     let newPosition = movelist.concat(move.toString())
     let outcome = outcomeMap.get(newPosition)
+
+    // We use Strings here instead of the OutcomesEnum because the JSON file that contains the outcomeMap is unaware of the Enum
     if (outcome === "draw") {
       drawing.push(move)
     }
-    else if (outcome === "xWins") {
+    else if (outcome === "firstPlayerWins") {
       if (humanGoesFirst) {
         winningForHuman.push(move)
       }
@@ -132,7 +134,7 @@ function sortBotMoves(movelist: MovelistType, humanGoesFirst: boolean, outcomeMa
         winningForBot.push(move)
       }
     }
-    else if (outcome === "oWins") {
+    else if (outcome === "secondPlayerWins") {
       if (humanGoesFirst) {
         winningForBot.push(move)
       }
