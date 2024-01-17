@@ -55,18 +55,13 @@ export default function MainRouter() {
         <Route path="contact" element={<ContactPage />} />
 
         {/*  SERVICES  */}
-
-        {/* <Route path="services"  > */}
-          {/* <Route index element={<ServicesIndexPage />} /> */}
-          <Route path="tutoring" element={<TutoringPage />} />   
-          <Route path="chess" element={<ChessPage />} />
-          <Route path="test-prep" element={<TestPrepPage />} />
-          {/* <Route path="teacher-training" element={<TeacherTrainingPage />} /> */}
-          {/* <Route path="web-development" element={<WebDevelopmentPage />} /> */}
-        {/* </Route> */}
+        <Route path="tutoring" element={<TutoringPage />} />   
+        <Route path="chess" element={<ChessPage />} />
+        <Route path="test-prep" element={<TestPrepPage />} />
+        {/* <Route path="teacher-training" element={<TeacherTrainingPage />} /> */}
+        {/* <Route path="web-development" element={<WebDevelopmentPage />} /> */}
         
         {/*  RESOURCES  */}
-
         <Route path="/resources" element={<ResourcesPage />} >
           <Route index element={<ResourcesIndex />} />
           <Route path="/resources/puzzles" element={<PuzzlesPage />} />
@@ -76,13 +71,9 @@ export default function MainRouter() {
         </Route>
 
         {/*  GAMES  */}
-
         <Route path="/games" element={<GamesPage />} >
           <Route index element={<GamesIndex />} />
           <Route path="/games/connect-four" element={<ConnectFourRoot />} />
-          {/* <Route path="/games/tic-tac-toe" element={<TicTacToeRoutes />} /> */}
-          {/* <FifteenGameRouter /> */}
-          {/* { fifteenGameRoutes } */}
           <Route path="/games/the-15-game" element={<Outlet />} >
             <Route index element={<Welcome/>} />
             <Route path="/games/the-15-game/play-vs-friend" element={<FifteenGameVsFriend />} />
