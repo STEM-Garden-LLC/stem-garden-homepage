@@ -16,8 +16,8 @@ export function intersect(listOne: any[], listTwo: any[]) {
 //         product = product * i
 //     }
 //     return product
-//     // This led to a fun research rabbit hole about how to more efficiently compute factorials using Paschals Triangle
+//     // This led to a fun research rabbit hole about how to more efficiently compute factorials using Paschal's Triangle
 // }
 
 
-// For most heavily used generic math functions like intersect, union, factorial, mean, randomInt, randomFromArray, choose, ppermutations, combinations.
+// For most heavily used generic math functions like intersect, union, factorial, mean, randomInt, randomFromArray, choose, permutations, combinations.
