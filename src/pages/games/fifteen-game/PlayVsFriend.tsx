@@ -184,6 +184,7 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
           icon={faRotateLeft}
           onClick={handleUndoClick} 
           disabled={movelist.length === 0 || gameOver(movelist)} 
+          fullWidth
         />
       </Grid> 
       <Grid item xs={4} >
@@ -192,6 +193,7 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
           // hideLabel={containerWidth < 600}
           icon={faHouse}
           linkTo={fifteenGameHomeLink}
+          fullWidth
         />
       </Grid> 
       <Grid item xs={8} >
@@ -200,6 +202,7 @@ function PlayVsFriendButtons(props: PlayVsFriendButtonsProps) {
           icon={faRotateLeft}
           onClick={handleNewGameClick} 
           disabled={!gameOver(movelist)} 
+          fullWidth
         />
       </Grid> 
     </Grid>

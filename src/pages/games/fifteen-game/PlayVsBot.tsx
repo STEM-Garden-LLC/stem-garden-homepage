@@ -213,6 +213,7 @@ function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
           label={mode}
           selected={difficultyMode === mode}
           onClick={() => changeDifficultyMode(mode)}
+          fullWidth
         />
       </Grid> 
     )
@@ -232,6 +233,7 @@ function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
           label='Home'
           icon={faHouse}
           linkTo={fifteenGameHomeLink}
+          fullWidth
         />
       </Grid> 
       <Grid item xs={8} sm={6} >
@@ -241,6 +243,7 @@ function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
               label='Let Bot Go First'
               icon={faRobot}
               onClick={letBotGoFirst} 
+              fullWidth
             />
           ) : (
             <GameButton 
@@ -248,6 +251,7 @@ function PlayVsBotButtons(props: PlayVsBotButtonsProps) {
               icon={faRotateLeft}
               onClick={handleNewGameClick} 
               disabled={!gameOver(movelist)} 
+              fullWidth
             />
           )
           
