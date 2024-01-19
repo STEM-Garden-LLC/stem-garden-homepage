@@ -1,6 +1,6 @@
 
 
-export {default as AppContext} from './AppContext';
-export {default as ColorThemeContext} from './ColorThemeContext';
+export { AppContext} from './AppContext';
+export { ColorThemeContext} from './ColorThemeContext';
 
 
