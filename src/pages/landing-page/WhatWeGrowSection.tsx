@@ -13,12 +13,10 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 // CUSTOM COMPONENTS
 import { Title, ButtonLabel, Paragraph } from '../../components/typography';
-// import { NavigationButton } from '@components'
 import { NavigationButton } from '../../components'
 
-// ASSETS
-// import { crops } from '../../text/landing'
-import { whatWeGrowData } from '../../data'
+// DATA
+import { whatWeGrowData, navData } from '../../data'
 
 // TYPES
 import { ColorsEnum } from '../../@types/Colors';
@@ -32,6 +30,8 @@ import { AlignEnum } from '../../@types/TypographyProps';
 export default function WhatWeGrowSection() {
   const [selectedCrop, setSelectedCrop] = useState("none_selected")
 
+  const linkToContactPage = navData.filter(items => 'Contact Us' === items.label)[0].linkTo
+
   return (
     <Box id='what-we-grow' paddingY={{ xs: '4.0rem', sm: '6.0rem' }} >
       <Title text='What We Grow' gutterBottom />
@@ -44,7 +44,7 @@ export default function WhatWeGrowSection() {
       />
       <NavigationButton
         label='Buy Our Produce'
-        linkTo='contact-us'
+        linkTo={linkToContactPage}
         endIcon={faArrowCircleRight}
       />
       {/* TODO */}
