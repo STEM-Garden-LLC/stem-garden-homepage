@@ -85,8 +85,10 @@ function BigIconButton(props: BigIconButtonProps) {
             paddingX: 2,
             paddingY: 4,
             minWidth: '30%',
+            display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-evenly'
+            justifyContent: 'space-evenly',
+            alignItems: 'center'
           }}
         >
           <Heading
