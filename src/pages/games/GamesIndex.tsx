@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { ColorThemeContext } from '../../context/ColorThemeContext';
 
 // COMPONENTS
-import { Title, Heading, Paragraph } from "@components/typography";
+import { Title, TextSection } from "@components/typography";
 import { Box, Grid, Card, Button, } from '@mui/material';
 
 
@@ -11,14 +11,13 @@ import { gamesData } from '../../data'
 
 // TYPES
 import { ColorsEnum } from '../../@types/Colors';
-import { AlignEnum } from '../../@types/TypographyProps'
 import { GameCardProps } from '../../@types/Cards';
 
 export default function GamesIndexPage() {
 
   return (
-    <Box pt={5} >
-      <Title text="Games" gutterBottom />
+    <>
+      <Title text="Math Games" gutterBottom gutterTop />
       {
         gamesData.map((game, index) => (
             <GameCard 
@@ -31,7 +30,7 @@ export default function GamesIndexPage() {
             />
         ))
       }
-    </Box>
+    </>
   )
 }
 
@@ -94,21 +93,17 @@ function GameCard(props: GameCardProps) {
                 alignItems='start'
                 justifyContent='space-between'
               >
-                <Heading text={title} align={AlignEnum.left} />
-                {
-                  description.map((paragraph, index) => (
-                    <Paragraph 
-                      key={index}
-                      text={paragraph}
-                    />
-                ))
-                }
+                <TextSection 
+                  data={{
+                    heading: title,
+                    paragraphs: description
+                  }} 
+                />
                 <Button 
                   children="Play Now"
                   disabled={disabled}
                   href={linkTo}
                   variant='contained'
-                  // size='small'
                   sx={{ 
                     minWidth: '30%',
                     alignSelf: 'center'
