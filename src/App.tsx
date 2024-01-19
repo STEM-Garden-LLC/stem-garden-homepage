@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom"
 // COMPONENTS
 import Navbar from "./components/navigation/ResponsiveNavbar"
 import MainRouter from './routers/MainRouter'
+import Footer from "./components/navigation/Footer"
 
 // MUI
 import theme from "../src/theme"
@@ -23,6 +24,9 @@ export default function App() {
               <Navbar />
 
               <MainRouter />
+
+              <Footer />
+
 
             </BrowserRouter>
           </ThemeProvider>

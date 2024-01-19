@@ -11,8 +11,8 @@ import { AlignEnum, FontWeightEnum } from '../../@types/TypographyProps';
 
 
 // COMPONENTS
-import { Title, Subtitle, Heading  } from '../../components/typography';
-import { Footer, ScrollToTopButton } from '../../components';
+import { Title, Heading  } from '../../components/typography';
+import { ScrollToTopButton } from '../../components';
 import { LeafyBackground, ThemedBackground } from '../../components/backgrounds';
 import PictureCard from '../../components/cards/PictureCard';
 import OurStorySection from './OurStorySection';
@@ -41,7 +41,6 @@ export default function LandingPage() {
         <WhatWeGrowSection />
         <ScrollToTopButton />
       </ThemedBackground>   
-      <Footer />
     </Box>
   )
 }

@@ -1,15 +1,14 @@
 import { Outlet } from 'react-router-dom'
-import { ThemedBackground } from "../../components/backgrounds";
-import { Footer } from '@components/index';
+
+import { ThemedBackground } from '@/components/backgrounds';
+
 
 export default function GamesPage() {
-  
   return (
     <>
-      <ThemedBackground >
+      <ThemedBackground>
         <Outlet />
       </ThemedBackground>
-      <Footer />
     </>
   )
 }
