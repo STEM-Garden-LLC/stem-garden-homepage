@@ -1,25 +1,14 @@
 import { Box, Button, Typography } from '@mui/material';
 
-import { Link as RouterLink } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faRotateLeft, faAnglesLeft, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FifteenGameColorsEnum } from '@/pages/games/fifteen-game/fifteenGameTypes';
 import { useContext } from 'react';
 import { ColorThemeContext } from '@/context/ColorThemeContext';
 import { ColorThemeEnum } from '@/@types';
 import { ColorsEnum } from '@/@types/Colors';
 
-
-type GameButtonProps = {
-  label: string,
-  icon?: IconDefinition,
-  onClick?: Function,
-  linkTo?: string,
-  disabled?: boolean,
-  selected?: boolean,
-  hideLabel?: boolean,
-}
+// TYPES
+import { GameButtonProps } from '@/@types'
 
 export default function GameButton(props: GameButtonProps) {
   const { 
@@ -29,15 +18,16 @@ export default function GameButton(props: GameButtonProps) {
     linkTo = '', 
     disabled = false, 
     selected = false,
-    hideLabel = false
+    hideLabel = false,
+    fullWidth = false
   } = props
 
   const { colorTheme } = useContext(ColorThemeContext)
   const borderColorIfSelected = (colorTheme === ColorThemeEnum.dark) ? ColorsEnum.white : ColorsEnum.lightGrey
   const border = selected ? `solid ${borderColorIfSelected} 3px` : `solid ${FifteenGameColorsEnum.transparent} 3px` 
 
-  const display = hideLabel ? 'none' : 'block'
-
+  const labelDisplay = hideLabel ? 'none' : 'block'
+  const width = fullWidth ? '100%' : 'auto'
 
   return (
     <Button
@@ -50,7 +40,7 @@ export default function GameButton(props: GameButtonProps) {
         border: border,
         // boxSizing: 'border-box',
         flexGrow: 2, 
-        width: '100%'
+        width: width
       }}
     >
       {
@@ -62,8 +52,7 @@ export default function GameButton(props: GameButtonProps) {
           <></>
         )
       }
-      <Typography children={label} variant="button" ml={1} display={display}  />
-      {/* <ButtonLabel text={label} display={display}  />  Doesn't handle disabled */}
+      <Typography children={label} variant="button" ml={1} display={labelDisplay}  />
     </Button>
   )
 }
