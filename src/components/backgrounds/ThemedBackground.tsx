@@ -10,21 +10,23 @@ import { ColorsEnum } from '../../@types/Colors';
 import { ColorThemeEnum } from '../../@types/ColorTheme';
 
 export default function ThemedBackground(props: any) {
-  const { children, redBorder } = props
+  const { children, border } = props
   const { navbarHeightPx } = useContext(AppContext)
   const { colorTheme } = useContext(ColorThemeContext)
 
   const bgColor = colorTheme === ColorThemeEnum.dark ? ColorsEnum.darkGrey : ColorsEnum.offWhite
   
-  const border = redBorder ? 'solid red 1px' : 'none'
+  const redBorder = border ? 'solid red 1px' : 'none'
 
   return (
     <Box 
       sx={{ 
-        width: '100vw', 
+        width: '100%', // Set with % not vw 
+        maxWidth: '100%', 
         minHeight: '100vh',
         paddingTop: `${navbarHeightPx}px`,
-        backgroundColor: bgColor 
+        backgroundColor: bgColor, 
+        border: redBorder
       }} 
     >
       <Container
@@ -34,7 +36,7 @@ export default function ThemedBackground(props: any) {
           display: 'flex',
           flexDirection: 'column',
           textAlign: 'center',
-          border: border
+          border: redBorder
         }}    
       >     
         {children}
