@@ -73,9 +73,7 @@ function BigIconButton(props: BigIconButtonProps) {
         minWidth: '25%',
       }}
     >
-      <RouterLink 
-        to={linkTo}
-      >
+      <RouterLink to={linkTo} >
         <Box
           sx={{
             bgcolor: ColorsEnum.lightGrey,
