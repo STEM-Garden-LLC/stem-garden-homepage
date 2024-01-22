@@ -13,7 +13,7 @@ export type { ColorThemeContextType } from './ColorTheme'
 
 export type { LinkTypeEnum } from './Links'
 
-export type { AlignEnum } from './TypographyProps'
+export { AlignEnum } from './TypographyProps'
 export type { FontWeightEnum } from './TypographyProps'
 export type { TypographyProps } from './TypographyProps'
 
