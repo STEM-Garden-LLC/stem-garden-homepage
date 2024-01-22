@@ -34,7 +34,7 @@ const DivisibilityPlaygroundPage = lazy(() => import('../pages/resources/Divisib
 // Math Games
 const GamesPage = lazy(() => import('../pages/games/GamesPage'))
 const GamesIndex = lazy(() => import('../pages/games/GamesIndex'))
-const ConnectFourGame = lazy(() => import('../pages/games/connect-four'))
+const ConnectFourGamePage = lazy(() => import('../pages/games/connect-four/ConnectFourGamePage'))
 
 // Fifteen Game
 const FifteenGamePage = lazy(() => import('@/pages/games/fifteen-game/FifteenGamePage'))
@@ -73,7 +73,7 @@ export default function MainRouter() {
         {/*  GAMES  */}
         <Route path="/games" element={<GamesPage />} >
           <Route index element={<GamesIndex />} />
-          <Route path="/games/connect-four" element={<ConnectFourGame />} />
+          <Route path="/games/connect-four" element={<ConnectFourGamePage />} />
           <Route path="/games/the-15-game" element={<FifteenGamePage />} >
             <Route index element={<FifteenGameWelcome/>} />
             <Route path="/games/the-15-game/play-vs-friend" element={<FifteenGameVsFriend />} />
