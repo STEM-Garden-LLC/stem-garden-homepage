@@ -1,35 +1,63 @@
 import React, { useContext } from 'react'
-import { Box } from '@mui/material'
+import { AppContext } from '@/context';
 
-// My Components
-import { Column } from "./Column";
-import { InfoHeaderRow } from "./InfoHeaderRow";
-import { RoundedBorder } from "./RoundedBorder";
+
 
 // CONTEXT 
-import { ConnectFourContext } from '../ConnectFourContext';
+import { ConnectFourContext } from './ConnectFourContext';
 
-export function GameBoard(props) {
-  const { handleColumnClick } = props
-  const { gameBoardConstants } = useContext(ConnectFourContext)
-  const { columnNumbers, boardSideLength } = gameBoardConstants
-  // console.log(`RENDERING GAME BOARD with MOVE LIST: ${moveList}`);
+
+// COMPONENTS
+import { Subtitle } from '@/components/typography'
+import { Box, Zoom, Slide } from '@mui/material'
+
+// HOOKS 
+import { useHover } from '@/hooks';
+
+// TYPES
+import { ColorsEnum, ColumnProps, GameBoardProps, GameStatusEnum, HeaderRowProps, PlayersEnum } from './connectFourTypes'
+import { nextPlayer, nextPlayerColor, gameIsOver } from './helpers';
+
+// GAME BOARD CONSTANTS
+const oneSixth = '16.665%'
+const oneSeventh = '14.287%'
+const sixSevenths = '85.714%'
+const chipSizeRelativeToSquare = '84%'
+const rowNumbers = [0, 1, 2, 3, 4, 5]
+const columnNumbers = [0, 1, 2, 3, 4, 5, 6]
+const columnLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+// const boardSideLength = (maxSquareSideLength - 96)
+const buttonContainerHeight = 96
+const zIndex = {
+  board: '200',
+  chip: '100'
+}
+
+export function ConnectFourBoard(props: GameBoardProps) {
+  const { movelist, handleColumnClick, gameStatus } = props
+  const { containerWidth, availableHeight } = useContext(AppContext)
+  
+  const height = availableHeight > containerWidth * 1.2  ? containerWidth - 32 : availableHeight - 32
+
   return (
     <Box id="game_board"
       position='relative'
-      height={boardSideLength}
-      width={boardSideLength}
+      height={height}
+      width='calc(100% - 32px)'
       display='flex'
       flexDirection='row'
       alignItems='flex-end'
     >
-      <InfoHeaderRow />  
-      {columnNumbers.map((columnIndex) => {
+      <InfoHeaderRow gameStatus={gameStatus} />  
+      {columnNumbers.map((columnIndex: number) => {
         return (
           <Column 
             key={columnIndex}
             index={columnIndex}
+            movelist={movelist}
             handleColumnClick={handleColumnClick}
+            gameIsOver={gameIsOver(gameStatus)}
+            gameStatus={gameStatus}
           />
         )
       })}
@@ -38,27 +66,19 @@ export function GameBoard(props) {
   )
 }
 
-import React, { useContext } from 'react'
-import { Box, Typography, Zoom } from '@mui/material'
+export function InfoHeaderRow(props: HeaderRowProps) {
+  // const { gameStatus } = useContext(ConnectFourContext)
+  const { gameStatus } = props
 
-// CONTEXT 
-import { ConnectFourContext } from '../ConnectFourContext';
-
-export function InfoHeaderRow(props) {
-  const { gameIsOver, gameStatus, gameBoardConstants } = useContext(ConnectFourContext)
-  const { oneSeventh } = gameBoardConstants
-
-  let message = ""
-  if (gameIsOver) {
-    message = (gameStatus === "playerOneWins" ? "Red Wins!" : "Yellow Wins!")
-  }
+  let message = gameIsOver(gameStatus) ? gameStatus : ""
+  
   
   return (
     <Box id='infoHeaderRow'
       sx={{
         position: 'absolute',
         top: 0,
-        left: 0,
+        left: '0',
         width: '100%',
         height: oneSeventh,
         zIndex: 15,
@@ -68,30 +88,20 @@ export function InfoHeaderRow(props) {
       }}
     >
       <Zoom in={message !== ""} style={{ transitionDelay: '300ms' }} >
-        <Typography color='connectFour.text' variant='h2' align='center' >
-          {message}
-        </Typography>
+        <Box>
+          <Subtitle text={message}  />
+        </Box>
       </Zoom>
     </Box>
   )
 }
 
-import React, { useContext } from 'react'
-import { Box, Typography } from '@mui/material'
-
-// My Components
-import { Chip } from "./Chip";
-import { ColumnOfSquaresWithHoles } from "./ColumnOfSquaresWithHoles";
-
-import { ConnectFourContext } from '../ConnectFourContext';
 
 
-export function Column(props) {
-  const { index, handleColumnClick } = props
-  const { gameIsOver, nextPlayer, gameBoardConstants } = useContext(ConnectFourContext)
-  const { columnLetters, oneSeventh } = gameBoardConstants
 
-  let columnLetter = gameIsOver ? '' : columnLetters[index]
+export function Column(props: ColumnProps) {
+  const { index, movelist, handleColumnClick, gameStatus } = props
+  let columnLetter = gameIsOver(gameStatus) ? '' : columnLetters[index]
   
   return (
     <Box id="column" 
@@ -101,7 +111,7 @@ export function Column(props) {
       height='100%'
       sx={{
         '&:hover #hoverChip': {
-          backgroundColor: `connectFour.${nextPlayer}`,
+          backgroundColor: nextPlayerColor(movelist),
         },
       }}
     >
@@ -112,10 +122,8 @@ export function Column(props) {
   );
 }
 
-function HoverChip(props) {
+function HoverChip(props: { columnLetter: string}) {
   const { columnLetter } = props
-  const { gameBoardConstants } = useContext(ConnectFourContext)
-  const { oneSeventh, chipSizeRelativeToSquare } = gameBoardConstants
 
   return (
     <Box id="hoverChipContainer"
@@ -126,28 +134,25 @@ function HoverChip(props) {
       justifyContent='center'
     >
       <Box id="hoverChip"
-        bgcolor='background'
+        bgcolor={ColorsEnum.unclaimed}
         width={chipSizeRelativeToSquare}
         height={chipSizeRelativeToSquare}
         borderRadius='50%'
-        zIndex={8}
+        zIndex={zIndex.chip}
         display='flex'
         justifyContent='center'
         alignItems='flex-end'
         fontSize='2rem'
+        
       >
-        <Typography variant='h4' color='connectFour.text'  >
-          {columnLetter}  
-        </Typography>
+        <Subtitle text={columnLetter} gutterBottom />
       </Box>
     </Box>
   )
 }
 
-function ChipContainer(props) {
+function ChipContainer(props: { index: number}) {
   const { index } = props
-  const { gameBoardConstants } = useContext(ConnectFourContext)
-  const { oneSeventh, sixSevenths, rowNumbers,  } = gameBoardConstants
 
   const containerRef = React.useRef(null);
   const cellsInColumn = rowNumbers.map(row => index + 7 * row)
@@ -177,23 +182,20 @@ function ChipContainer(props) {
   )
 }
 
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-import { Box, Slide } from '@mui/material'
-
-// CONTEXT 
-import { ConnectFourContext } from '../ConnectFourContext';
-
-export function Chip(props) {
+export function Chip(props: { id: number, containerRef: any} ) {
   const { id, containerRef } = props
-  const { boardData, gameBoardConstants } = useContext(ConnectFourContext)
-  const { zIndex, oneSixth, chipSizeRelativeToSquare } = gameBoardConstants
+
+  // const { boardData, gameBoardConstants } = useContext(ConnectFourContext)
+
+  const boardData: PlayersEnum[] = []
+  
+  // const { zIndex, oneSixth, chipSizeRelativeToSquare } = gameBoardConstants
 
   const color = boardData[id]
   let bgcolor = `connectFour.${color}`
   return (
     <Slide 
-      in={color !== 'unclaimed'}
+      in={color !== PlayersEnum.unclaimed}
       timeout={300}
       direction="down"
       container={containerRef.current}
@@ -217,117 +219,60 @@ export function Chip(props) {
     </Slide>
   )
 }
-Chip.propTypes = {
-  id: PropTypes.number.isRequired,
-  containerRef: PropTypes.object.isRequired
-}
 
-import React, { useContext } from 'react'
-import { Box } from '@mui/material'
-
-import { AppContext } from "../../../../../AppContext";
-
-export function MaxSquareArea(props) {
-  const { maxSquareSideLength } = useContext(AppContext)
-  return (
-    <Box 
-      children={props.children}
-      display='flex'
-      flexDirection='column'
-      alignItems='center'
-      height={maxSquareSideLength}
-      width={maxSquareSideLength}
-      position='relative'
-    />
-  )
-}
-
-import React, { useContext } from 'react'
-import { Box } from '@mui/material'
-import { ConnectFourContext } from "../ConnectFourContext";
-
-export function RoundedBorder(props) {
-  const { gameBoardConstants } = useContext(ConnectFourContext)
-  const { oneSeventh, sixSevenths } = gameBoardConstants
-  
+function RoundedBorder() {
   return (
     <Box 
       id='rounded_border'
       boxSizing='content-box'
       position='absolute'
       top={oneSeventh}
-      left='-9px'
-      width='calc(100% - 2px)'
+      left='-10px'
+      width='100%'
       height={sixSevenths}
       border="10px solid"
-      borderColor="board.main"
+      borderColor={ColorsEnum.board}
       borderRadius="10px"
       borderTop={0}
     />
   )
 }
 
-import React, { useContext } from 'react'
-import { Box, Button } from '@mui/material'
-
-// Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import { Undo } from "@mui/icons-material";
-
-import { ConnectFourContext } from '../ConnectFourContext';
-
-export function NewGameAndUndoButtons(props) {
-  const { openSettingsModal, undoMove } = props
-  const { gameBoardConstants } = useContext(ConnectFourContext)
-  const { buttonContainerHeight } = gameBoardConstants
+function ColumnOfSquaresWithHoles() {
 
   return (
-    <Box 
-      height={buttonContainerHeight}
+    <Box id="columnOfSquares"
+      position='absolute'
+      top={oneSeventh}
+      bgcolor='transparent'
       width='100%'
+      height={sixSevenths}
+      zIndex={zIndex.board}
       display='flex'
-      justifyContent='space-evenly'
-      alignItems='center'
-      px={4}
+      flexDirection='column-reverse'
     >
-      <NewGameButton  openSettingsModal={openSettingsModal} />
-      <UndoMoveButton undoMove={undoMove} />
+      {rowNumbers.map(num => {
+        return (
+          <Box id="squareWithHole"
+            key={num}
+            overflow='hidden'
+            width='100%'
+            height={oneSixth}
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+            boxShadow='0px 1px 1px 1px #0039cb'
+          >
+            <Box id="hole"
+              boxShadow="0 0 0 99px #0039cb"
+              borderRadius='50%'
+              bgcolor='transparent'
+              width={chipSizeRelativeToSquare}
+              height={chipSizeRelativeToSquare}
+            />
+          </Box>
+        )
+      })}
     </Box>
   )
 }
-
-function NewGameButton(props) {
-  const { openSettingsModal } = props
-  return (
-    <Button
-      variant="contained"
-      startIcon={<FontAwesomeIcon icon={faArrowRotateLeft} size='lg' />}
-      onClick={() => openSettingsModal()}
-      sx={{
-        flex: '1 0 25%',
-        mx: 1
-      }}
-    >
-      New&nbsp;Game
-    </Button>
-  )
-}
-
-function UndoMoveButton(props) {
-  const { undoMove } = props
-  return (
-    <Button
-      variant="contained"
-      startIcon={<Undo />}
-      onClick={() => undoMove()}
-      sx={{
-        flex: '1 0 25%',
-        mx: 1
-      }}
-    >
-        Undo&nbsp;Move
-    </Button>
-  )
-}
-
